@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import profileSvg from '../assets/avatar-profile-user.svg';
+import profileSvg from '../../assets/avatar-profile-user.svg';
 import { FaBriefcase, FaUser } from 'react-icons/fa6';
 import { FaSignOutAlt } from 'react-icons/fa';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import SkillsRating from '../SkillsRating';
+import SkillsRating from '../student/SkillsRating';
 
 interface GridItem {
     id: number;

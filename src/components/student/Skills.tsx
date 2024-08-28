@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import SmallModal from './common/SmallModal';
+import SmallModal from '../common/SmallModal';
 import SkillsRating from './SkillsRating';
 import { FaPlusCircle } from 'react-icons/fa';
 import Profile from './Profile';
 import Navbar from './Navbar';
-import GridListRating from './common/GridListRating';
+import GridListRating from '../common/GridListRating';
 
 interface Item {
   id: number;

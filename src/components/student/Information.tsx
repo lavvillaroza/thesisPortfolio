@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Profile from './Profile';
 import Navbar from './Navbar';
 import { FaPenAlt } from 'react-icons/fa';
-import LargeModal from './common/LargeModal';
+import LargeModal from '../common/LargeModal';
 
 const initialAboutMe = "I'm currently an implementation developer at a fintech startup called Nest Wealth where I help customize our codebase to fit new client needs. Advocating for diversity and inclusion is something that's very important to me, and thankfully I've found a workplace that helps support that mission.";
 

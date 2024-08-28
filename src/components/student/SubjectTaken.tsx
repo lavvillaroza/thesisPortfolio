@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from './Profile';
 import Navbar from './Navbar';
-import CustomTable from './common/CustomTable';
+import CustomTable from '../common/CustomTable';
 
 const subjectTakenData = [
   {year: '1ST', subjects:  [

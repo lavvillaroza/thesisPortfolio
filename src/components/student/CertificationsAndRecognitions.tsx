@@ -3,9 +3,9 @@ import Profile from './Profile';
 import Navbar from './Navbar';
 
 import { FaPlusCircle } from 'react-icons/fa';
-import GridList from './common/GridList';
-import FileInput from './common/FileInput';
-import LargeModal from './common/LargeModal';
+import GridList from '../common/GridList'
+import FileInput from '../common/FileInput';
+import LargeModal from '../common/LargeModal';
 
 interface Item {
   id: number;

@@ -1,8 +1,8 @@
 
 
 import React, { useState } from 'react';
-import courseLogo from '../assets/compsci2.png';
-import schoolLogo from '../assets/pasigIcon.jpg';
+import courseLogo from '../../assets/compsci2.png';
+import schoolLogo from '../../assets/pasigIcon.jpg';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');

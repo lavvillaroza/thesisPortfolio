@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Information from './components/Information';
-import Login from './components/Login';
-import Skills from './components/Skills';
-import Announcement from './components/Announcement';
-import ProfileUpdateForm from './components/ProfileUpdateForm';
-import CertificationsAndRecognitions from './components/CertificationsAndRecognitions';
-import SubjectTaken from './components/SubjectTaken';
-import Seminars from './components/Seminars';
-import CareerPath from './components/CareerPath';
+import Information from './components/student/Information';
+import Login from './components/Auth/Login';
+import Skills from './components/student/Skills';
+import Announcement from './components/student/Announcement';
+import ProfileUpdateForm from './components/student/ProfileUpdateForm';
+import CertificationsAndRecognitions from './components/student/CertificationsAndRecognitions';
+import SubjectTaken from './components/student/SubjectTaken';
+import Seminars from './components/student/Seminars';
+import CareerPath from './components/student/CareerPath';
+import AnnouncementAdm from './components/admin/AnnouncementAdm';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/portfolio/subjecttaken"  element={<SubjectTaken/>} />
         <Route path="/portfolio/seminars"  element={<Seminars/>} />
         <Route path="/portfolio/careerpath"  element={<CareerPath/>} />
+        <Route path="/announcementadm"  element={<AnnouncementAdm/>} />
       </Routes>      
     </Router>
   );
