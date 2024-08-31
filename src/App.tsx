@@ -10,23 +10,35 @@ import SubjectTaken from './components/student/SubjectTaken';
 import Seminars from './components/student/Seminars';
 import CareerPath from './components/student/CareerPath';
 import AnnouncementAdm from './components/admin/AnnouncementAdm';
-
+import '@fontsource/roboto';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
   return (
     <Router>      
       <Routes>        
-        <Route path="/" element={<Announcement/>} />                
-        <Route path="/profile/update" element={<ProfileUpdateForm/>} />
+        {/* Public Routes */}        
         <Route path="/login" element={<Login/>} />
-        <Route path="/portfolio/information"  element={<Information/>} />
-        <Route path="/portfolio/skills"  element={<Skills/>} />
-        <Route path="/portfolio/certificationsandrecognitions"  element={<CertificationsAndRecognitions/>} />
-        <Route path="/portfolio/subjecttaken"  element={<SubjectTaken/>} />
-        <Route path="/portfolio/seminars"  element={<Seminars/>} />
-        <Route path="/portfolio/careerpath"  element={<CareerPath/>} />
-        <Route path="/announcementadm"  element={<AnnouncementAdm/>} />
+
+        {/* Student Routes */}
+        <Route path="/student/*" element={<ProtectedRoute role="student"/>}>
+            <Route path="announcement" element={<Announcement/>} />
+            <Route path="update" element={<ProfileUpdateForm/>} />        
+            <Route path="information"  element={<Information/>} />
+            <Route path="skills"  element={<Skills/>} />
+            <Route path="certificationsandrecognitions"  element={<CertificationsAndRecognitions/>} />
+            <Route path="subjecttaken"  element={<SubjectTaken/>} />
+            <Route path="seminars"  element={<Seminars/>} />
+            <Route path="careerpath"  element={<CareerPath/>} />
+        </Route>
+        
+        {/* Admin Routes */}
+        <Route path="/admin/*" element={<ProtectedRoute role="admin"/>}>
+            <Route path="announcement"  element={<AnnouncementAdm/>} />
+        </Route>
+        
+        
       </Routes>      
     </Router>
   );

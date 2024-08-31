@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Roboto', 'ui-sans-serif', 'system-ui'], // Add Roboto to the sans family
+      },
+    },
   },
   plugins: [
     // eslint-disable-next-line no-undef    

@@ -113,7 +113,7 @@ const Navbar: React.FC = () => {
                     : 'text-gray-50 hover:bg-green-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
                 }
               >
-                Home
+                Home2
               </NavLink>
               <NavLink
                 to="/portfolio/information"
