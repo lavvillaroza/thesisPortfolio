@@ -56,44 +56,44 @@ const Navbar: React.FC = () => {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-normal">         
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    <NavLink  to="/" className={({ isActive }) => 
+                    <NavLink  to="/student/*" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>
                       Home
                     </NavLink >
-                    <NavLink  to="/portfolio/information" className={({ isActive }) => 
+                    <NavLink  to="/student/information" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>
                       Information
                     </NavLink >
-                    <NavLink  to="/portfolio/skills" className={({ isActive }) => 
+                    <NavLink  to="/student/skills" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>
                       
                       Skills
                     </NavLink >
-                    <NavLink  to="/portfolio/certificationsandrecognitions" className={({ isActive }) => 
+                    <NavLink  to="/student/certificationsandrecognitions" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>
                       Certiicates and Recognitions
                     </NavLink >
-                    <NavLink  to="/portfolio/subjecttaken" className={({ isActive }) => 
+                    <NavLink  to="/student/subjecttaken" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>
                       Subject Taken
                     </NavLink >
-                    <NavLink  to="/portfolio/seminars" className={({ isActive }) => 
+                    <NavLink  to="/student/seminars" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>
                       Seminars
                     </NavLink >
-                    <NavLink  to="/portfolio/careerpath" className={({ isActive }) => 
+                    <NavLink  to="/student/careerpath" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>

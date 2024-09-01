@@ -51,7 +51,7 @@ const ProfileUpdateForm: React.FC = () => {
   };
 
   const handleBack = () => {
-    navigate('/'); // Navigate to the previous page
+    navigate(-1); // Navigate to the previous page
   };
 
   return (

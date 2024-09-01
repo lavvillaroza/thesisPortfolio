@@ -3,14 +3,17 @@
 import React, { useState } from 'react';
 import courseLogo from '../../assets/compsci2.png';
 import schoolLogo from '../../assets/pasigIcon.jpg';
+import { useAuth } from '../context/AuthContext';
 
 const Login: React.FC = () => {
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Implement your login logic here
+    login(email, password);
     console.log(`Email: ${email}, Password: ${password}`);
   };
 

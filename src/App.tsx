@@ -1,3 +1,4 @@
+// App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Information from './components/student/Information';
@@ -9,39 +10,82 @@ import CertificationsAndRecognitions from './components/student/CertificationsAn
 import SubjectTaken from './components/student/SubjectTaken';
 import Seminars from './components/student/Seminars';
 import CareerPath from './components/student/CareerPath';
-import AnnouncementAdm from './components/admin/AnnouncementAdm';
+import AnnouncementAdm from './components/admin/Announcement';
 import '@fontsource/roboto';
-import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './components/context/AuthContext';
+import PrivateRoute from './components/ProtectedRoute'; // Ensure this import is correct
+import StudentManagement from './components/admin/StudentManagement';
+import CreateSeminarAndAnouncement from './components/admin/CreateSeminarAndAnouncement';
+import SeminarAttendedList from './components/admin/SeminarAttendedList';
+import Curriculum from './components/admin/Curriculum';
 
-function App() {
-
+const App = () => {
   return (
-    <Router>      
-      <Routes>        
-        {/* Public Routes */}        
-        <Route path="/login" element={<Login/>} />
+    <Router>
+        <AuthProvider>
+          <Routes>
+              {/* Public Routes */}              
+              <Route path="/login" element={<Login />} />
 
-        {/* Student Routes */}
-        <Route path="/student/*" element={<ProtectedRoute role="student"/>}>
-            <Route path="announcement" element={<Announcement/>} />
-            <Route path="update" element={<ProfileUpdateForm/>} />        
-            <Route path="information"  element={<Information/>} />
-            <Route path="skills"  element={<Skills/>} />
-            <Route path="certificationsandrecognitions"  element={<CertificationsAndRecognitions/>} />
-            <Route path="subjecttaken"  element={<SubjectTaken/>} />
-            <Route path="seminars"  element={<Seminars/>} />
-            <Route path="careerpath"  element={<CareerPath/>} />
-        </Route>
-        
-        {/* Admin Routes */}
-        <Route path="/admin/*" element={<ProtectedRoute role="admin"/>}>
-            <Route path="announcement"  element={<AnnouncementAdm/>} />
-        </Route>
-        
-        
-      </Routes>      
+              {/* Protected Routes */}
+              {/* Admin Routes */}
+              <Route
+                path="/admin/*"
+                element={
+                  <PrivateRoute>
+                    <AnnouncementAdm />
+                  </PrivateRoute>
+                }/>
+              <Route path="/admin/studentlist" element={<PrivateRoute>
+                    <StudentManagement />
+                  </PrivateRoute>
+                }/>
+              <Route path="/admin/seminarattendedlist" element={<PrivateRoute>
+                    <SeminarAttendedList />
+                  </PrivateRoute>
+                }/>
+              <Route path="/admin/createseminarandanouncement" element={<PrivateRoute>
+                    <CreateSeminarAndAnouncement />
+                  </PrivateRoute>
+                }/>
+              <Route path="/admin/curriculum" element={<PrivateRoute>
+                    <Curriculum />
+                  </PrivateRoute>
+                }/>
+              
+              {/* Student Routes */}
+              <Route path="/student/*" element={ 
+                <PrivateRoute> 
+                  <Announcement />
+                </PrivateRoute>}/>
+              <Route path="/student/information" element={ 
+                <PrivateRoute> 
+                  <Information />
+                </PrivateRoute>}/>
+              <Route path="/student/update" element={ 
+                <PrivateRoute> 
+                  <ProfileUpdateForm />
+                </PrivateRoute>}/>
+                <Route path="/student/skills" element={<PrivateRoute> 
+                  <Skills />
+                </PrivateRoute>} />
+                <Route path="/student/certificationsandrecognitions" element={<PrivateRoute> 
+                  <CertificationsAndRecognitions />
+                </PrivateRoute>} />
+                <Route path="/student/subjecttaken" element={<PrivateRoute> 
+                  <SubjectTaken />
+                </PrivateRoute>} />
+                <Route path="/student/seminars" element={<PrivateRoute> 
+                  <Seminars />
+                </PrivateRoute>} />
+                <Route path="/student/careerpath" element={<PrivateRoute> 
+                  <CareerPath />
+                </PrivateRoute>} />              
+            </Routes>
+        </AuthProvider>
     </Router>
+    
   );
-}
+};
 
-export default App
+export default App;

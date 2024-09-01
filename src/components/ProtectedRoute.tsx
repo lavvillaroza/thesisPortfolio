@@ -1,31 +1,14 @@
 import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 
-// Mock function to check authentication and role
-const useAuth = () => {
-  const user = { isAuthenticated: true, role: 'student' }; // Example: Replace with real auth logic
-  return user;
-};
-
-interface ProtectedRouteProps {
-  role: string; // Expected role for the route (admin or user)
+interface PrivateRouteProps {
+  children: JSX.Element;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ role }) => {
-  const { isAuthenticated, role: userRole } = useAuth();
-
-  if (!isAuthenticated) {
-    // Redirect to login if not authenticated
-    return <Navigate to="/login" />;
-  }
-
-  if (userRole !== role) {
-    // Redirect to home if user role doesn't match
-    return <Navigate to="/" />;
-  }
-
-  // Render the matched route
-  return <Outlet />;
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/login" />;
 };
 
-export default ProtectedRoute;
+export default PrivateRoute;
