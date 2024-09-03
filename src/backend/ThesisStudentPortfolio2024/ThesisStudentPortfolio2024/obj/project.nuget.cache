@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "gesMg+9SSog=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yobbgsm\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\yobbgsm\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\yobbgsm\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "C:\\Users\\yobbgsm\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "C:\\Users\\yobbgsm\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "C:\\Users\\yobbgsm\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}

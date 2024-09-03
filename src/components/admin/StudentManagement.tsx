@@ -116,7 +116,7 @@ const StudentManagement: React.FC = () => {
       return (
         <div className="bg-gray-300 h-svh max-h-max py-1">  
             <Header />  
-            <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-9/12 h-[700px] mt-5">                
+            <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-9/12 h-[700px]">                
                <Sidebar/>
                 <main className="flex-1 mx-auto w-8/12 h-[700px] bg-green-700 bg-gradient-to-br from-emerald-600 ">                    
                     <div className="grid grid-cols-4 gap-4 h-[700px] p-6">

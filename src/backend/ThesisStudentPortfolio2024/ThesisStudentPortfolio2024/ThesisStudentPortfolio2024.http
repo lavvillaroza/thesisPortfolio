@@ -1,0 +1,6 @@
+@ThesisStudentPortfolio2024_HostAddress = http://localhost:5213
+
+GET {{ThesisStudentPortfolio2024_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
