@@ -31,7 +31,7 @@ const HeaderDefault: React.FC = () => {
 
   return (
     <header className="mt-1">  
-        <div className='container mx-auto w-9/12 h-[120px]'>
+        <div className='container mx-auto w-10/12 h-[120px]'>
             <div className="relative flex items-center justify-between h-28">
                 <div className="w-30 h-32 rounded-full overflow-hidden">
                     <img src={schoolLogo} alt="" className="w-full h-full object-cover"/>
