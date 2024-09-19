@@ -1,13 +1,21 @@
-﻿namespace ThesisStudentPortfolio2024.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ThesisStudentPortfolio2024.Models.Entities
 {
     public class AdminUser
     {
+        [Key]
         public int Id { get; set; }
-        public required string Name { get; set; }
-        public required string Position { get; set; }
-        public required string Email { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Position { get; set; }
+        [Required]
         public string UserName { get; set; }
-        public required string Password { get; set; }
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string Email { get; set; }        
         public char Deleted { get; set; }
         public int Version { get; set; }
         public string CreatedBy {  get; set; }
