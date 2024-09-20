@@ -25,7 +25,7 @@ const App = () => {
         <AuthProvider>
           <Routes>
               {/* Public Routes */}              
-              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Login />} />
 
               {/* Protected Routes */}
               {/* Admin Routes */}
