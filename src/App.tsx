@@ -19,6 +19,7 @@ import CreateSeminarAndAnouncement from './components/admin/CreateSeminarAndAnou
 import SeminarAttendedList from './components/admin/SeminarAttendedList';
 import Curriculum from './components/admin/Curriculum';
 import Home from './components/Home';
+import 'flowbite';
 
 const App = () => {
   return (

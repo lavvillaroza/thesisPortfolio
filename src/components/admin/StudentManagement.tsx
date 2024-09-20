@@ -106,12 +106,12 @@ const studentList = [
   ];
   
 const StudentManagement: React.FC = () => {
-    const folders = [
-        { section: 'A', block: 1 },
-        { section: 'B', block: 1 },
-        { section: 'C', block: 1 },
-        { section: 'D', block: 1 },
-      ];
+//     const folders = [
+//         { section: 'A', block: 1 },
+//         { section: 'B', block: 1 },
+//         { section: 'C', block: 1 },
+//         { section: 'D', block: 1 },
+//       ];
 
       return (
         <div className="bg-gray-300 h-svh max-h-max py-1">  
@@ -120,7 +120,7 @@ const StudentManagement: React.FC = () => {
                <Sidebar/>
                 <main className="flex-1 mx-auto w-8/12 h-[700px] bg-green-700 bg-gradient-to-br from-emerald-600 ">                    
                     <div className="grid grid-cols-4 gap-4 h-[700px] p-6">
-                        <div className="grid grid-cols-1 auto-rows-auto h-[650px] gap-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
+                        {/* <div className="grid grid-cols-1 auto-rows-auto h-[650px] gap-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
                             <div className="bg-gray-200 p-2 drop-shadow-lg">
                                 <p className="text-black text-center m-2 hover:text-green-500 text-md font-semibold">COURSE:</p>
                                 <div className="grid grid-cols-2 gap-0 justify-center">
@@ -165,8 +165,8 @@ const StudentManagement: React.FC = () => {
                                     ))}
                                 </div>
                             </div>                                
-                        </div>       
-                        <div className="col-span-3 bg-gray-100 p-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
+                        </div>        */}
+                        <div className="col-span-4 bg-gray-100 p-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
                             <div className="container mx-auto p-4 drop-shadow-lg ">                
                                 <CustomTableStudentList data={studentList} />
                             </div>

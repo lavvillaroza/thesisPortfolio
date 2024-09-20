@@ -39,12 +39,12 @@ const Sidebar: React.FC = () => {
             }>
             CREATE ANNOUNCEMENTS / SEMINARS
         </NavLink >
-        <NavLink  to="/admin/curriculum" className={({ isActive }) => 
+        {/* <NavLink  to="/admin/curriculum" className={({ isActive }) => 
             isActive ? 'w-full py-2 text-center bg-gray-50 text-red-500 font-semibold rounded hover:text-green-500 text-sm h-[50px] px-2' 
                     : 'w-full py-2 text-center bg-gray-50 text-black font-semibold rounded hover:text-green-500 text-sm h-[50px] px-2'
             }>
             ADD CURRICULUM
-        </NavLink >        
+        </NavLink >         */}
       </nav>
     </aside>
   );
