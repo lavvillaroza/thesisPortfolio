@@ -7,14 +7,14 @@ using ThesisStudentPortfolio2024.Models.Entities;
 namespace ThesisStudentPortfolio2024.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly JwtService _jwtService;
+        private readonly JWTService _jwtService;
         private readonly EncryptionService _encryptionService;
-        private readonly IUserService _userService;
+        private readonly UserService _userService;
         
-        public AuthController(JwtService jwtService, EncryptionService encryptionService, IUserService userService)
+        public AuthController(JWTService jwtService, EncryptionService encryptionService, UserService userService)
         {
             _jwtService = jwtService;
             _encryptionService = encryptionService;
@@ -25,7 +25,7 @@ namespace ThesisStudentPortfolio2024.Controllers
         public async Task<IActionResult> Login([FromBody] Models.LoginRequest request)
         {
             if (request.UserType == 0) {
-                var getUserDetail = await _userService.GetUserByStudentUsernameAsync(request.Username);
+                var getUserDetail = await _userService.GetStudentUserByUsernameAsync(request.Username);
                 if (getUserDetail == null)
                     return Unauthorized(new { message = "Invalid credentials" });
 
@@ -39,7 +39,7 @@ namespace ThesisStudentPortfolio2024.Controllers
                 }
             }
             else {
-                var getUserDetail = await _userService.GetUserByAdminUsernameAsync(request.Username);
+                var getUserDetail = await _userService.GetAdminUserByUserNameAsync(request.Username);
                 if (getUserDetail == null)
                     return Unauthorized(new { message = "Invalid credentials" });
 

@@ -5,7 +5,8 @@ using System.Text;
 using ThesisStudentPortfolio2024.Data;
 using ThesisStudentPortfolio2024.Services;
 using Serilog;
-using ThesisStudentPortfolio2024.Repositories.User;
+using ThesisStudentPortfolio2024.Repositories;
+using ThesisStudentPortfolio2024.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,17 +30,28 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-builder.Services.AddScoped<IUserRepository, UserRepository>(); // Scoped lifetime is often used for repositories
-builder.Services.AddScoped<IUserService, UserService>(); // Scoped lifetime is often used for services
+// Scoped lifetime is often used for repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAnnouncementRepository<Announcement>, AnnouncementRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IStudentInformationRepository, StudentInformationRepository>();
+builder.Services.AddScoped<IStudentDetailRepository, StudentDetailRepository>();
+builder.Services.AddScoped<IStudentSeminarRepository<StudentSeminar>, StudentSeminarRepository>();
+builder.Services.AddScoped<IStudentSkillRepository, StudentSkillRepository>();
+builder.Services.AddScoped<IStudentSubjectTakenRepository, StudentSubjectTakenRepository>();
+
+// Scoped lifetime is often used for services
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AnnouncementService>();
+builder.Services.AddScoped<SubjectService>();
+builder.Services.AddScoped<StudentService>();
 
 
-// Register the EncryptionService with the retrieved key
+// Singeleton 
 string encryptionKey = builder.Configuration["EncryptionSettings:Key"];
 builder.Services.AddSingleton(new EncryptionService(encryptionKey));
-
 // Add JWT Service
-builder.Services.AddSingleton<JwtService>();
-
+builder.Services.AddSingleton<JWTService>();
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -60,8 +72,6 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
-
-
 
 builder.Services.AddAuthorization();
 

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ThesisStudentPortfolio2024.Services
 {
-    public class JwtService
+    public class JWTService
     {
         private readonly IConfiguration _configuration;
 
-        public JwtService(IConfiguration configuration)
+        public JWTService(IConfiguration configuration)
         {
             _configuration = configuration;
         }

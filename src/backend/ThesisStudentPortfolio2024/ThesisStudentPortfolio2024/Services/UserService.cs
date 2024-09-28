@@ -1,9 +1,9 @@
 ﻿using ThesisStudentPortfolio2024.Models.Entities;
-using ThesisStudentPortfolio2024.Repositories.User;
+using ThesisStudentPortfolio2024.Repositories;
 
 namespace ThesisStudentPortfolio2024.Services
 {
-    public class UserService : IUserService
+    public class UserService
     {
         private readonly IUserRepository _userRepository;
 
@@ -12,52 +12,52 @@ namespace ThesisStudentPortfolio2024.Services
             _userRepository = userRepository;
         }
 
-        async Task<bool> IUserService.AddAdminUserAsync(AdminUser user)
+        public async Task<bool> AddAdminUserAsync(AdminUser user)
         {
             return await _userRepository.AddAdminUserAsync(user);
         }
 
-        async Task<bool> IUserService.AddStudentUserAsync(StudentUser user)
+        public async Task<bool> AddStudentUserAsync(StudentUser user)
         {
             return await _userRepository.AddStudentUserAsync(user);
         }
 
-        async Task<AdminUser?> IUserService.GetAdminUserByIdAsync(int id)
+        public async Task<AdminUser?> GetAdminUserByIdAsync(int id)
         {
             return await _userRepository.GetAdminUserByIdAsync(id);
         }
 
-        async Task<List<AdminUser>> IUserService.GetAllAdminUserAsync()
+        public async Task<List<AdminUser>> GetAllAdminUserAsync()
         {
             return await _userRepository.GetAllAdminUserAsync();
         }
 
-        async Task<List<StudentUser>> IUserService.GetAllStudentUserAsync()
+        public async Task<List<StudentUser>> GetAllStudentUserAsync()
         {
             return await _userRepository.GetAllStudentUserAsync();
         }
 
-        async Task<StudentUser?> IUserService.GetStudentUserByIdAsync(int id)
+        public async Task<StudentUser?> GetStudentUserByIdAsync(int id)
         {
             return await _userRepository.GetStudentUserByIdAsync(id);
         }
 
-        async Task<AdminUser?> IUserService.GetUserByAdminUsernameAsync(string username)
+        public async Task<AdminUser?> GetAdminUserByUserNameAsync(string username)
         {
-            return await _userRepository.GetUserByAdminUsernameAsync(username);
+            return await _userRepository.GetAdminUserByUserNameAsync(username);
         }
 
-        async Task<StudentUser?> IUserService.GetUserByStudentUsernameAsync(string username)
+        public async Task<StudentUser?> GetStudentUserByUsernameAsync(string username)
         {
-            return await _userRepository.GetUserByStudentUsernameAsync(username);
+            return await _userRepository.GetStudentUserByUsernameAsync(username);
         }
 
-        async Task<bool> IUserService.UpdateAdminUserAsync(AdminUser user)
+        public async Task<bool> UpdateAdminUserAsync(AdminUser user)
         {
             return await _userRepository.UpdateAdminUserAsync(user);
         }
 
-        async Task<bool> IUserService.UpdateStudentUserAsync(StudentDetail user)
+        public async Task<bool> UpdateStudentUserAsync(StudentDetail user)
         {
             return await _userRepository.UpdateStudentUserAsync(user); 
         }

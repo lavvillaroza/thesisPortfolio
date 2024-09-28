@@ -6,14 +6,14 @@ using ThesisStudentPortfolio2024.Services;
 namespace ThesisStudentPortfolio2024.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
-        private readonly JwtService _jwtService;
+        private readonly JWTService _jwtService;
         private readonly EncryptionService _encryptionService;
-        private IUserService _userService;
+        private UserService _userService;
 
-        public UserController(JwtService jwtService, EncryptionService encryptionService, IUserService userService)
+        public UserController(JWTService jwtService, EncryptionService encryptionService, UserService userService)
         {
             _jwtService = jwtService;
             _encryptionService = encryptionService;

@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource/roboto": "^5.0.14",
     "@types/react-router-dom": "^5.3.3",
+    "flatpickr": "^4.6.13",
     "flowbite": "^2.5.1",
     "flowbite-react": "^0.10.1",
     "react": "^18.3.1",

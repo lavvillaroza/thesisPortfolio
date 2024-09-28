@@ -5,28 +5,19 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     public class Subject
     {
         [Key]
-        public int SubjectId { get; set; }
-        [Required]
-        public string SubjectName { get; set; }
-        [Required]
-        public string SubjectDescription { get; set; }
-        [Required]
-        public string Prereq { get; set; }
-        [Required]
-        public short Lec { get; set; }
-        [Required]
-        public short Lab { get; set; }
-        [Required]
-        public short Units { get; set; }
-        [Required]
+        public int Id { get; set; }        
+        public string SubjectName { get; set; }        
+        public string SubjectDescription { get; set; }        
+        public string Prereq { get; set; }        
+        public short Lec { get; set; }        
+        public short Lab { get; set; }        
+        public short Units { get; set; }        
         public short Hrs { get; set; }
-        [Required]
-        public string CreatedBy { get; set; }
-        [Required]
-        public DateTime CreatedDate { get; set; }
-        [Required]
-        public string LastModifiedBy { get; set; }
-        [Required]
+        public short Year {  get; set; } // 1 = 1st year, 2 = 2nd year, 3 = 3rd year, 4 = 4th year
+        public short Term { get; set; } // 1 = 1st term or sem, 2 = 2nd term or sem
+        public string CreatedBy { get; set; }        
+        public DateTime CreatedDate { get; set; }        
+        public string LastModifiedBy { get; set; }        
         public DateTime LastModifiedDate { get; set; }
     }
 }
