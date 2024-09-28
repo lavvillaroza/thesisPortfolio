@@ -4,6 +4,8 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/tailwind-datepicker-react/dist/**/*.js",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {
@@ -13,7 +15,10 @@ export default {
     },
   },
   plugins: [
-    scrollbarPlugin
+    // eslint-disable-next-line no-undef
+    require('flowbite/plugin'),
+    scrollbarPlugin,
+    
   ],
 }
 

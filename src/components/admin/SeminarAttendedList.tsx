@@ -3,10 +3,34 @@ import React from 'react';
 import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import CustomCalendar from '../common/CustomCalendar';
+import { FaFolder } from 'react-icons/fa';
+import CustomTableSeminarList from '../common/CustomTableSeminarList';
 
-
+const Attendees = [
+    { email: 'john.doe@example.com', status: true },
+    { email: 'jane.smith@example.com', status: false },
+    { email: 'alice.johnson@example.com', status: true },
+    { email: 'bob.brown@example.com', status: false },
+    { email: 'chris.evans@example.com', status: true },
+    { email: 'lisa.white@example.com', status: false },
+    { email: 'mike.jones@example.com', status: true },
+    { email: 'natalie.williams@example.com', status: false },
+    { email: 'david.lee@example.com', status: true },
+    { email: 'susan.clark@example.com', status: false },
+    { email: 'george.miller@example.com', status: true },
+    { email: 'emily.davis@example.com', status: false },
+    { email: 'matthew.moore@example.com', status: true },
+    { email: 'anna.king@example.com', status: false },
+    { email: 'james.green@example.com', status: true },
+    { email: 'linda.hall@example.com', status: false }
+  ];
 const SeminarAttendedList: React.FC = () => {
+        const folders = [
+        { Name: 'Cyberseurity Essentials Seminar'},
+        { Name: "Web Development Fundamentals Seminar"},
+        { Name: "Software Architecture Seminar"},
+        { Name: "Cloud Engineer Seminar"},
+      ];
       return (
         <div className="flex flex-col bg-gray-300 py-2 min-h-screen w-full ">
             <div className="flex-1 m-auto">
@@ -17,42 +41,34 @@ const SeminarAttendedList: React.FC = () => {
                         <div className="h-[60px] p-4">
                             <p className="text-gray-50 text-center m-2 hover:text-green-500 text-2xl">SEMINAR ATTENDED LIST</p>
                         </div> 
-                        <div className="grid grid-cols-2 gap-4 h-[600px] p-6">
-                            <div className="bg-gray-100 p-2 h-full">
-                                <p className="text-black text-left m-2 hover:text-green-500 text-2xl">ANNOUNCEMENT:</p>
-                                <div className="p-4 w-11/12 m-auto mt-10 h-50 bg-white drop-shadow-lg">
-                                <p className="mb-4 text-black text-left hover:text-green-500 text-xl">ANNOUNCEMENT</p>
-                                <p className='text-wrap text-sm'>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                </p>
-                                <div className="relative p-4">
-                                    <div className="absolute top-0 right-0">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>                
+                        <div className="grid grid-cols-3 gap-2 h-[700px] p-6">
+                            <div className="grid grid-cols-1 auto-rows-auto h-[550px] gap-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">                            
+                                <div className="bg-gray-200 p-2 drop-shadow-lg">                                
+                                    <div className="grid grid-cols-2 gap-0 justify-center"> 
+                                    {folders.map((folder) => (
+                                        <div
+                                            key={folder.Name}
+                                            className="flex flex-col items-center text-center cursor-pointer"
+                                        >
+                                            <button
+                                                type="button" className={`flex items-center justify-center p-3 rounded-full  transition text-black`}>
+                                                <FaFolder className="mr-3 h-12 w-12 text-green-700 hover:text-green-800" aria-hidden="true" />                                           
+                                            </button>
+                                            <span className="mt-1 text-xs font-semibold text-black">
+                                                {folder.Name}
+                                            </span>
+                                        </div>
+                                        ))}
                                     </div>
-                                </div>              
+                                </div>                                
+                            </div>    
+                            <div className="col-span-2 h-[550px]  bg-gray-100 p-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
+                                <div className="container mx-auto p-4 drop-shadow-lg ">                
+                                    <CustomTableSeminarList data={Attendees} />
                                 </div>
-                                <div className="p-4 w-11/12 m-auto mt-10 h-50 bg-white drop-shadow-lg">
-                                <p className="mb-4 text-black text-left hover:text-green-500 text-xl">ANNOUNCEMENT</p>
-                                <p className='text-wrap text-sm'>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                </p>
-                                <div className="relative p-4">
-                                    <div className="absolute top-0 right-0">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>                
-                                    </div>
-                                </div>              
-                                </div>
-                            </div>   
-                            <div className="bg-gray-200 p-2 h-full">
-                                <div className="p-1 w-11/12 m-4 mt-10 h-50 drop-shadow-md">
-                                    <CustomCalendar />
-                                </div>            
                             </div>                                   
-                        </div>   
+                        </div>
+                           
                     </main>
                 </div>            
             </div>

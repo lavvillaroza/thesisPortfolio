@@ -6,7 +6,9 @@ import Sidebar from './Sidebar';
 
 
 
-const CreateSeminarAndAnouncement: React.FC = () => {
+import CustomCalendar from '../common/CustomCalendar';
+
+const CreateSeminarAndAnouncement: React.FC = () => {    
       return (
         <div className="flex flex-col bg-gray-300 py-2 min-h-screen w-full ">
             <div className="flex-1 m-auto">
@@ -18,32 +20,14 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                             <p className="text-gray-50 text-center m-2 hover:text-green-500 text-2xl">ADD SEMINAR OR ANNOUNCEMENT</p>
                         </div> 
                         <div className="grid grid-cols-3 gap-4 h-[600px] p-6">
-                            <div className="col-span-2 bg-gray-100 p-4 h-full overflow-auto" >                                
+                            <div className="col-span-2 bg-gray-100 p-4 h-full overflow-auto w-full" >                                
                                 <form>
-                                    <div className="grid gap-6 mb-6 md:grid-cols-1">
+                                    <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-1">
                                         <div>
                                             <label htmlFor="first_name" className="block mb-2 text-lg font-bold text-gray-900 dark:text-white">Subject/Title</label>
                                             <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="Subject/Title" required />
                                         </div>
-                                        <div id="date-range-picker" date-rangepicker className="flex items-center">
-                                            <div className="relative">
-                                                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                                    </svg>
-                                                </div>
-                                                <input id="datepicker-range-start" name="start" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start"/>
-                                            </div>
-                                            <span className="mx-4 text-gray-500">to</span>
-                                            <div className="relative">
-                                                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                                    </svg>
-                                                </div>
-                                                <input id="datepicker-range-end" name="end" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end"/>
-                                            </div>
-                                        </div>
+                                        
                                         <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                             <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                 <label htmlFor="message" className="block mb-2 text-md font-bold text-gray-900 dark:text-white">Description</label>
@@ -66,8 +50,34 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                                         </div>                                                                                                                                                           
                                     </div>                                                                    
                                 </form>                                
-                            </div>   
-                                                            
+                            </div>
+                            <div className="bg-gray-200 p-2 h-full">                                
+                                <div className="p-1 w-11/12 m-4 mt-10 h-50 drop-shadow-md">
+                                    <CustomCalendar />
+                                </div>                                                                    
+                                <div className="p-1 w-11/12 m-4 h-50 drop-shadow-md">
+                                    <label htmlFor="start-time" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start time:</label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                        <input type="time" id="start-time" className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="09:00" max="18:00" value="00:00" required />
+                                    </div>
+                                </div>
+                                <div className="p-1 w-11/12 m-4 h-50 drop-shadow-md">
+                                    <label htmlFor="end-time" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End time:</label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                        <input type="time" id="end-time" className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="09:00" max="18:00" value="00:00" required />
+                                    </div>
+                                </div>
+                            </div>     
                         </div>   
                     </main>
                 </div>            

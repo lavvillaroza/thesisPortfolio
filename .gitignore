@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# adding vsidx extension
+*.vsidx
+*.vs

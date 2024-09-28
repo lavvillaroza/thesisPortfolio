@@ -18,6 +18,8 @@ import StudentManagement from './components/admin/StudentManagement';
 import CreateSeminarAndAnouncement from './components/admin/CreateSeminarAndAnouncement';
 import SeminarAttendedList from './components/admin/SeminarAttendedList';
 import Curriculum from './components/admin/Curriculum';
+import Home from './components/Home';
+import 'flowbite';
 
 const App = () => {
   return (
@@ -25,7 +27,8 @@ const App = () => {
         <AuthProvider>
           <Routes>
               {/* Public Routes */}              
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
 
               {/* Protected Routes */}
               {/* Admin Routes */}
