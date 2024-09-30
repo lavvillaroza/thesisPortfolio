@@ -1,12 +1,39 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
-import CustomCalendar from '../common/CustomCalendar';
+//import CustomCalendar from '../common/CustomCalendar';
 import Sidebar from './Sidebar';
+import 'flowbite/dist/flowbite.css';
 
-
-const Announcement: React.FC = () => {
+const Announcement: React.FC = () => {   
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    useEffect(() => {
+        // Initialize the datepicker after the component is mounted
+        const datepickerElement = document.getElementById('inline-calendar');
+        if (datepickerElement) {
+          // Initialize Flowbite's datepicker with custom settings
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          new (window as any).Datepicker(datepickerElement, {
+            autohide: false, // Customize the behavior to prevent automatic hiding
+            todayBtn: true, // Show today button
+            clearBtn: true, // Show clear button
+            autoselect: true, // Automatically select today
+            format: 'yyyy-mm-dd', // Date format
+          });
+            // Listen for the `changeDate` event to capture selected date
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            datepickerElement.addEventListener('changeDate', (event: any) => {
+                setSelectedDate(event.detail.date);
+            });
+        }
+      }, []);
+      useEffect(() => {
+        // Update the hidden input field when the selectedDate changes
+        const hiddenInput = document.getElementById('hidden-date-input') as HTMLInputElement;
+        if (hiddenInput && selectedDate) {
+            hiddenInput.value = selectedDate;
+        }
+    }, [selectedDate]);
       return (
         <div className="flex flex-col bg-gray-300 py-2 min-h-screen w-full ">
             <div className="flex-1 m-auto">
@@ -42,15 +69,24 @@ const Announcement: React.FC = () => {
                                 </p>
                                 <div className="relative p-4">
                                     <div className="absolute top-0 right-0">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>                
+                                    <a href="#"  onClick={(e) => e.preventDefault()} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>                
                                     </div>
                                 </div>              
                                 </div>
                             </div>
-                            <div className="bg-gray-200 p-2 h-full">
-                                <div className="p-1 w-11/12 m-4 mt-10 h-50 drop-shadow-md">
+                            <div className="bg-gray-200 pt-10 h-full flex justify-center items-start overflow-auto">
+                                {/* <div className="p-1 w-11/12 m-4 mt-10 h-50 drop-shadow-md">
                                     <CustomCalendar />
-                                </div>            
+                                </div> */}
+                                <div className="relative max-w-sm">                                    
+                                    <div className = "m-auto" id="inline-calendar"></div> {/* The calendar will be rendered here */}
+                                     {/* Display the selected date */}
+                                     {/* Hidden input field to hold the selected date */}
+                                        <input 
+                                        type="hidden" 
+                                        id="hidden-date-input" 
+                                        name="selectedDate" />
+                                </div>
                             </div>            
                         </div>    
                     </main>

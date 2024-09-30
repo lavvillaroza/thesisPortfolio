@@ -6,9 +6,10 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public string SkillName { get; set; }
-        [Required]
-        public short SkillRatings { get; set; }
+        public int UserId { get; set; }
+        public int SkillId { get; set; }        
+        public short SkillRating { get; set; } // 0 = Well, 1 = Better, 2 = Best
+        public char Deleted { get; set; }      // Y = YES, N = No         
+        public DateTime CreatedDate { get; set; }
     }
 }
