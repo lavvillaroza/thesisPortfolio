@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Information from './components/student/Information';
-import Login from './components/Auth/Login';
+import Login from './components/auth/Login';
 import Skills from './components/student/Skills';
 import Announcement from './components/student/Announcement';
 import ProfileUpdateForm from './components/student/ProfileUpdateForm';
@@ -18,8 +18,8 @@ import StudentManagement from './components/admin/StudentManagement';
 import CreateSeminarAndAnouncement from './components/admin/CreateSeminarAndAnouncement';
 import SeminarAttendedList from './components/admin/SeminarAttendedList';
 import Curriculum from './components/admin/Curriculum';
-import Home from './components/Home';
 import 'flowbite';
+import NotFound from './components/common/NotFound';
 
 const App = () => {
   return (
@@ -27,8 +27,7 @@ const App = () => {
         <AuthProvider>
           <Routes>
               {/* Public Routes */}              
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Login />} />              
 
               {/* Protected Routes */}
               {/* Admin Routes */}
@@ -83,7 +82,11 @@ const App = () => {
                 </PrivateRoute>} />
                 <Route path="/student/careerpath" element={<PrivateRoute> 
                   <CareerPath />
-                </PrivateRoute>} />              
+                </PrivateRoute>} /> 
+
+                {/* 404 Route */}
+                <Route path="*" element={<NotFound />} />
+             
             </Routes>
         </AuthProvider>
     </Router>

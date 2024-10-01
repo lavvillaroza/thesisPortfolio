@@ -24,35 +24,57 @@ namespace ThesisStudentPortfolio2024.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] Models.LoginRequest request)
         {
-            if (request.UserType == 0) {
-                var getUserDetail = await _userService.GetStudentUserByUsernameAsync(request.Username);
-                if (getUserDetail == null)
-                    return Unauthorized(new { message = "Invalid credentials" });
-
-                var decryptPwd = _encryptionService.Decrypt(getUserDetail.Password);
-
-                // Validate user credentials (replace this with real user validation)
-                if (request.Username == getUserDetail.UserName && request.Password == decryptPwd)
+            try
+            {
+                if (request.UserType == 0)
                 {
+                    var getUserDetail = await _userService.GetStudentUserByUsernameAsync(request.Username);
+                    if (getUserDetail == null)
+                        return Unauthorized(new { message = "Invalid credentials" });
+
+                    var decryptPwd = _encryptionService.Decrypt(getUserDetail.Password);
+
+                    // Validate user credentials (replace this with real user validation)
+                    if (request.Username == getUserDetail.UserName && request.Password == decryptPwd)
+                    {
+                        var userDetails = new
+                        {
+                            userid = getUserDetail.UserId,
+                            username = getUserDetail.UserName,
+                            usertype = 0
+                        };
                         var token = _jwtService.GenerateToken("1", request.Username);
-                        return Ok(new { Token = token });
+                        return Ok(new { UserDetails = userDetails, Token = token });
+                    }
                 }
-            }
-            else {
-                var getUserDetail = await _userService.GetAdminUserByUserNameAsync(request.Username);
-                if (getUserDetail == null)
-                    return Unauthorized(new { message = "Invalid credentials" });
-
-                var decryptPwd = _encryptionService.Decrypt(getUserDetail.Password);
-
-                // Validate user credentials (replace this with real user validation)
-                if (request.Username == getUserDetail.UserName && request.Password == decryptPwd)
+                else
                 {
-                    var token = _jwtService.GenerateToken("1", request.Username);
-                    return Ok(new { Token = token });
+                    var getUserDetail = await _userService.GetAdminUserByUserNameAsync(request.Username);
+                    if (getUserDetail == null)
+                        return Unauthorized(new { message = "Invalid credentials" });
+
+                    var decryptPwd = _encryptionService.Decrypt(getUserDetail.Password);
+
+                    // Validate user credentials (replace this with real user validation)
+                    if (request.Username == getUserDetail.UserName && request.Password == decryptPwd)
+                    {
+                        var userDetails = new
+                        {
+                            userid = getUserDetail.UserId,
+                            username = getUserDetail.UserName,
+                            usertype = 1
+                        };
+                        var token = _jwtService.GenerateToken(getUserDetail.UserId.ToString(), getUserDetail.UserName);
+                        return Ok(new { UserDetails = userDetails, Token = token });
+                    }
                 }
-            }            
-            return Unauthorized("Invalid credentials");
+                return Unauthorized("Invalid credentials");
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized($"Error: {ex.Message}");
+            }
+            
         }
 
         [HttpPost("CreateAdminUser")]

@@ -1,24 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Services;
 
 namespace ThesisStudentPortfolio2024.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class UserController : Controller
+    [ApiController]
+    public class AdminController : ControllerBase
     {
-        private readonly JWTService _jwtService;
-        private readonly EncryptionService _encryptionService;
-        private UserService _userService;
-
-        public UserController(JWTService jwtService, EncryptionService encryptionService, UserService userService)
-        {
-            _jwtService = jwtService;
-            _encryptionService = encryptionService;
-            _userService = userService;
-        }
+        private readonly StudentService _studentService;
+        private readonly AnnouncementService _announcementService;
+        private readonly UserService _userService;
 
         [Authorize]
         [HttpPost("CreateAdminUser")]
@@ -30,9 +24,10 @@ namespace ThesisStudentPortfolio2024.Controllers
             {
                 return Ok();
             }
-            else {
+            else
+            {
                 return BadRequest();
-            }            
+            }
         }
 
         [Authorize]
@@ -62,9 +57,11 @@ namespace ThesisStudentPortfolio2024.Controllers
 
         [Authorize]
         [HttpGet("GetStudentUsers")]
-        public async Task<IActionResult> GetStudentUsers() { 
+        public async Task<IActionResult> GetStudentUsers()
+        {
             var studentUsers = await _userService.GetAllStudentUserAsync();
             return Ok(studentUsers);
         }
+
     }
 }

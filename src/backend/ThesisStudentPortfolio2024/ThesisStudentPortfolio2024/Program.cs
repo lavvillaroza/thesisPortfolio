@@ -10,6 +10,7 @@ using ThesisStudentPortfolio2024.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()  // Log to console
@@ -83,6 +84,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .WithOrigins("https://localhost:5050")
+    .SetIsOriginAllowed(origin => true));
 
 app.UseHttpsRedirection();
 

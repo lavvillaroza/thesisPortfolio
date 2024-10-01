@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\devadmin\\Desktop\\Thesis Portfolio\\thesisPortfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj": {}
+    "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj": {}
   },
   "projects": {
-    "C:\\Users\\devadmin\\Desktop\\Thesis Portfolio\\thesisPortfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj": {
+    "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\devadmin\\Desktop\\Thesis Portfolio\\thesisPortfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj",
+        "projectUniqueName": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj",
         "projectName": "ThesisStudentPortfolio2024",
-        "projectPath": "C:\\Users\\devadmin\\Desktop\\Thesis Portfolio\\thesisPortfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj",
-        "packagesPath": "C:\\Users\\devadmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\devadmin\\Desktop\\Thesis Portfolio\\thesisPortfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\obj\\",
+        "projectPath": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj",
+        "packagesPath": "C:\\Users\\yobbgsm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\devadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\yobbgsm\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -40,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -116,7 +120,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

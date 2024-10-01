@@ -74,7 +74,9 @@ namespace ThesisStudentPortfolio2024.Repositories
         }
         async Task<AdminUser?> IUserRepository.GetAdminUserByUserNameAsync(string username)
         {
-            return await _context.AdminUsers.SingleOrDefaultAsync(u => u.UserName == username);
+            var result = await _context.AdminUsers.SingleOrDefaultAsync(u => u.UserName == username);
+
+            return result;
         }
 
         //Student

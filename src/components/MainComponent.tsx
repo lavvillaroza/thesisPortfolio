@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Login from './Auth/Login';
+import Login from './auth/Login';
 import Register from './student/Register';
 
 const MainComponent: React.FC = () => {

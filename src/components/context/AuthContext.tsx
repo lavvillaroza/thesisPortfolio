@@ -1,76 +1,69 @@
-// src/context/AuthContext.tsx
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
-type Role = 'admin' | 'student';
 
-interface User {
+interface UserDetails {
   username: string;
-  role: Role;
+  password: string;
+  userType: number; // 0 for student, 1 for admin
 }
 
-interface AuthContextProps {
-  user: User | null;
-  login: (username: string, password: string) => void;
-  logout: () => void;
+interface AuthContextType {
+    user: UserDetails | null;
+    login: (loginData: UserDetails) => Promise<void>;
+    logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
-
-const dummyUsers: Array<{ username: string; password: string; role: Role }> = [
-  { username: 'admin@gmail.com', password: 'admin123', role: 'admin' },
-  { username: 'student@gmain.com', password: 'student123', role: 'student' },
-];
-
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const loggedUser = localStorage.getItem('user');
-    if (loggedUser) {
-      const parsedUser: User = JSON.parse(loggedUser);
-      setUser(parsedUser);
-      navigateBasedOnRole(parsedUser.role);
-    }
-  }, []);
-
-  const login = (username: string, password: string) => {
-    const foundUser = dummyUsers.find(
-      (u) => u.username === username && u.password === password
-    );
-    if (foundUser) {
-      const loggedInUser: User = { username: foundUser.username, role: foundUser.role };
-      setUser(loggedInUser);
-      localStorage.setItem('user', JSON.stringify(loggedInUser));
-      navigateBasedOnRole(foundUser.role);
-    } else {
-      alert('Invalid credentials');
-    }
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-
-  const navigateBasedOnRole = (role: Role) => {
-    if (role === 'admin') navigate('/admin');
-    else navigate('/student');
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+const API_URL = "https://localhost:5050/api/Auth"; // Adjust the URL as needed
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
+};
+
+interface AuthProviderProps {
+    children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+    const [user, setUser] = useState<UserDetails | null>(null);
+
+    // On component mount, check if the token and user details exist
+    useEffect(() => {
+      const token = Cookies.get('jwtToken');
+      const userDetails = localStorage.getItem('userDetails');
+
+      if (token && userDetails) {
+        setUser(JSON.parse(userDetails));
+      }
+    }, []);
+    const login = async (loginData: UserDetails) => {
+        const response = await axios.post(`${API_URL}/login`, loginData);
+        const { token, userDetails } = response.data;
+
+        if (!token || !userDetails) {
+            throw new Error('Invalid response structure');
+        }
+
+        Cookies.set('jwtToken', token, { expires: 1 });
+        localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        setUser(userDetails);
+    };
+
+    const logout = () => {
+        Cookies.remove('jwtToken');
+        localStorage.removeItem('userDetails');
+        setUser(null);
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
