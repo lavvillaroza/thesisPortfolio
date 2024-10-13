@@ -27,16 +27,7 @@ namespace ThesisStudentPortfolio2024.Controllers
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddAnnouncementAsync([FromForm] AnnouncementRequest announcementRequest)
-        {
-            // Log the incoming request for debugging
-            Console.WriteLine($"Title: {announcementRequest.Title}");
-            Console.WriteLine($"Description: {announcementRequest.Description}");
-            Console.WriteLine($"DateTimeFrom: {announcementRequest.DateTimeFrom}");
-            Console.WriteLine($"DateTimeTo: {announcementRequest.DateTimeTo}");
-            Console.WriteLine($"AnnouncementType: {announcementRequest.AnnouncementType}");
-            Console.WriteLine($"CreatedBy: {announcementRequest.CreatedBy}");
-            Console.WriteLine($"Images Count: {announcementRequest.Images?.Count}");
-
+        {           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -53,6 +44,16 @@ namespace ThesisStudentPortfolio2024.Controllers
                 LastModifiedBy = announcementRequest.CreatedBy,
                 LastModifiedDate = DateTime.Now
             };
+
+            // Ensure the Uploads directory exists
+            string uploadsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+
+            // Check if the directory exists
+            if (!Directory.Exists(uploadsDirectory))
+            {
+                // Create the directory if it doesn't exist
+                Directory.CreateDirectory(uploadsDirectory);
+            }
 
             // Check if images are provided
             if (announcementRequest.Images != null && announcementRequest.Images.Count > 0)
