@@ -35,13 +35,13 @@ const SeminarAttendedList: React.FC = () => {
         <div className="flex flex-col bg-gray-300 py-2 min-h-screen w-full ">
             <div className="flex-1 m-auto">
                 <Header />  
-                <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-9/12 h-[700px]">                
+                <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-[700px]">                
                     <Sidebar/>
-                    <main className="flex-1 mx-auto w-8/12 h-[700px] bg-green-700 bg-gradient-to-br from-emerald-600 ">
+                    <main className="flex-1 mx-auto w-8/12 h-full bg-green-700 bg-gradient-to-br from-emerald-600 ">
                         <div className="h-[60px] p-4">
                             <p className="text-gray-50 text-center m-2 hover:text-green-500 text-2xl">SEMINAR ATTENDED LIST</p>
                         </div> 
-                        <div className="grid grid-cols-4 gap-4 h-[700px] p-6">
+                        <div className="grid grid-cols-4 gap-4 h-[600px] p-6">
                             <div className="grid grid-cols-1 auto-rows-auto h-[550px] gap-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">                            
                                 <div className="bg-gray-200 p-2 drop-shadow-lg">                                
                                     <div className="grid grid-cols-2 gap-0 justify-center"> 

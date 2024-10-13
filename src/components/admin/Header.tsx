@@ -29,8 +29,8 @@ const Header: React.FC = () => {
 //   };
 
   return (
-    <header className="mt-1">  
-        <div className='container mx-auto w-9/12'>
+    <header className="">  
+        <div className='container mx-auto w-full'>
             <div className="relative flex items-center justify-between h-28">
                 {/* <div className="origin-top-left absolute left-0 h-30 w-30 mr-5 z-50">                                    
                     <button 

@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     useEffect(() => {
       // If user is already logged in, navigate based on user type
       if (user) {
-        navigate(user.userType === 1 ? '/admin/*' : '/student/*');
+        navigate(user.usertype === 1 ? '/admin/*' : '/student/*');
       }
     }, [user, navigate]);
 
@@ -25,10 +25,10 @@ const Login: React.FC = () => {
       setError(null); // Reset the error state
   
       try {
-        const userType = isAdmin ? 1 : 0; // Determine user type
-        await login({ username, password, userType });
+        const usertype = isAdmin ? 1 : 0; // Determine user type
+        await login({ username, password, usertype });
         // Redirect based on user type after successful login
-        navigate(userType === 1 ? '/admin/*' : '/student/*');
+        navigate(usertype === 1 ? '/admin/*' : '/student/*');
       } catch (error) {
         setError("Invalid credentials or login failed");
       }

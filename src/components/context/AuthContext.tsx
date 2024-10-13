@@ -6,7 +6,7 @@ import axios from 'axios';
 interface UserDetails {
   username: string;
   password: string;
-  userType: number; // 0 for student, 1 for admin
+  usertype: number; // 0 for student, 1 for admin
 }
 
 interface AuthContextType {

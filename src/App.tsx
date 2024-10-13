@@ -31,18 +31,18 @@ const App = () => {
 
               {/* Protected Routes */}
               {/* Admin Routes */}
-              <Route
-                path="/admin/*"
-                element={
+              <Route path="/admin/*" element={
                   <PrivateRoute>
                     <AnnouncementAdm />
                   </PrivateRoute>
                 }/>
-              <Route path="/admin/studentlist" element={<PrivateRoute>
+              <Route path="/admin/studentlist" element={
+                  <PrivateRoute>
                     <StudentManagement />
                   </PrivateRoute>
                 }/>
-              <Route path="/admin/seminarattendedlist" element={<PrivateRoute>
+              <Route path="/admin/seminarattendedlist" element={
+                  <PrivateRoute>
                     <SeminarAttendedList />
                   </PrivateRoute>
                 }/>

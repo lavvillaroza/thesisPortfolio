@@ -26,14 +26,64 @@ namespace ThesisStudentPortfolio2024.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddAnnouncementAsync([FromBody] Announcement announcement)
+        public async Task<IActionResult> AddAnnouncementAsync([FromForm] AnnouncementRequest announcementRequest)
         {
+            // Log the incoming request for debugging
+            Console.WriteLine($"Title: {announcementRequest.Title}");
+            Console.WriteLine($"Description: {announcementRequest.Description}");
+            Console.WriteLine($"DateTimeFrom: {announcementRequest.DateTimeFrom}");
+            Console.WriteLine($"DateTimeTo: {announcementRequest.DateTimeTo}");
+            Console.WriteLine($"AnnouncementType: {announcementRequest.AnnouncementType}");
+            Console.WriteLine($"CreatedBy: {announcementRequest.CreatedBy}");
+            Console.WriteLine($"Images Count: {announcementRequest.Images?.Count}");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var createdAnnouncemnet = await _announcementService.AddAnnouncementAsync(announcement);            
+            var announcement = new Announcement
+            {
+                Title = announcementRequest.Title,
+                Description = announcementRequest.Description,
+                DateTimeFrom = announcementRequest.DateTimeFrom,
+                DateTimeTo = announcementRequest.DateTimeTo,
+                AnnouncementType = (short) announcementRequest.AnnouncementType,
+                CreatedBy = announcementRequest.CreatedBy, // Username from form data
+                CreatedDate = DateTime.Now,
+                LastModifiedBy = announcementRequest.CreatedBy,
+                LastModifiedDate = DateTime.Now
+            };
 
+            // Check if images are provided
+            if (announcementRequest.Images != null && announcementRequest.Images.Count > 0)
+            {
+                ICollection<AnnouncementDetail> announcementDetails = new List<AnnouncementDetail>();
+
+                foreach (var image in announcementRequest.Images)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    var filePath = Path.Combine("Uploads", $"{fileName}_{Guid.NewGuid()}{extension}");
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(stream);
+                    }
+
+                    var announcementDetail = new AnnouncementDetail
+                    {
+                        AttachedImage = fileName,
+                        AttachedPath = filePath,
+                        Announcement = announcement
+                    };
+
+                    announcementDetails.Add(announcementDetail);
+                }
+
+                announcement.AnnouncementDetail = announcementDetails;
+            }
+
+            var createdAnnouncement = await _announcementService.AddAnnouncementAsync(announcement);
             return Ok("Success");
         }
 
