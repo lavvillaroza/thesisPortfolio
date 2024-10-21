@@ -22,70 +22,26 @@ namespace ThesisStudentPortfolio2024.Controllers
         {
             var pagedResult = await _announcementService.GetAnnouncementByIdAsync(id);
             return Ok(pagedResult);
-        }
+        }        
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddAnnouncementAsync([FromForm] AnnouncementRequest announcementRequest)
+        public async Task<IActionResult> AddAnnouncementAsync([FromForm] AnnouncementDTO announcementDTO)
         {           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var announcement = new Announcement
+            try
             {
-                Title = announcementRequest.Title,
-                Description = announcementRequest.Description,
-                DateTimeFrom = announcementRequest.DateTimeFrom,
-                DateTimeTo = announcementRequest.DateTimeTo,
-                AnnouncementType = (short) announcementRequest.AnnouncementType,
-                CreatedBy = announcementRequest.CreatedBy, // Username from form data
-                CreatedDate = DateTime.Now,
-                LastModifiedBy = announcementRequest.CreatedBy,
-                LastModifiedDate = DateTime.Now
-            };
-
-            // Ensure the Uploads directory exists
-            string uploadsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
-
-            // Check if the directory exists
-            if (!Directory.Exists(uploadsDirectory))
-            {
-                // Create the directory if it doesn't exist
-                Directory.CreateDirectory(uploadsDirectory);
+                var createdAnnouncement = await _announcementService.AddAnnouncementAsync(announcementDTO);
+                return Ok("Success");
             }
-
-            // Check if images are provided
-            if (announcementRequest.Images != null && announcementRequest.Images.Count > 0)
+            catch (Exception ex)
             {
-                ICollection<AnnouncementDetail> announcementDetails = new List<AnnouncementDetail>();
-
-                foreach (var image in announcementRequest.Images)
-                {
-                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
-                    var extension = Path.GetExtension(image.FileName);
-                    var filePath = Path.Combine("Uploads", $"{fileName}_{Guid.NewGuid()}{extension}");
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await image.CopyToAsync(stream);
-                    }
-
-                    var announcementDetail = new AnnouncementDetail
-                    {
-                        AttachedImage = fileName,
-                        AttachedPath = filePath,
-                        Announcement = announcement
-                    };
-
-                    announcementDetails.Add(announcementDetail);
-                }
-
-                announcement.AnnouncementDetail = announcementDetails;
+                return BadRequest(ex.Message);
             }
-
-            var createdAnnouncement = await _announcementService.AddAnnouncementAsync(announcement);
-            return Ok("Success");
+            
         }
 
         [Authorize]

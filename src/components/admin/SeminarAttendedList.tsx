@@ -2,9 +2,9 @@ import React from 'react';
 
 import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
-import Sidebar from './Sidebar';
 import { FaFolder } from 'react-icons/fa';
 import CustomTableSeminarList from '../common/CustomTableSeminarList';
+import SideNavbar from './SideNavbar';
 
 const Attendees = [
     { email: 'john.doe@example.com', status: true },
@@ -36,7 +36,7 @@ const SeminarAttendedList: React.FC = () => {
             <div className="flex-1 m-auto">
                 <Header />  
                 <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-[700px]">                
-                    <Sidebar/>
+                    <SideNavbar/>
                     <main className="flex-1 mx-auto w-8/12 h-full bg-green-700 bg-gradient-to-br from-emerald-600 ">
                         <div className="h-[60px] p-4">
                             <p className="text-gray-50 text-center m-2 hover:text-green-500 text-2xl">SEMINAR ATTENDED LIST</p>

@@ -18,8 +18,8 @@ import StudentManagement from './components/admin/StudentManagement';
 import CreateSeminarAndAnouncement from './components/admin/CreateSeminarAndAnouncement';
 import SeminarAttendedList from './components/admin/SeminarAttendedList';
 import Curriculum from './components/admin/Curriculum';
-import 'flowbite';
 import NotFound from './components/common/NotFound';
+import 'flowbite';
 
 const App = () => {
   return (
@@ -31,22 +31,22 @@ const App = () => {
 
               {/* Protected Routes */}
               {/* Admin Routes */}
-              <Route path="/admin/*" element={
+              <Route path="/admin" element={
                   <PrivateRoute>
                     <AnnouncementAdm />
                   </PrivateRoute>
                 }/>
-              <Route path="/admin/studentlist" element={
+              <Route path="/admin/student" element={
                   <PrivateRoute>
                     <StudentManagement />
                   </PrivateRoute>
                 }/>
-              <Route path="/admin/seminarattendedlist" element={
+              <Route path="/admin/seminarattended" element={
                   <PrivateRoute>
                     <SeminarAttendedList />
                   </PrivateRoute>
                 }/>
-              <Route path="/admin/createseminarandanouncement" element={<PrivateRoute>
+              <Route path="/admin/addanouncement" element={<PrivateRoute>
                     <CreateSeminarAndAnouncement />
                   </PrivateRoute>
                 }/>
@@ -56,7 +56,7 @@ const App = () => {
                 }/>
               
               {/* Student Routes */}
-              <Route path="/student/*" element={ 
+              <Route path="/student" element={ 
                 <PrivateRoute> 
                   <Announcement />
                 </PrivateRoute>}/>

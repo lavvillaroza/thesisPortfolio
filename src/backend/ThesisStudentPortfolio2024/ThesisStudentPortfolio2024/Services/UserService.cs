@@ -1,4 +1,5 @@
-﻿using ThesisStudentPortfolio2024.Models.Entities;
+﻿using ThesisStudentPortfolio2024.Models;
+using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Repositories;
 
 namespace ThesisStudentPortfolio2024.Services
@@ -35,6 +36,11 @@ namespace ThesisStudentPortfolio2024.Services
         public async Task<List<StudentUser>> GetAllStudentUserAsync()
         {
             return await _userRepository.GetAllStudentUserAsync();
+        }
+
+        public async Task<PagedResult<StudentUser>> GetAllStudentUserByPagedAsync(PaginationParams paginationParams)
+        {
+            return await _userRepository.GetAllStudentUserByPagedAsync(paginationParams);
         }
 
         public async Task<StudentUser?> GetStudentUserByIdAsync(int id)

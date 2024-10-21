@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import profileSvg from '../../assets/avatar-profile-user.svg';
 import { FaUser } from 'react-icons/fa6';
-import { FaSignOutAlt } from 'react-icons/fa';
+import { FaLock, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 
-const Header: React.FC = () => {
+const HeaderNew: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 //   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -106,17 +106,27 @@ const Header: React.FC = () => {
                             aria-orientation="vertical"
                             aria-labelledby="menu-button">
                                 <div className="py-1" role="none">
+                                    <div className="py-3 px-4">
+                                        <span className="block text-sm font-semibold text-gray-900 dark:text-white">                                        
+                                            My Account</span>
+                                    </div>
                                     <ul className="text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">                                        
                                         <li>
                                             <a href="/profile/update" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900">
-                                                <FaUser className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                <FaUser className="mr-3 h-3 w-3 text-gray-400" aria-hidden="true" />
                                                 My Profile                                    
                                             </a>
-                                        </li>                        
+                                        </li> 
+                                        <li>
+                                            <a href="/profile/update" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900">
+                                                <FaLock className="mr-3 h-3 w-3 text-gray-400" aria-hidden="true" />
+                                                Change Password                                   
+                                            </a>
+                                        </li>                           
                                     </ul>
                                     <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
                                     <a href="#" onClick={handleLogout} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900">
-                                        <FaSignOutAlt className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                        <FaSignOutAlt className="mr-3 h-4 w-4 text-gray-400" aria-hidden="true" />
                                         Sign out
                                     </a>
                                     
@@ -131,4 +141,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default HeaderNew;

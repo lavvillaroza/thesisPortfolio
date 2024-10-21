@@ -7,6 +7,7 @@ using ThesisStudentPortfolio2024.Services;
 using Serilog;
 using ThesisStudentPortfolio2024.Repositories;
 using ThesisStudentPortfolio2024.Models.Entities;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +78,9 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+// Enable serving static files
+app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

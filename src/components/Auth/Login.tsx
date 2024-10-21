@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import courseLogo from '../../assets/compsci2.png';
 import schoolLogo from '../../assets/pasigIcon.jpg';
 import { useAuth } from '../context/AuthContext'; // Import useAuth
-
+import 'flowbite';
+import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -12,13 +14,40 @@ const Login: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     
-    const { login, user } = useAuth(); // Get login function from context
+    const { login, user, logout } = useAuth(); // Get login and logout functions from context
+
     useEffect(() => {
-      // If user is already logged in, navigate based on user type
+      // Check if the user is logged in
       if (user) {
-        navigate(user.usertype === 1 ? '/admin/*' : '/student/*');
+        // Retrieve the JWT token from cookies
+        const token = Cookies.get('jwtToken');
+
+        if (token) {
+          try {
+            // Decode the token
+            const decoded: { exp: number } = jwtDecode(token);
+
+            // Check if the token is expired
+            if (decoded.exp * 1000 < Date.now()) {
+              // Token is expired, log out the user
+              logout();
+              navigate('/');
+            } else {
+              // Token is valid, navigate based on user type
+              navigate(user.usertype === 1 ? '/admin' : '/student');
+            }
+          } catch (error) {
+            // If there is an error decoding the token, log out the user
+            logout();
+            navigate('/');
+          }
+        } else {
+          // No token found, log out the user
+          logout();
+          navigate('/');
+        }
       }
-    }, [user, navigate]);
+    }, [user, navigate, logout]);
 
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -28,7 +57,7 @@ const Login: React.FC = () => {
         const usertype = isAdmin ? 1 : 0; // Determine user type
         await login({ username, password, usertype });
         // Redirect based on user type after successful login
-        navigate(usertype === 1 ? '/admin/*' : '/student/*');
+        navigate(usertype === 1 ? '/admin' : '/student');
       } catch (error) {
         setError("Invalid credentials or login failed");
       }

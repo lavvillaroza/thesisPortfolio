@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-normal">         
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    <NavLink  to="/student/*" className={({ isActive }) => 
+                    <NavLink  to="/student" className={({ isActive }) => 
                         isActive ? 'bg-green-400 text-white px-3 py-2 rounded-md text-sm font-medium' 
                                 : 'text-gray-50 hover:bg-green-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                       }>

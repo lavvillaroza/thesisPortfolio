@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ThesisStudentPortfolio2024.Models.Entities
 {
@@ -19,5 +21,7 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         public DateTime CreatedDate { get; set; }        
         public string LastModifiedBy { get; set; }        
         public DateTime LastModifiedDate { get; set; }
+        [JsonIgnore]
+        public ICollection<StudentSubjectTaken> StudentSubjectTakens { get; set; }
     }
 }

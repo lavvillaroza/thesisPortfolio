@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Serilog;
 using ThesisStudentPortfolio2024.Data;
+using ThesisStudentPortfolio2024.Models;
 using ThesisStudentPortfolio2024.Models.Entities;
 
 namespace ThesisStudentPortfolio2024.Repositories
@@ -20,15 +21,55 @@ namespace ThesisStudentPortfolio2024.Repositories
             return await _context.AdminUsers.ToListAsync();
         }
         async Task<List<StudentUser>> IUserRepository.GetAllStudentUserAsync()
-        {
+        {            
             return await _context.StudentUsers.ToListAsync();
         }
+        async Task<PagedResult<StudentUser>> IUserRepository.GetAllStudentUserByPagedAsync(PaginationParams paginationParams)
+        {
+            var query = _context.StudentUsers
+                        .Include(a => a.StudentDetail)
+                        .AsQueryable();
 
+            var totalCount = await query.CountAsync();
+            var studentUsers = await query
+                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
+                .Take(paginationParams.PageSize)
+                .ToListAsync();
+
+            return new PagedResult<StudentUser>
+            {
+                Items = studentUsers,
+                TotalCount = totalCount,
+                PageNumber = paginationParams.PageNumber,
+                PageSize = paginationParams.PageSize
+            };
+        }
         //Admin
         async Task<AdminUser?> IUserRepository.GetAdminUserByIdAsync(int id)
         {
             return await _context.AdminUsers.SingleOrDefaultAsync(u => u.UserId == id);
         }
+
+        async Task<PagedResult<AdminUser>> IUserRepository.GetAllAdminUserByPagedAsync(PaginationParams paginationParams)
+        {
+            var query = _context.AdminUsers                        
+                        .AsQueryable();
+
+            var totalCount = await query.CountAsync();
+            var admintUsers = await query
+                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
+                .Take(paginationParams.PageSize)
+                .ToListAsync();
+
+            return new PagedResult<AdminUser>
+            {
+                Items = admintUsers,
+                TotalCount = totalCount,
+                PageNumber = paginationParams.PageNumber,
+                PageSize = paginationParams.PageSize
+            };
+        }
+
         async Task<bool> IUserRepository.AddAdminUserAsync(AdminUser user)
         {
             bool ret = false;

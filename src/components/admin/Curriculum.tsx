@@ -2,9 +2,9 @@ import React from 'react';
 
 import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
-import Sidebar from './Sidebar';
 import { FaFolder } from 'react-icons/fa';
 import CustomTableStudentList from '../common/CustomTableStudentList';
+import SideNavbar from './SideNavbar';
 
 const studentList = [
     {
@@ -118,7 +118,7 @@ const Curriculum: React.FC = () => {
             <div className="flex-1 m-auto">
               <Header />  
               <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-[700px]">                
-                <Sidebar/>
+                <SideNavbar/>
                   <main className="flex-1 mx-auto w-8/12 h-[700px] bg-green-700 bg-gradient-to-br from-emerald-600 ">                    
                       <div className="grid grid-cols-4 gap-4 h-[700px] p-6">
                           <div className="grid grid-cols-1 auto-rows-auto h-[650px] gap-2 overflow-y-scroll scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">

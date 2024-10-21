@@ -85,14 +85,30 @@ namespace ThesisStudentPortfolio2024.Repositories
 
         async Task<PagedResult<Announcement>> IAnnouncementRepository<Announcement>.GetAnnouncementByDateByPagedAsync(PaginationParams paginationParams, DateTime dateTime)
         {
-            var query = _context.Announcements.Where(u => u.DateTimeFrom == dateTime).AsQueryable();
+            var query = _context.Announcements.Where(u => u.DateTimeFrom >= dateTime && u.DateTimeTo <= dateTime.AddDays(1))
+                        .Include(a => a.AnnouncementDetails)
+                        .AsQueryable();
+
             var totalCount = await query.CountAsync();
             var announcements = await query
                 .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
                 .Take(paginationParams.PageSize)
                 .ToListAsync();
 
-            return new PagedResult<Announcement>
+            //// Define the base URL (you might want to make this more dynamic)
+            //var baseUrl = "https://localhost:5050/"; // Replace with your actual domain
+
+            //// Update the AttachedPath for each AnnouncementDetail
+            //foreach (var announcement in announcements)
+            //{
+            //    foreach (var detail in announcement.AnnouncementDetails)
+            //    {
+            //        // Assuming AttachedPath holds the relative path to the image
+            //        detail.AttachedPath = Path.Combine(baseUrl, detail.AttachedPath);
+            //    }
+            //}
+
+               return new PagedResult<Announcement>
             {
                 Items = announcements,
                 TotalCount = totalCount,

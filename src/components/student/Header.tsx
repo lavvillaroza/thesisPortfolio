@@ -4,6 +4,7 @@ import { FaBriefcase, FaUser } from 'react-icons/fa6';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import 'flowbite';
 
 const Header: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

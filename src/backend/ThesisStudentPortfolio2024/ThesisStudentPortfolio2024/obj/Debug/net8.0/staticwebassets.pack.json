@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\Ann\\A3_df10efc6-ce3b-45fc-b6b4-cf04d241e633.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\Ann\\A3_df10efc6-ce3b-45fc-b6b4-cf04d241e633.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\Ann\\A4_756469aa-b409-4a50-a9fd-dff3239d6ca9.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\Ann\\A4_756469aa-b409-4a50-a9fd-dff3239d6ca9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\Ann\\A5_9ba96984-9658-4c98-82d4-a5db0cc48d9e.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\Ann\\A5_9ba96984-9658-4c98-82d4-a5db0cc48d9e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\Ann\\A6_683e0d46-0487-41a1-a834-31495c864981.png",
+      "PackagePath": "staticwebassets\\Uploads\\Ann\\A6_683e0d46-0487-41a1-a834-31495c864981.png"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\Ann\\walang_pasok_989e01db-c655-4a13-8236-9990d11c1af0.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\Ann\\walang_pasok_989e01db-c655-4a13-8236-9990d11c1af0.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ThesisStudentPortfolio2024.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ThesisStudentPortfolio2024.props",
+      "PackagePath": "build\\ThesisStudentPortfolio2024.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ThesisStudentPortfolio2024.props",
+      "PackagePath": "buildMultiTargeting\\ThesisStudentPortfolio2024.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ThesisStudentPortfolio2024.props",
+      "PackagePath": "buildTransitive\\ThesisStudentPortfolio2024.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

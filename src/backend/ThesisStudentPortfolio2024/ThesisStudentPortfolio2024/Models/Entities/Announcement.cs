@@ -15,9 +15,8 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         public DateTime CreatedDate { get; set; }        
         public string LastModifiedBy { get; set; }        
         public DateTime LastModifiedDate { get; set; }
-
         public ICollection<AnnouncementAttendee> AnnouncementAttendees { get; set; }
-        public ICollection<AnnouncementDetail> AnnouncementDetail { get; set;}
+        public ICollection<AnnouncementDetail> AnnouncementDetails { get; set;}
 
     }
 }

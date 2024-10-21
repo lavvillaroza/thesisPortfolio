@@ -1,15 +1,9 @@
 import { Link } from 'react-router-dom';
 import React, { useState, ChangeEvent } from 'react';
-
-interface Student {
-  name: string;
-  course: string;
-  yearLevel: string;
-  section: string;
-}
+import { StudentDetailModel } from '../models/StudentDetailModel';
 
 interface TableProps {
-  data: Student[];
+  data: StudentDetailModel[];
 }
 
 const CustomTableStudentList: React.FC<TableProps> = ({ data }) => {

@@ -22,7 +22,7 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] Models.LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] Models.UserDTO request)
         {
             try
             {
