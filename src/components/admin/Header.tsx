@@ -6,12 +6,6 @@ import { useAuth } from '../context/AuthContext';
 
 const HeaderNew: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-//   const [menuOpen, setMenuOpen] = useState(false);
-
-//   const toggleMenu = () => {
-//     setMenuOpen(!menuOpen);
-//   };
-
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -23,55 +17,10 @@ const HeaderNew: React.FC = () => {
       logout(); // Call the logout function from AuthContext
   };
 
-//   const [menuOpen, setMenuOpen] = useState(false);
-//   const toggleMenu = () => {
-//     setMenuOpen(!menuOpen);
-//   };
-
   return (
-    <header className="">  
+    <header className="font-roboto">  
         <div className='container mx-auto w-full'>
-            <div className="relative flex items-center justify-between h-28">
-                {/* <div className="origin-top-left absolute left-0 h-30 w-30 mr-5 z-50">                                    
-                    <button 
-                    onClick={toggleMenu}
-                    className="inline-flex justify-center focus:outline-none ">
-                    <span className="sr-only">Open main menu</span>
-                    {menuOpen ? (
-                    <svg
-                        className="block h-14 w-14"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                    >
-                        <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                    ) : (
-                    <svg
-                        className="block h-14 w-14"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                    >
-                        <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16m-7 6h7"
-                        />
-                    </svg>
-                    )}
-                    </button>            
-                </div> */}
+            <div className="relative flex items-center justify-between h-28">                
                 <div className="origin-top-right absolute right-0 h-30 w-20 mr-5 z-50">            
                     <div className="relative inline-block">                
                         <div>

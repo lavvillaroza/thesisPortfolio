@@ -36,6 +36,7 @@ options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAnnouncementRepository<Announcement>, AnnouncementRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentInformationRepository, StudentInformationRepository>();
 builder.Services.AddScoped<IStudentDetailRepository, StudentDetailRepository>();
 builder.Services.AddScoped<IStudentSeminarRepository<StudentSeminar>, StudentSeminarRepository>();
@@ -47,10 +48,11 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AnnouncementService>();
 builder.Services.AddScoped<SubjectService>();
 builder.Services.AddScoped<StudentService>();
+builder.Services.AddScoped<CourseService>();
 
 
 // Singeleton 
-string encryptionKey = builder.Configuration["EncryptionSettings:Key"];
+string? encryptionKey = builder.Configuration["EncryptionSettings:Key"];
 builder.Services.AddSingleton(new EncryptionService(encryptionKey));
 // Add JWT Service
 builder.Services.AddSingleton<JWTService>();
