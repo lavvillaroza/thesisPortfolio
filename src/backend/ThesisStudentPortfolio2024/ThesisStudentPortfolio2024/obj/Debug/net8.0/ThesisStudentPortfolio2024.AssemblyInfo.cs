@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThesisStudentPortfolio2024")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39aab319134b605f5122e64916ad40625fd8356e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3acc1658f8f90417bfea1451c2fe3fc24b437655")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThesisStudentPortfolio2024")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThesisStudentPortfolio2024")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -102,12 +102,12 @@ const Announcement: React.FC = () => {
                 <HeaderNew />
                 <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-[730px] overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
                     <SideNavbar />
-                    <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600">
+                    <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                         <div className="h-[60px] p-4">
-                            <p className="text-gray-50 text-center m-2 hover:text-3xl text-2xl">WELCOME</p>
+                            <p className="text-gray-50 text-left m-2 hover:text-3xl text-2xl">WELCOME</p>
                         </div>
                         <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[600px] p-6">
-                            <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
+                            <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded transition-all duration-200">
                                 <p className="text-black text-left my-2 hover:text-green-500 text-lg">ANNOUNCEMENT:</p> 
                                 <div className="overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 h-[450px]">
                                     {announcements.length === 0 ? (
@@ -157,7 +157,7 @@ const Announcement: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-200 p-1 flex justify-center items-start">
+                            <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-200 p-1 flex justify-center items-start rounded transition-all duration-200">
                                 <div className="relative w-full max-w-xs h-80 overflow-hidden bg-white shadow-md rounded-md mt-5">
                                     <div className="w-full h-full" id="inline-calendar"></div>
                                     {/* Hidden input field to hold the selected date */}

@@ -44,16 +44,18 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                         {/* Modal body */}
                         <div className="flex flex-col p-4 space-x-4">
                             {/* Description Section */}
-                            <div className="w-full">
-                                <h4 className="text-2xl font-bold dark:text-white">{announcement.title}</h4> 
+                            <div className="w-full px-4">
+                                <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{announcement.title}</h2>
                                 <div className="h-full my-4">
                                     <div className="text-base font-normal text-gray-700">
-                                        {announcement.description}
+                                        <p className="mb-4 text-justify">
+                                            {announcement.description}
+                                        </p>
                                     </div>
                                 </div>                                                                
                             </div>
                             {/* Carousel Section */}
-                            <div className="w-full h-full">
+                            <div className="w-full h-full m-auto">
                                 {announcement.announcementDetails.length > 0 ? (
                                     <>
                                         <div className="relative h-56 w-[95%] overflow-hidden rounded-lg md:h-96 flex justify-center items-center">
@@ -63,7 +65,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                                                     key={index}
                                                     className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
                                                 >
-                                                    <img src={imageUrl + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-fill" />
+                                                    <img src={imageUrl + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-scale-down" />
                                                 </div>
                                             ))}
                                         </div>
