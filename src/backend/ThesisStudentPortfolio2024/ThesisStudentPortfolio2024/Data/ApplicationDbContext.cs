@@ -91,6 +91,12 @@ namespace ThesisStudentPortfolio2024.Data
                 .WithMany(ss => ss.StudentSkills)
                 .HasForeignKey(ss => ss.SkillId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Subject>()
+                .HasMany(s => s.SubjectDetails)
+                .WithOne(sd => sd.Subject)
+                .HasForeignKey(sd => sd.SubjectId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -14,6 +14,14 @@ namespace ThesisStudentPortfolio2024.Controllers
         private readonly AnnouncementService _announcementService;
         private readonly UserService _userService;
 
+        // Constructor injection for the services
+        public AdminController(StudentService studentService, AnnouncementService announcementService, UserService userService)
+        {
+            _studentService = studentService;
+            _announcementService = announcementService;
+            _userService = userService;
+        }
+
         [Authorize]
         [HttpPost("CreateAdminUser")]
         public async Task<IActionResult> CreateAdminUser([FromBody] AdminUser adminUser)

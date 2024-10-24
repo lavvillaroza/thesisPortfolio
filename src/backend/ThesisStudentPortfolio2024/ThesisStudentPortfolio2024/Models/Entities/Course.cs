@@ -6,9 +6,10 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string CourseName { get; set; }
-        public string CourseCode { get; set; }
+        public required string CourseName { get; set; }
+        public required string CourseCode { get; set; }
         public int TotalUnitsRequired { get; set; }
+        public string? CourseLogo { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime CreatedBy { get; set; }
         public DateTime LastModifiedDate { get; set; }

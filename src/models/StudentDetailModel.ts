@@ -1,14 +1,14 @@
 export interface StudentDetailModel {
     id: number;
     studentId: string;
-    firstName: string;
-    middleName: string;
-    lastName: string;
+    studentName: string;    
     course: string;
     yearLevel: string;
+    yearStart?: number;
+    yearEnd?: number;
     section: string;
     schoolEmail: string;
-    personalEmail: string;
+    personalEmail?: string;
     portfolioURL: string;
-    profilePicture: string;    
+    profilePicture?: string;    
   }

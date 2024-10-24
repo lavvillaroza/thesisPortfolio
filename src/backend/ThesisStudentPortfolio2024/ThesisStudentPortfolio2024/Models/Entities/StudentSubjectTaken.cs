@@ -13,10 +13,10 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         public DateTime LastModifiedDate { get; set; }
         public int UserId { get; set; }
         public int SubjectId { get; set; }        
-        public Subject Subject { get; set; }
+        public Subject? Subject { get; set; }
 
         [JsonIgnore]        
-        public StudentUser StudentUser { get; set; }
+        public StudentUser? StudentUser { get; set; }
     }
 }
 

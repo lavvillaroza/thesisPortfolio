@@ -14,12 +14,13 @@ import AnnouncementAdm from './components/admin/Announcement';
 import '@fontsource/roboto';
 import { AuthProvider } from './components/context/AuthContext';
 import PrivateRoute from './components/ProtectedRoute'; // Ensure this import is correct
-import StudentManagement from './components/admin/StudentManagement';
-import CreateSeminarAndAnouncement from './components/admin/CreateSeminarAndAnouncement';
-import SeminarAttendedList from './components/admin/SeminarAttendedList';
+import Student from './components/admin/Student';
+import CreateAnouncement from './components/admin/CreateAnouncement';
+import SeminarAttendance from './components/admin/SeminarAttendance';
 import Curriculum from './components/admin/Curriculum';
 import NotFound from './components/common/NotFound';
 import 'flowbite';
+import Course from './components/admin/Course';
 
 const App = () => {
   return (
@@ -38,20 +39,24 @@ const App = () => {
                 }/>
               <Route path="/admin/student" element={
                   <PrivateRoute>
-                    <StudentManagement />
+                    <Student />
                   </PrivateRoute>
                 }/>
-              <Route path="/admin/seminarattended" element={
+              <Route path="/admin/seminarattendance" element={
                   <PrivateRoute>
-                    <SeminarAttendedList />
+                    <SeminarAttendance />
                   </PrivateRoute>
                 }/>
               <Route path="/admin/addanouncement" element={<PrivateRoute>
-                    <CreateSeminarAndAnouncement />
+                    <CreateAnouncement />
                   </PrivateRoute>
                 }/>
               <Route path="/admin/curriculum" element={<PrivateRoute>
                     <Curriculum />
+                  </PrivateRoute>
+                }/>
+              <Route path="/admin/course" element={<PrivateRoute>
+                    <Course />
                   </PrivateRoute>
                 }/>
               

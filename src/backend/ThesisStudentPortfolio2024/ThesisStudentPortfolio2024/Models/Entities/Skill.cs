@@ -8,9 +8,9 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string SkillName { get; set; }        
+        public required string SkillName { get; set; }        
         public char Deleted { get; set; }
         public DateTime CreatedDate { get; set; }               
-        public ICollection<StudentSkill> StudentSkills { get; set; }
+        public ICollection<StudentSkill>? StudentSkills { get; set; }
     }
 }

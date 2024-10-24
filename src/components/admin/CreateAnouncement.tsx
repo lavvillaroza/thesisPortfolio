@@ -9,7 +9,7 @@ import HeaderNew from './Header';
 
 const API_URL = "https://localhost:5050/api/Announcement"; // Adjust the URL as needed
 
-const CreateSeminarAndAnouncement: React.FC = () => {
+const CreateAnouncement: React.FC = () => {
 
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [formattedDate, setFormattedDate] = useState<Date | null>(null);
@@ -159,19 +159,19 @@ const CreateSeminarAndAnouncement: React.FC = () => {
     }, [selectedDate]);
 
     return (
-        <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen w-full">
+        <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
             <div className="flex-1 m-auto">
                 <HeaderNew/>
-                <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-full overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">                
+                <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
                     <SideNavbar/>
-                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600">                        
+                    <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                         <div className="h-[60px] p-4">
-                            <p className="text-gray-50 text-center m-2 hover:text-green-500 text-2xl">NEW ANNOUNCEMENT</p>
+                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">NEW ANNOUNCEMENT</h5>                        
                         </div>                         
                         <form onSubmit={handleSubmit}>
-                            <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[600px] p-6">
-                                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 ">                                
-                                    <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-1 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
+                            <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
+                                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">                                
+                                    <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-1 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
                                         <div className="flex justify-between">
                                             <label htmlFor="title" className="block mb-2 text-lg font-bold text-gray-900 dark:text-white">Subject/Title</label>                                                                                        
                                         </div>
@@ -181,7 +181,7 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                                                 id="title" 
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" 
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" 
                                                 placeholder="Subject/Title" 
                                                 required />
                                         </div>
@@ -194,7 +194,7 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                                                     value="Announcement"
                                                     checked={announcementType === 0}
                                                     onChange={() => setAnnouncementType(0)}
-                                                    className="form-radio h-4 w-4 text-green-600"
+                                                    className="form-radio h-4 w-4 text-emerald-600"
                                                 />
                                                 <span className="ml-2">Announcement</span>
                                             </label>
@@ -205,17 +205,17 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                                                     value="Seminar"
                                                     checked={announcementType === 1}
                                                     onChange={() => setAnnouncementType(1)}
-                                                    className="form-radio h-4 w-4 text-green-600"
+                                                    className="form-radio h-4 w-4 text-emerald-600"
                                                 />
                                                 <span className="ml-2">Seminar</span>
                                             </label>
                                         </div>
                                         <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800 mb-5">
                                                 <label htmlFor="message" className="block mb-2 text-md font-bold text-gray-900 dark:text-white">Description</label>
                                                 <textarea 
                                                     id="comment" 
-                                                    rows={10} 
+                                                    rows={14} 
                                                     value={description}
                                                     onChange={(e) => setDescription(e.target.value)}
                                                     className="w-full max-h-52 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" 
@@ -228,11 +228,10 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                                                     {/* Left aligned Save and Clear buttons */}
                                                     <button
                                                         type="submit"
-                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-blue-200 dark:focus:ring-green-900"
+                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:ring-blue-200 dark:focus:ring-emerald-900"
                                                     >
                                                         Send
                                                     </button>
-
                                                     {/* Clear Button */}
                                                     <button
                                                         type="button"
@@ -265,7 +264,7 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                                                                             <button 
                                                                                 type="button" 
                                                                                 onClick={() => removeImage(index)}
-                                                                                className="absolute top-0 left-0 w-5 h-5 bg-green-600 text-white rounded-full flex items-center justify-center text-xs hover:bg-green-700 focus:outline-none">
+                                                                                className="absolute top-0 left-0 w-5 h-5 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xs hover:bg-emerald-700 focus:outline-none">
                                                                                 &times;
                                                                             </button>
                                                                         </div>
@@ -286,11 +285,11 @@ const CreateSeminarAndAnouncement: React.FC = () => {
                                         
                                     </div>
                                 </div>
-                                <div className="flex flex-col w-full md:w-8 md:flex-1 bg-gray-200 p-1 justify-center items-start">
-                                    <div className="w-full max-w-xs h-auto m-auto overflow-hidden bg-white rounded-md my-5">                                    
+                                <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-200 p-1 flex justify-center items-start rounded transition-all duration-200">
+                                    <div className="relative w-full max-w-xs h-auto overflow-hidden bg-white rounded-md my-5">                                    
                                         <div className = "flex justify-center" id="inline-calendar"></div> {/* The calendar will be rendered here */}
-                                        {/* Display the selected date */}
-                                        {/* Hidden input field to hold the selected date */}
+                                            {/* Display the selected date */}
+                                            {/* Hidden input field to hold the selected date */}
                                             <input 
                                             type="hidden" 
                                             id="hidden-date-input" 
@@ -402,4 +401,4 @@ const CreateSeminarAndAnouncement: React.FC = () => {
     );
 };
 
-export default CreateSeminarAndAnouncement;
+export default CreateAnouncement;

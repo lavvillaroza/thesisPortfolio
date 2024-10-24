@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useState, ChangeEvent } from 'react';
-import { StudentDetailModel } from '../models/StudentDetailModel';
+import { StudentDetailModel } from '../../models/StudentDetailModel';
 
 interface TableProps {
   data: StudentDetailModel[];

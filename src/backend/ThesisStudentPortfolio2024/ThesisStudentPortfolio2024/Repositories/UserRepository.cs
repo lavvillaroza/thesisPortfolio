@@ -96,9 +96,7 @@ namespace ThesisStudentPortfolio2024.Repositories
             }
 
             // Update fields (you can add any other fields you want to update)
-            existingUser.FirstName = user.FirstName;
-            existingUser.MiddleName = user.MiddleName;
-            existingUser.LastName = user.LastName;
+            existingUser.Name = user.Name;            
             existingUser.Position = user.Position;
             existingUser.Email = user.Email;
             existingUser.UserName = user.UserName;
@@ -148,9 +146,7 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             // Update fields (you can add any other fields you want to update)
             existingUser.StudentId = user.StudentId;
-            existingUser.FirstName = user.FirstName;
-            existingUser.MiddleName = user.MiddleName;
-            existingUser.LastName = user.LastName;
+            existingUser.Name = user.Name;            
             existingUser.Course = user.Course;
             existingUser.SchoolEmail = user.SchoolEmail;
             existingUser.PersonalEmail = user.PersonalEmail;

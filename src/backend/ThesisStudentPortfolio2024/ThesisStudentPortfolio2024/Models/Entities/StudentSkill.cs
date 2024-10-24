@@ -12,10 +12,10 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         public char Deleted { get; set; }      // Y = YES, N = No         
         public DateTime CreatedDate { get; set; }
         public int SkillId { get; set; }
-        public Skill Skill { get; set; }
+        public Skill? Skill { get; set; }
         public int UserId { get; set; }
         [JsonIgnore]        
-        public StudentUser StudentUser { get; set; }
+        public StudentUser? StudentUser { get; set; }
         
         
     }

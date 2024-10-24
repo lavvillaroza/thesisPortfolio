@@ -12,7 +12,7 @@ const SideNavbar: React.FC = () => {
   return (
     <>
       {/* Desktop Sidebar (Visible on md and above) */}
-      <aside className="font-roboto hidden md:flex flex-col bg-gradient-to-b from-emerald-500 to-emerald-700 text-white w-80 p-4 mr-2 rounded transition-all duration-200">
+      <aside className="font-roboto h-[90%] hidden md:flex flex-col bg-gradient-to-b from-emerald-500 to-emerald-700 text-white w-80 p-4 mr-2 rounded transition-all duration-200">
         {/* Admin Profile Section */}
         <div className="flex flex-col items-center mb-6 hover:shadow-lg hover:bg-emerald-500 p-2 rounded transition-all duration-200">
                 <div className="w-36 h-36 bg-gray-300 rounded-full mb-2 overflow-hidden">
@@ -49,7 +49,7 @@ const SideNavbar: React.FC = () => {
                     }>
                     Manage Student Account
                 </NavLink >
-                <NavLink  to="/admin/seminarattended" 
+                <NavLink  to="/admin/seminarattendance" 
                     className={({ isActive }) =>
                         `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 ${
                         isActive ? "text-red-500 hover:text-green-500" : "text-black hover:text-green-500"
@@ -65,7 +65,7 @@ const SideNavbar: React.FC = () => {
                     }>
                     Manage Subject
                 </NavLink >       
-                <NavLink  to="/admin/curriculum" 
+                <NavLink  to="/admin/course" 
                     className={({ isActive }) =>
                         `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 ${
                         isActive ? "text-red-500 hover:text-green-500" : "text-black hover:text-green-500"
@@ -77,7 +77,7 @@ const SideNavbar: React.FC = () => {
       </aside>
        {/* Mobile Header and Dropdown Menu */}
         <div className="font-roboto md:hidden">
-            <div className="p-4 bg-gradient-to-b from-emerald-600 to-emerald-800 text-white flex justify-between items-center">
+            <div className="p-4 bg-gradient-to-b from-emerald-600 to-emerald-700 text-white flex justify-between items-center">
             <span className="text-lg font-bold">HI ADMIN</span>
             <button onClick={toggleDropdown} className="focus:outline-none">
                 {/* Toggle between hamburger and close icons */}
@@ -87,7 +87,7 @@ const SideNavbar: React.FC = () => {
         
           {/* Mobile Dropdown Menu */}
             {isOpen && (
-            <div className="bg-gradient-to-b from-emerald-600 bg-green-700 text-white p-4">
+            <div className="bg-gradient-to-b from-emerald-600 bg-emerald-700 text-white p-4">
                 <nav className="flex flex-col space-y-3">
                     <NavLink  to="/admin" 
                                 className={({ isActive }) =>
@@ -113,7 +113,7 @@ const SideNavbar: React.FC = () => {
                         }>
                         Manage Student Account
                     </NavLink >
-                    <NavLink  to="/admin/seminarattended" 
+                    <NavLink  to="/admin/seminarattendance" 
                         className={({ isActive }) =>
                             `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
                             isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"

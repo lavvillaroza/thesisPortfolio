@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AnnouncementModel } from '../../models/AnnouncementModel';
+import { AnnouncementModel } from '../../../models/AnnouncementModel';
 import { RiMegaphoneFill } from "react-icons/ri";
 
 const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = ({ announcement }) => {
@@ -63,9 +63,8 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                                             {announcement.announcementDetails.map((detail, index) => (
                                                 <div
                                                     key={index}
-                                                    className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
-                                                >
-                                                    <img src={imageUrl + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-scale-down" />
+                                                    className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
+                                                    <img src={imageUrl + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-cover" />
                                                 </div>
                                             ))}
                                         </div>

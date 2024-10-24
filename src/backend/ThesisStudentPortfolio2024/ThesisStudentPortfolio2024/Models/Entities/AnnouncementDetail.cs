@@ -8,11 +8,11 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     {
         [Key]
         public int Id { get; set; }        
-        public string AttachedImage { get; set; }
-        public string AttachedPath { get; set; }
+        public required string AttachedImage { get; set; }
+        public required string AttachedPath { get; set; }
         public int AnnouncementId { get; set; }
 
         [JsonIgnore]        
-        public Announcement Announcement { get; set; }
+        public Announcement? Announcement { get; set; }
     }
 }

@@ -8,12 +8,12 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     {
         [Key]
         public int Id { get; set; }        
-        public string AboutMe { get; set; }
+        public required string AboutMe { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
-        public ICollection<StudentInformationDetail> StudentInformationDetails { get; set; }
+        public ICollection<StudentInformationDetail>? StudentInformationDetails { get; set; }
         public int UserId { get; set; }
         [JsonIgnore]        
-        public StudentUser StudentUser { get; set; }
+        public StudentUser? StudentUser { get; set; }
     }
 }

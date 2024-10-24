@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
 using ThesisStudentPortfolio2024.Data;
 using ThesisStudentPortfolio2024.Models.Entities;
 
@@ -39,9 +40,7 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             // Update fields (you can add any other fields you want to update)            
             eStudentDetail.StudentId = studentDetail.StudentId;
-            eStudentDetail.FirstName = studentDetail.FirstName;
-            eStudentDetail.MiddleName = studentDetail.MiddleName;
-            eStudentDetail.LastName = studentDetail.LastName;
+            eStudentDetail.Name = studentDetail.Name;            
             eStudentDetail.Course = studentDetail.Course;
             eStudentDetail.SchoolEmail = studentDetail.SchoolEmail;
             eStudentDetail.PersonalEmail = studentDetail.PersonalEmail;
@@ -55,7 +54,7 @@ namespace ThesisStudentPortfolio2024.Repositories
         }
         async Task<StudentDetail?> IStudentDetailRepository.GetStudentDetailByUserIdAsync(int userId)
         {
-            return _context.StudentDetails.SingleOrDefault(x => x.UserId == userId);
+            return await _context.StudentDetails.SingleOrDefaultAsync(x => x.UserId == userId);
         }
     }
 }

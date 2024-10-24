@@ -4,7 +4,7 @@ import { FaUser } from 'react-icons/fa6';
 import { FaLock, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 
-const HeaderNew: React.FC = () => {
+const Header: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -21,7 +21,7 @@ const HeaderNew: React.FC = () => {
     <header className="font-roboto">  
         <div className='container mx-auto w-full'>
             <div className="relative flex items-center justify-between h-28">                
-                <div className="origin-top-right absolute right-0 h-30 w-20 mr-5 z-50">            
+                <div className="origin-top-right absolute right-0 h-30 w-30 z-50">            
                     <div className="relative inline-block">                
                         <div>
                             <button
@@ -32,20 +32,9 @@ const HeaderNew: React.FC = () => {
                                 aria-expanded={dropdownOpen}
                                 aria-haspopup="true">
                                 <img
-                                    className="h-24 w-24 rounded-full"
+                                    className="h-16 w-16 rounded-full"
                                     src={profileSvg}
-                                    alt="Profile"/>
-                                <svg
-                                    className="ml-2 h-5 w-5 text-gray-700"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true">
-                                    <path
-                                    fillRule="evenodd"
-                                    d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clipRule="evenodd"/>
-                                </svg>
+                                    alt="Profile"/>                                
                             </button>
                         </div>
                         {dropdownOpen && (
@@ -90,4 +79,4 @@ const HeaderNew: React.FC = () => {
   );
 };
 
-export default HeaderNew;
+export default Header;
