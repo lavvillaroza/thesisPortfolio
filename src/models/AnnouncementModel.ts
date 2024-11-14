@@ -1,4 +1,3 @@
-import { AnnouncementAttendeeModel } from "./AnnouncementAttendeesModel";
 import { AnnouncementDetailModel } from "./AnnouncementDetailModel";
 
 export interface AnnouncementModel {
@@ -6,8 +5,12 @@ export interface AnnouncementModel {
     title: string;
     description: string;
     dateFrom: string;
-    dateTo: string;
+    dateTo: string;    
     announcementType: number;
+    images: File | null;        
+    createdBy: string;
+    createdDate: Date | null;
+    lastModifiedBy: string;
+    lastModifiedDate: Date | null;
     announcementDetails: AnnouncementDetailModel[];
-    announcementAttendees: AnnouncementAttendeeModel[];
 }

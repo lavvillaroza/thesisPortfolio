@@ -27,7 +27,7 @@ const SideNavbar: React.FC = () => {
                 <NavLink
                     to="/admin"
                     className={({ isActive }) =>
-                        `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                        `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-105 ${
                         isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
                         }`
                     }>
@@ -35,7 +35,7 @@ const SideNavbar: React.FC = () => {
                 </NavLink>
                 <NavLink  to="/admin/addanouncement" 
                     className={({ isActive }) =>
-                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-105 ${
                         isActive ? "text-red-500 hover:text-green-500" : "text-black hover:text-green-500"
                         }`
                     }>
@@ -43,35 +43,35 @@ const SideNavbar: React.FC = () => {
                 </NavLink >
                 <NavLink  to="/admin/student" 
                     className={({ isActive }) =>
-                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-105 ${
                         isActive ? "text-red-500 hover:text-green-500" : "text-black hover:text-green-500"
                         }`
                     }>
-                    Manage Student Account
+                    Students Account
                 </NavLink >
-                <NavLink  to="/admin/seminarattendance" 
+                <NavLink  to="/admin/seminar" 
                     className={({ isActive }) =>
-                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-105 ${
                         isActive ? "text-red-500 hover:text-green-500" : "text-black hover:text-green-500"
                         }`
                     }>
-                    Manage Seminar Attendance
+                    Seminars Attendance
                 </NavLink >                       
-                <NavLink  to="/admin/curriculum" 
+                <NavLink  to="/admin/subject" 
                     className={({ isActive }) =>
-                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-105 ${
                         isActive ? "text-red-500 hover:text-green-500" : "text-black hover:text-green-500"
                         }`
                     }>
-                    Manage Subject
+                    Subjects
                 </NavLink >       
                 <NavLink  to="/admin/course" 
                     className={({ isActive }) =>
-                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                        `w-full py-2 flex items-center justify-center bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-105 ${
                         isActive ? "text-red-500 hover:text-green-500" : "text-black hover:text-green-500"
                         }`
                     }>
-                    Manage Course
+                    Courses
                 </NavLink >     
             </nav>
       </aside>
@@ -91,7 +91,7 @@ const SideNavbar: React.FC = () => {
                 <nav className="flex flex-col space-y-3">
                     <NavLink  to="/admin" 
                                 className={({ isActive }) =>
-                                    `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                                    `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-95 ${
                                     isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
                                     }`
                                 }>
@@ -99,7 +99,7 @@ const SideNavbar: React.FC = () => {
                     </NavLink >
                     <NavLink  to="/admin/addanouncement" 
                         className={({ isActive }) =>
-                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-95 ${
                             isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
                             }`
                         }>
@@ -107,35 +107,35 @@ const SideNavbar: React.FC = () => {
                     </NavLink >
                     <NavLink  to="/admin/student" 
                             className={({ isActive }) =>
-                                `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                                `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-95 ${
                                 isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
                                 }`
                         }>
-                        Manage Student Account
+                        Students Account
                     </NavLink >
-                    <NavLink  to="/admin/seminarattendance" 
+                    <NavLink  to="/admin/seminar" 
                         className={({ isActive }) =>
-                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-95 ${
                             isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
                             }`
                         }>
-                        Manage Seminar Attendance
+                        Seminars Attendance
                     </NavLink >                    
-                    <NavLink  to="/admin/curriculum" 
+                    <NavLink  to="/admin/subject" 
                         className={({ isActive }) =>
-                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-95 ${
                             isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
                             }`
                         }>
-                        Manage Subject
+                        Subjects
                     </NavLink > 
                     <NavLink  to="/admin/course" 
                         className={({ isActive }) =>
-                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 ${
+                            `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-95 ${
                             isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
                             }`
                         }>
-                        Manage Course
+                        Courses
                     </NavLink >   
                 </nav>
             </div>

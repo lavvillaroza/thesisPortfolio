@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using ThesisStudentPortfolio2024.Services;
 using ThesisStudentPortfolio2024.Models;
 using ThesisStudentPortfolio2024.Models.Entities;
+using ThesisStudentPortfolio2024.Models.Dtos;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ThesisStudentPortfolio2024.Controllers
 {
@@ -22,7 +27,7 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] Models.UserDTO request)
+        public async Task<IActionResult> Login([FromBody] UserDto request)
         {
             try
             {
@@ -78,10 +83,9 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [HttpPost("CreateAdminUser")]
-        public async Task<IActionResult> CreateUser([FromBody] AdminUser adminUser)
-        {
-            adminUser.Password = _encryptionService.Encrypt(adminUser.Password);
-            var createuser = await _userService.AddAdminUserAsync(adminUser);
+        public async Task<IActionResult> CreateUser([FromBody] AdminUserDto adminUserDto)
+        {            
+            var createuser = await _userService.AddAdminUserAsync(adminUserDto);
 
             if (createuser)
             {

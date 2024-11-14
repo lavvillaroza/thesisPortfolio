@@ -5,17 +5,24 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     public class AdminUser
     {
         [Key]
-        public int UserId { get; set; }        
-        public required string Name { get; set; }        
-        public required string Position { get; set; }        
-        public required string UserName { get; set; }        
-        public required string Password { get; set; }        
-        public required string Email { get; set; }        
-        public char Deleted { get; set; }
-        public int Version { get; set; }
-        public required string CreatedBy {  get; set; }
-        public DateTime CreatedDate { get; set; }
-        public required string LastModifiedBy { get; set; }
-        public DateTime LastModifiedDate { get; set; }
+        public int UserId { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;
+        [Required]
+        public string Position { get; set; } = string.Empty;
+        [Required]
+        public string UserName { get; set; } = string.Empty;
+        [Required]
+        public string Password { get; set; } = string.Empty;
+        [Required]
+        public string SchoolEmail { get; set; } = string.Empty;
+        [Required]
+        public int Version { get; set; } = 0;
+        [Required]
+        public string CreatedBy {  get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        [Required]
+        public string LastModifiedBy { get; set; } = string.Empty;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
     }
 }

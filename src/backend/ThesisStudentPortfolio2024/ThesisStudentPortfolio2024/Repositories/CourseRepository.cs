@@ -29,12 +29,18 @@ namespace ThesisStudentPortfolio2024.Repositories
             return ret;
         }
 
-        async Task<bool> ICourseRepository.DeleteCourseAsync(Course course)
+        async Task<bool> ICourseRepository.DeleteCourseAsync(int courseId)
         {
             bool ret = false;
-            try
+            var existingCourse = await _context.Courses.FindAsync(courseId);
+            if (existingCourse == null)
             {
-                _context.Courses.Remove(course);
+                // User not found
+                return false;
+            }
+            try
+            {                
+                _context.Courses.Remove(existingCourse);
                 await _context.SaveChangesAsync();
                 ret = true;
             }
@@ -45,9 +51,14 @@ namespace ThesisStudentPortfolio2024.Repositories
             return ret;
         }
 
-        async Task<List<Course>> ICourseRepository.GetAllCourses()
+        async Task<List<Course>> ICourseRepository.GetCoursesAsync()
         {
             return await _context.Courses.ToListAsync();
+        }
+
+        async Task<Course> ICourseRepository.GetCourseByIdAsync(int courseId)
+        {
+            return await _context.Courses.Where(x => x.Id == courseId).FirstAsync();
         }
 
         async Task<bool> ICourseRepository.UpdateCourseAsync(Course course)

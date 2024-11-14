@@ -7,12 +7,12 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     public class AnnouncementDetail
     {
         [Key]
-        public int Id { get; set; }        
-        public required string AttachedImage { get; set; }
-        public required string AttachedPath { get; set; }
+        public int Id { get; set; }
+        [Required]
         public int AnnouncementId { get; set; }
-
-        [JsonIgnore]        
-        public Announcement? Announcement { get; set; }
+        [Required]        
+        public string AttachedImage { get; set; } = string.Empty;
+        [Required]
+        public string AttachedPath { get; set; } = string.Empty;
     }
 }

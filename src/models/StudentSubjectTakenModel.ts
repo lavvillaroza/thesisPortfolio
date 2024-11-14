@@ -1,9 +1,13 @@
-import { SubjectModel } from "./SubjectModel";
-
 export interface StudentSubjectTakenModel {
     id: number;
-    deleted: number;
-    createdDate: string;
-    lastModifiedDate: string;
-    subject: SubjectModel[];    
+    userId: number;
+    subjectId: number;
+    subjectName: string;
+    subjectDescription: string;
+    prereq: string;
+    lec: number;
+    lab: number;
+    units: number;
+    hrs: number;    
+    lastModifiedDate: string;      
   }

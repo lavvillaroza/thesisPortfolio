@@ -5,18 +5,18 @@ import 'flowbite/dist/flowbite.js';
 import SideNavbar from './SideNavbar';
 import Header from './Header';
 import { AnnouncementModel } from '../../models/AnnouncementModel';
-import { PagedResultType } from '../../models/PagedResultType';
-import axios from 'axios'; // Ensure Axios is installed
-import Cookies from 'js-cookie';
 import AnnouncementDetailModal from './modal/AnnouncementDetailModal';
-
-const API_URL = "https://localhost:5050/api/Announcement"; // Adjust the URL as needed
+import {fetchAnnouncementsWithDetails} from '../../api/announcementApi';
+import { useNavigate } from 'react-router-dom';
+import { checkTokenAndLogout } from '../../utils/jwtUtil';
 
 const Announcement: React.FC = () => {
-    const [announcements, setAnnouncements] = useState<AnnouncementModel[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [pageNumber, setPageNumber] = useState(1);
+    const [announcements, setAnnouncements] = useState<AnnouncementModel[]>([]);    
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [pageSize] = useState<number>(10);
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const navigate = useNavigate();
 
     // Truncate description to a specific length
     const truncateDescription = (description: string, maxLength: number) => {
@@ -33,32 +33,27 @@ const Announcement: React.FC = () => {
     }, []);
 
     // Fetch announcements with pagination and optional date filter
-    const fetchAnnouncements = async (pageNumber: number, date?: string | null) => {
+    const loadAnnouncements = async () => {
+        if (checkTokenAndLogout()) {
+            navigate("/");
+            return;
+          }
         try {
-            let url = `${API_URL}?PageNumber=${pageNumber}&PageSize=3&PageSizeLimit=3`;
-            if (date) {
-                url = `${API_URL}/ByDate/${date}?PageNumber=${pageNumber}&PageSize=3&PageSizeLimit=3`;
-            }
-
-            const jwtToken = Cookies.get('jwtToken');
-            const headers = {
-                Authorization: jwtToken ? `Bearer ${jwtToken}` : '',
-            };
-
-            const response = await axios.get<PagedResultType<AnnouncementModel>>(url, { headers });
-            setAnnouncements(response.data.items);
-            setTotalPages(response.data.totalPages);
+            const result = await fetchAnnouncementsWithDetails({ pageNumber, pageSize }, selectedDate);
+            setAnnouncements(result.items);
+            setTotalPages(result.totalPages);
         } catch (error) {
-            console.error('Error fetching announcements', error);
+            console.error('Error fetching announcements:', error);
         }
     };
 
     // Fetch announcements whenever pageNumber or selectedDate changes
     useEffect(() => {
         if (selectedDate) {
-            fetchAnnouncements(pageNumber, selectedDate);
+            loadAnnouncements();
         }
-    }, [pageNumber, selectedDate]);
+    }, [selectedDate, pageNumber]);
+
 
     // Initialize the Flowbite datepicker and handle the date change event
     useEffect(() => {
@@ -86,12 +81,10 @@ const Announcement: React.FC = () => {
                     '-' +
                     String(selectedDate.getDate()).padStart(2, '0');
 
-                setSelectedDate(formattedDate);
-                setPageNumber(1); // Reset to page 1 when date changes
+                setSelectedDate(formattedDate);                
             });
         }
-    }, []);
-
+    }, []);    
     // Handle page changes for pagination
     const handlePrevPage = () => setPageNumber((prev) => Math.max(prev - 1, 1));
     const handleNextPage = () => setPageNumber((prev) => Math.min(prev + 1, totalPages));
@@ -111,12 +104,14 @@ const Announcement: React.FC = () => {
                                 {/* <p className="text-black text-left my-2 hover:text-green-500 text-lg">ANNOUNCEMENTS:</p>  */}
                                 <div className="overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 h-[550px]">
                                     {announcements.length === 0 ? (
-                                        <p className="text-center justify-center m-auto">No announcements found</p>
+                                        <div className="flex items-center justify-center h-[500px] w-full">
+                                            <h1 className="text-center font-bold italic justify-center text-gray-700">No announcement found</h1>
+                                        </div>                                    
                                     ) : (
                                         announcements.map((announcement) => (
                                             <div
                                                 key={announcement.id}
-                                                className="w-11/12 mx-auto my-5 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                                className="w-11/12 mx-auto my-5 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-150 ease-in-out">
                                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                                     {announcement.title}
                                                 </h5>
@@ -131,9 +126,9 @@ const Announcement: React.FC = () => {
                                             </div>
                                         ))
                                     )}
-                                </div>
-                                {/* Pagination controls */}
-                                <div className="flex flex-col items-end mt-5">
+                                </div>     
+                                    {/* Pagination controls */}
+                                    <div className="flex flex-col items-end mt-5">
                                     <span className="text-sm text-gray-700 dark:text-gray-400 mr-5">
                                         Page {pageNumber} of {totalPages}
                                     </span>
@@ -153,9 +148,9 @@ const Announcement: React.FC = () => {
                                             Next
                                         </button>
                                     </div>
-                                </div>
+                                </div>                                   
                             </div>
-                            <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-200 p-1 flex justify-center items-start rounded transition-all duration-200">
+                            <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-100 p-1 flex justify-center items-start rounded transition-all duration-200">
                                 <div className="relative w-full max-w-xs h-80 overflow-hidden bg-white shadow-md rounded-md mt-10">
                                     <div className="w-full h-full" id="inline-calendar"></div>
                                     {/* Hidden input field to hold the selected date */}
@@ -174,5 +169,4 @@ const Announcement: React.FC = () => {
         </div>
     );
 };
-
 export default Announcement;

@@ -9,21 +9,31 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     public class StudentDetail
     {
         [Key]
-        public int Id { get; set; }        
-        public string? StudentId { get; set; }        
-        public string? Name { get; set; }                
-        public string? Course { get; set; }
-        public string? YearLevel { get; set; }
-        public string? Section { get; set; }
+        public int Id { get; set; }
+        [Required]
+        public string StudentId { get; set; } = string.Empty;
+        [Required]
+        public string StudentName { get; set; } = string.Empty;
+        [Required]
+        public int YearLevel { get; set; }
+        [Required]
+        public string Section { get; set; } = string.Empty;
+        [Required]
         public int YearStart { get; set; }
         public int? YearEnd { get; set; }
-        public string? SchoolEmail { get; set; }        
-        public string? PersonalEmail { get; set; }        
-        public string? PortfolioUrl { get; set; }        
-        public string? ProfilePicture { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-        public int UserId { get; set; }        
-        [JsonIgnore]
-        public StudentUser? StudentUser { get; set; }        
+        [Required]
+        public string SchoolEmail { get; set; } = string.Empty;
+        public string PersonalEmail { get; set; } = string.Empty;
+        public string PortfolioUrl { get; set; } = string.Empty;
+        public string AttachedResume { get; set; } = string.Empty;
+        public string CreatedBy { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public string LastModifiedBy { get; set; } = string.Empty;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        [Required]
+        public int UserId { get; set; }
+        [Required]
+        public int CourseId { get; set; }
+
     }
 }

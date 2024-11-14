@@ -30,7 +30,7 @@ namespace ThesisStudentPortfolio2024.Repositories
         }
         async Task<bool> IStudentDetailRepository.UpdateStudentDetailAsync(StudentDetail studentDetail)
         {
-            var eStudentDetail = await _context.StudentDetails.FindAsync(studentDetail.UserId);
+            var eStudentDetail = await _context.StudentDetails.SingleOrDefaultAsync( x => x.UserId == studentDetail.UserId);
 
             if (eStudentDetail == null)
             {
@@ -40,12 +40,11 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             // Update fields (you can add any other fields you want to update)            
             eStudentDetail.StudentId = studentDetail.StudentId;
-            eStudentDetail.Name = studentDetail.Name;            
-            eStudentDetail.Course = studentDetail.Course;
+            eStudentDetail.StudentName = studentDetail.StudentName;            
+            eStudentDetail.CourseId = studentDetail.CourseId;
             eStudentDetail.SchoolEmail = studentDetail.SchoolEmail;
             eStudentDetail.PersonalEmail = studentDetail.PersonalEmail;
-            eStudentDetail.PortfolioUrl = studentDetail.PortfolioUrl;
-            eStudentDetail.ProfilePicture = studentDetail.ProfilePicture;
+            eStudentDetail.AttachedResume = studentDetail.AttachedResume;
             eStudentDetail.LastModifiedDate = DateTime.Now;
 
             // Save changes to the database
@@ -55,6 +54,11 @@ namespace ThesisStudentPortfolio2024.Repositories
         async Task<StudentDetail?> IStudentDetailRepository.GetStudentDetailByUserIdAsync(int userId)
         {
             return await _context.StudentDetails.SingleOrDefaultAsync(x => x.UserId == userId);
+        }
+
+        async Task<IEnumerable<StudentDetail>?> IStudentDetailRepository.GetStudentsDetailAsync()
+        {
+            return await _context.StudentDetails.ToListAsync();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ThesisStudentPortfolio2024.Models;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Services;
 
@@ -15,19 +15,47 @@ namespace ThesisStudentPortfolio2024.Controllers
         {
             _announcementService = announcementService;
         }
+        
+        [Authorize]
+        [HttpGet("bydate")]
+        public async Task<IActionResult> GetAnnouncementsAsync([FromQuery] PaginationParamsDto paginationParamsDto, [FromQuery] DateTime currentDate)
+        {
+            var pagedResult = await _announcementService.GetAnnouncementsWithDetailsAsync(paginationParamsDto, currentDate);
+
+            return Ok(pagedResult);
+        }
 
         [Authorize]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAnnouncementByIdAsync(int id)
+        [HttpGet("seminars/byyear")]
+        public async Task<IActionResult> GetSeminarsByYearAsync([FromQuery] PaginationParamsDto paginationParamsDto, [FromQuery] int selectedYear)
         {
-            var pagedResult = await _announcementService.GetAnnouncementByIdAsync(id);
+            var pagedResult = await _announcementService.GetSeminarsAsync(paginationParamsDto, selectedYear);
+
             return Ok(pagedResult);
-        }        
+        }
+
+        [Authorize]
+        [HttpGet("seminars/bysearch")]
+        public async Task<IActionResult> GetSeminarsBySearchAsync([FromQuery] PaginationParamsDto paginationParamsDto, [FromQuery] string searchValue)
+        {
+            var pagedResult = await _announcementService.GetSeminarsBySearchAsync(paginationParamsDto, searchValue);
+
+            return Ok(pagedResult);
+        }
+
+        [Authorize]
+        [HttpGet("seminar/attendees")]
+        public async Task<IActionResult> GetSeminarAttendeesAsync([FromQuery] PaginationParamsDto paginationParamsDto, [FromQuery] int announcementId)
+        {
+            var pagedResult = await _announcementService.GetSeminarAttendeesAsync(paginationParamsDto, announcementId);
+
+            return Ok(pagedResult);
+        }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddAnnouncementAsync([FromForm] AnnouncementDTO announcementDTO)
-        {           
+        public async Task<IActionResult> AddAnnouncementAsync([FromForm] AnnouncementDto announcementDTO)
+        {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -41,7 +69,7 @@ namespace ThesisStudentPortfolio2024.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
         [Authorize]
@@ -57,37 +85,30 @@ namespace ThesisStudentPortfolio2024.Controllers
             return Ok("Success");
         }
 
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetAnnouncementsAsync([FromQuery] PaginationParams paginationParams)
-        {
-            var pagedResult = await _announcementService.GetAllAnnouncementAsync(paginationParams);
-            return Ok(pagedResult);
-        }
 
         [Authorize]
-        [HttpGet("ByDate/{currentDate}")]
-        public async Task<IActionResult> GetAnnouncementsByDateAsync([FromQuery] PaginationParams paginationParams, DateTime currentDate)
+        [HttpPost("addseminarattendee")]
+        public async Task<IActionResult> AddSeminarAttendeeAsync([FromQuery] int announcementId, [FromQuery] int userId)
         {
-            var pagedResult = await _announcementService.GetAnnouncementByDateAsync(paginationParams, currentDate);
-            return Ok(pagedResult);
-        }
-
-        [Authorize]
-        [HttpPost("AddAttendee")]
-        public async Task<IActionResult> AddAnnouncementAttendeeAsync([FromBody] AnnouncementAttendee announcementAttendee)
-        {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                bool checkUserId = await _announcementService.CheckSeminarAttendeeAsync(announcementId, userId);
+                if (!checkUserId)
+                {
+                    var createdAnnouncemnet = await _announcementService.AddSeminarAttendeeAsync(announcementId, userId);
+                    return Ok("Success");
+                }
+                else {
+                    return Ok("AlreadyRegistered");
+                }                                
             }
-            var createdAnnouncemnet = await _announcementService.AddAnnouncementAttendeeAsync(announcementAttendee);
-
-            return Ok("Success");
+            catch (Exception ex){ 
+                return BadRequest(ex.Message);            
+            }            
         }
 
         [Authorize]
-        [HttpPost("AddDetail")]
+        [HttpPost("adddetail")]
         public async Task<IActionResult> AddAnnouncementDetailAsync([FromBody] AnnouncementDetail announcementDetail)
         {
             if (!ModelState.IsValid)
@@ -100,7 +121,7 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPut("UpdateAttendee")]
+        [HttpPut("updateattendee")]
         public async Task<IActionResult> UpdateAnnouncementAttendeeAsync([FromBody] AnnouncementAttendee announcementAttendee)
         {
             if (!ModelState.IsValid)
@@ -108,21 +129,7 @@ namespace ThesisStudentPortfolio2024.Controllers
                 return BadRequest(ModelState);
             }
             var updatedAnnouncemnet = await _announcementService.UpdateAnnouncementAttendeeAsync(announcementAttendee);
-
             return Ok("Success");
-        }
-
-        [Authorize]
-        [HttpPut("DeleteDetail")]
-        public async Task<IActionResult> DeleteAnnouncementDetailAsync([FromBody] AnnouncementDetail announcementDetail)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var updatedAnnouncemnet = await _announcementService.DeleteAnnouncementDetailAsync(announcementDetail);
-
-            return Ok("Success");
-        }
+        }       
     }
 }

@@ -34,12 +34,12 @@ options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Scoped lifetime is often used for repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAnnouncementRepository<Announcement>, AnnouncementRepository>();
+builder.Services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentInformationRepository, StudentInformationRepository>();
 builder.Services.AddScoped<IStudentDetailRepository, StudentDetailRepository>();
-builder.Services.AddScoped<IStudentSeminarRepository<StudentSeminar>, StudentSeminarRepository>();
+builder.Services.AddScoped<IStudentSeminarRepository, StudentSeminarRepository>();
 builder.Services.AddScoped<IStudentSkillRepository, StudentSkillRepository>();
 builder.Services.AddScoped<IStudentSubjectTakenRepository, StudentSubjectTakenRepository>();
 
@@ -49,7 +49,7 @@ builder.Services.AddScoped<AnnouncementService>();
 builder.Services.AddScoped<SubjectService>();
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<CourseService>();
-
+builder.Services.AddSingleton<CareerPredictionService>();
 
 // Singeleton 
 string? encryptionKey = builder.Configuration["EncryptionSettings:Key"];

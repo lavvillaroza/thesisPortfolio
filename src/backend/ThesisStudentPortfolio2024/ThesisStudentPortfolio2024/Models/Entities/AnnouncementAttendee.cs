@@ -7,15 +7,15 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     public class AnnouncementAttendee
     {
         [Key]
-        public int Id { get; set; }        
-        public short StudentAttendanceStatus { get; set; } //0 = To confirm, 1 = Registered, 2 = Absent, 3 = Attended
-        public DateTime CreatedDate { get; set; }
-        public required string LastModifiedBy { get; set; }
-        public DateTime LastModifiedDate { get; set; }
+        public int Id { get; set; }
+        [Required]
+        public int StudentAttendanceStatus { get; set; } //1 = Registered, 2 = Absent, 3 = Attended                
+        [Required]
         public int AnnouncementId { get; set; }
-        public int UserId { get; set; }
-        [JsonIgnore]
-        public Announcement? Announcement { get; set; }
-        public StudentUser StudentUser { get; set; }
+        [Required]
+        public int StudentUserId { get; set; }        
+        [Required]
+        public string LastModifiedBy { get; set; } = string.Empty;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;        
     }
 }

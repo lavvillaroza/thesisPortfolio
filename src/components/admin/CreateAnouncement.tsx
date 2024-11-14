@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import 'flowbite/dist/flowbite.css';
 import 'flowbite/dist/flowbite.js';
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import SideNavbar from './SideNavbar';
 import HeaderNew from './Header';
+import { addAnnouncement } from '../../api/announcementApi';
+import CustomToast from '../common/CustomToast';
 
-const API_URL = "https://localhost:5050/api/Announcement"; // Adjust the URL as needed
-
-const CreateAnouncement: React.FC = () => {
-
+const CreateAnouncement: React.FC = () => {    
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [formattedDate, setFormattedDate] = useState<Date | null>(null);
+  
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');    
     const [images, setImages] = useState<File[]>([]); // Array to handle multiple images
@@ -50,7 +48,7 @@ const CreateAnouncement: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     
-        const user = localStorage.getItem('userDetails');                
+        const user = localStorage.getItem('userDetails');
         // Combine date with start and end times
         const dateTimeFrom = new Date(
             `${formattedDate?.toLocaleDateString()} ${startTime}`
@@ -58,48 +56,33 @@ const CreateAnouncement: React.FC = () => {
         const dateTimeTo = new Date(
             `${formattedDate?.toLocaleDateString()} ${endTime}`
         );
-
-        console.log(dateTimeFrom);
-        console.log(dateTimeTo);
-        console.log(dateTimeFrom.toLocaleString());
-        console.log(dateTimeTo.toLocaleString());
+    
         const formData = new FormData();
+        formData.append('id', '0');
         formData.append('title', title);
         formData.append('description', description);
         formData.append('dateTimeFrom', dateTimeFrom.toLocaleString());
         formData.append('dateTimeTo', dateTimeTo.toLocaleString());
-        formData.append('announcementType', announcementType.toString());        
-        if(user) {
+        formData.append('announcementType', announcementType.toString());
+        
+        if (user) {
             const userParse = JSON.parse(user);
-            formData.append('createdBy', userParse.username);    
-        }
-        else {
-            formData.append('createdBy', '');    
+            formData.append('createdBy', userParse.username);
+            formData.append('lastModifiedBy', userParse.username);
+        } else {
+            formData.append('createdBy', '');
+            formData.append('lastModifiedBy', '');
         }
         images.forEach((image) => {
             formData.append('Images', image);
         });
-
+    
         try {
-            const jwtToken = Cookies.get('jwtToken');
-            if (!jwtToken) {
-                alert('Please log in.');
-                return;
-            }
-
-            formData.forEach((value, key) => {
-                console.log(key, value);
-            });
-            console.log(Cookies.get('jwtToken'));            
-            await axios.post(`${API_URL}`, formData, {
-                headers: {                    
-                    Authorization: `Bearer ${jwtToken}`,
-                },
-            });
+            await addAnnouncement(formData); // Call the new API function
             setToastMessage('Announcement added successfully!');
             setToastType('success');
             setShowToast(true);
-
+    
             // Reset the form
             setTitle('');
             setDescription('');
@@ -108,14 +91,13 @@ const CreateAnouncement: React.FC = () => {
             setImagePreviews([]);
             setStartTime('09:00');
             setEndTime('18:00');
-
         } catch (error) {
             setToastMessage('Error adding announcement.');
             setToastType('error');
             setShowToast(true);
             console.error('Error adding announcement:', error);
         } finally {
-            // Hide toast after 3 seconds
+            // Hide toast after 8 seconds
             setTimeout(() => {
                 setShowToast(false);
             }, 8000);
@@ -159,18 +141,18 @@ const CreateAnouncement: React.FC = () => {
     }, [selectedDate]);
 
     return (
-        <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
+        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
             <div className="flex-1 m-auto">
                 <HeaderNew/>
                 <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
                     <SideNavbar/>
-                    <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
+                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                         <div className="h-[60px] p-4">
                             <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">NEW ANNOUNCEMENT</h5>                        
                         </div>                         
                         <form onSubmit={handleSubmit}>
                             <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
-                                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">                                
+                                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
                                     <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-1 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
                                         <div className="flex justify-between">
                                             <label htmlFor="title" className="block mb-2 text-lg font-bold text-gray-900 dark:text-white">Subject/Title</label>                                                                                        
@@ -244,8 +226,7 @@ const CreateAnouncement: React.FC = () => {
                                                             setStartTime('09:00'); // Reset start time
                                                             setEndTime('18:00');   // Reset end time
                                                         }}
-                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900"
-                                                    >
+                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900">
                                                         Clear
                                                     </button>
                                                 </div>                                                                                        
@@ -285,8 +266,8 @@ const CreateAnouncement: React.FC = () => {
                                         
                                     </div>
                                 </div>
-                                <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-200 p-1 flex justify-center items-start rounded transition-all duration-200">
-                                    <div className="relative w-full max-w-xs h-auto overflow-hidden bg-white rounded-md my-5">                                    
+                                <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-100 p-1 flex justify-center items-start rounded transition-all duration-200">
+                                    <div className="relative w-full max-w-xs h-auto overflow-hidden rounded-md my-5">                                    
                                         <div className = "flex justify-center" id="inline-calendar"></div> {/* The calendar will be rendered here */}
                                             {/* Display the selected date */}
                                             {/* Hidden input field to hold the selected date */}
@@ -296,7 +277,7 @@ const CreateAnouncement: React.FC = () => {
                                             value={formattedDate ? formattedDate.toISOString().slice(0, 10) : ''}
                                             name="date"/>                                        
                                         <div className="p-5 w-full max-w-xs h-full m-auto">                                        
-                                            <div>
+                                            <div className="mb-5">
                                                 <label htmlFor="start-time" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select start-time:</label>
                                                 <div className="flex">
                                                     <input type="time" 
@@ -312,7 +293,7 @@ const CreateAnouncement: React.FC = () => {
                                                     </span>
                                                 </div>                                               
                                             </div>
-                                            <div>
+                                            <div className="mb-5">
                                                 <label htmlFor="end-time" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select end-time:</label>
                                                 <div className="flex">
                                                     <input type="time" id="end-time" className="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"                                                         
@@ -329,74 +310,19 @@ const CreateAnouncement: React.FC = () => {
                                         </div>
                                     </div>                                    
                                 </div>
-                            </div> 
-                            {/* Toast notification */}
-                            {showToast && (
-                                <div
-                                    className={`fixed bottom-5 right-5 z-50 flex items-center p-4 max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 ${
-                                        toastType === 'success' ? 'border-green-600' : 'border-red-600'
-                                    }`}
-                                    role="alert"
-                                >
-                                    <div
-                                        className={`inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-white ${
-                                            toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
-                                        } rounded-lg`}
-                                    >
-                                        {toastType === 'success' ? (
-                                            <svg
-                                                className="w-5 h-5"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.293-4.293a1 1 0 111.414-1.414L10 13.414l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-1.293-1.293z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        ) : (
-                                            <svg
-                                                className="w-5 h-5"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M18 10c0-4.418-3.582-8-8-8S2 5.582 2 10s3.582 8 8 8 8-3.582 8-8zm-8-4a1 1 0 00-1 1v3.586L7.707 7.293a1 1 0 10-1.414 1.414L9.586 12l-3.293 3.293a1 1 0 101.414 1.414L10 13.414V17a1 1 0 102 0v-3.586l2.293 2.293a1 1 0 001.414-1.414L12.414 12l3.293-3.293a1 1 0 00-1.414-1.414L11 9.586V6a1 1 0 00-1-1z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        )}
-                                    </div>
-                                    <div className="ml-3 text-sm font-normal">{toastMessage}</div>
-                                    <button
-                                        onClick={() => setShowToast(false)}
-                                        className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700"
-                                        aria-label="Close"
-                                    >
-                                        <span className="sr-only">Close</span>
-                                        <svg
-                                            className="w-5 h-5"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                    </button>
-                                </div>
-                            )}
+                            </div>
+                                                    
                         </form>
                     </main>
                 </div>               
             </div>
+            {showToast && (
+            <CustomToast
+                message={toastMessage}
+                type={toastType}
+                onClose={() => setShowToast(false)}
+                />
+            )}
         </div>
     );
 };

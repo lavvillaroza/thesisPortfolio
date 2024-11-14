@@ -1,9 +1,13 @@
-import { StudentInformationDetailModel } from "./StudentInformationDetailModel";
-
 export interface StudentInformationModel {
     id: number;
     aboutMe: string;
-    studentInformationDetail: StudentInformationDetailModel[];
-    createdDate: string;   
-    lastModifiedDate: string;    
+    userId: number;
+    coverPhotoOne: string;
+    coverPhotoTwo: string;
+    coverPhotoThree: string;
+    coverPhotoFour: string;
+    coverPhotoOneFile: File | null; 
+    coverPhotoTwoFile: File | null; 
+    coverPhotoThreeFile: File | null; 
+    coverPhotoFourFile: File | null;     
   }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System;
+using System.Buffers;
 using ThesisStudentPortfolio2024.Data;
-using ThesisStudentPortfolio2024.Models;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 
 namespace ThesisStudentPortfolio2024.Repositories
@@ -16,58 +18,28 @@ namespace ThesisStudentPortfolio2024.Repositories
         }
         
         //All
-        async Task<List<AdminUser>> IUserRepository.GetAllAdminUserAsync()
-        {
+        async Task<List<AdminUser>> IUserRepository.GetAdminsAsync()
+        {            
             return await _context.AdminUsers.ToListAsync();
         }
-        async Task<List<StudentUser>> IUserRepository.GetAllStudentUserAsync()
-        {            
-            return await _context.StudentUsers.ToListAsync();
-        }
-        async Task<PagedResult<StudentUser>> IUserRepository.GetAllStudentUserByPagedAsync(PaginationParams paginationParams)
+        async Task<List<StudentDetail>> IUserRepository.GetStudentsAsync()
         {
-            var query = _context.StudentUsers
-                        .Include(a => a.StudentDetail)
-                        .AsQueryable();
-
-            var totalCount = await query.CountAsync();
-            var studentUsers = await query
-                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
-                .Take(paginationParams.PageSize)
-                .ToListAsync();
-
-            return new PagedResult<StudentUser>
+            try
             {
-                Items = studentUsers,
-                TotalCount = totalCount,
-                PageNumber = paginationParams.PageNumber,
-                PageSize = paginationParams.PageSize
-            };
+                var students = await _context.StudentDetails.ToListAsync();
+                return students;
+            }
+            catch (Exception x) { 
+                Console.WriteLine(x.Message);
+                return new List<StudentDetail>();
+            }
+                  
         }
+        
         //Admin
         async Task<AdminUser?> IUserRepository.GetAdminUserByIdAsync(int id)
         {
             return await _context.AdminUsers.SingleOrDefaultAsync(u => u.UserId == id);
-        }
-
-        async Task<PagedResult<AdminUser>> IUserRepository.GetAllAdminUserByPagedAsync(PaginationParams paginationParams)
-        {
-            var query = _context.AdminUsers                        
-                        .AsQueryable();
-
-            var totalCount = await query.CountAsync();
-            var admintUsers = await query
-                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
-                .Take(paginationParams.PageSize)
-                .ToListAsync();
-
-            return new PagedResult<AdminUser>
-            {
-                Items = admintUsers,
-                TotalCount = totalCount,
-                PageNumber = paginationParams.PageNumber,
-                PageSize = paginationParams.PageSize
-            };
         }
 
         async Task<bool> IUserRepository.AddAdminUserAsync(AdminUser user)
@@ -98,13 +70,10 @@ namespace ThesisStudentPortfolio2024.Repositories
             // Update fields (you can add any other fields you want to update)
             existingUser.Name = user.Name;            
             existingUser.Position = user.Position;
-            existingUser.Email = user.Email;
-            existingUser.UserName = user.UserName;
-            existingUser.Password = user.Password;
-            existingUser.Deleted = user.Deleted;
-            existingUser.Version = user.Version;
+            existingUser.SchoolEmail = user.SchoolEmail;            
+            existingUser.Version = existingUser.Version + 1;
             existingUser.LastModifiedBy = user.LastModifiedBy;
-            existingUser.LastModifiedDate = user.LastModifiedDate;
+            existingUser.LastModifiedDate = DateTime.Now;
 
             // Save changes to the database
             await _context.SaveChangesAsync();
@@ -119,13 +88,18 @@ namespace ThesisStudentPortfolio2024.Repositories
         }
 
         //Student
-        async Task<bool> IUserRepository.AddStudentUserAsync(StudentUser user)
+        async Task<bool> IUserRepository.AddStudentUserAsync(StudentUser user, StudentDetail userDetail)
         {
             bool ret = false;
             try
             {
                 await _context.StudentUsers.AddAsync(user);
                 await _context.SaveChangesAsync();
+
+                userDetail.UserId = user.UserId;
+                await _context.StudentDetails.AddAsync(userDetail);
+                await _context.SaveChangesAsync();
+
                 ret = true;
             }
             catch (Exception ex)
@@ -146,8 +120,8 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             // Update fields (you can add any other fields you want to update)
             existingUser.StudentId = user.StudentId;
-            existingUser.Name = user.Name;            
-            existingUser.Course = user.Course;
+            existingUser.StudentName = user.StudentName;            
+            existingUser.CourseId = user.CourseId;
             existingUser.SchoolEmail = user.SchoolEmail;
             existingUser.PersonalEmail = user.PersonalEmail;
             existingUser.LastModifiedDate = DateTime.Now;
@@ -164,6 +138,14 @@ namespace ThesisStudentPortfolio2024.Repositories
         async Task<StudentUser?> IUserRepository.GetStudentUserByUsernameAsync(string username)
         {
             return await _context.StudentUsers.SingleOrDefaultAsync(u => u.UserName == username);
+        }
+
+        async Task<List<StudentDetail>> IUserRepository.GetStudentsBySearchAsync(string searchValue)
+        {
+            var students = await _context.StudentDetails
+                                .Where(x => EF.Functions.Like(x.StudentName, $"%{searchValue}%"))                                
+                                .ToListAsync();
+            return students;
         }
     }
 }

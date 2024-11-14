@@ -7,7 +7,6 @@ export interface StudentSeminarModel {
     timeAttended: string;
     reflection: string;
     seminarType: number;
-    deleted: number;
     createdDate: string;
     lastModifiedDate: string;    
   }

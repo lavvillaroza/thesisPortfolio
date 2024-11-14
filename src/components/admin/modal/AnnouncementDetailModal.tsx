@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AnnouncementModel } from '../../../models/AnnouncementModel';
 import { RiMegaphoneFill } from "react-icons/ri";
+import { BASE_URL } from '../../../api/apiConfig';
 
 const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = ({ announcement }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,15 +17,14 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
 
     const prevImage = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + announcement.announcementDetails.length) % announcement.announcementDetails.length);
-    };
-    const imageUrl = "https://localhost:5050/";
-    console.log(JSON.stringify(announcement));
+    };    
+    
     return (
         <>
             <button onClick={openModal} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800">Read More...</button>
 
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
+                <div className="fixed inset-0 z-20 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50 ">
                     <div className="relative w-full max-w-2xl my-5 md:max-w-3xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
                         {/* Modal header */}
                         <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -64,7 +64,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                                                 <div
                                                     key={index}
                                                     className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
-                                                    <img src={imageUrl + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-cover" />
+                                                    <img src={BASE_URL + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-cover" />
                                                 </div>
                                             ))}
                                         </div>

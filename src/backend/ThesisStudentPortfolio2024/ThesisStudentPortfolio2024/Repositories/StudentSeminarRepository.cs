@@ -2,12 +2,12 @@
 using Serilog;
 using System;
 using ThesisStudentPortfolio2024.Data;
-using ThesisStudentPortfolio2024.Models;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 
 namespace ThesisStudentPortfolio2024.Repositories
 {
-    public class StudentSeminarRepository : IStudentSeminarRepository<StudentSeminar>
+    public class StudentSeminarRepository : IStudentSeminarRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -16,7 +16,7 @@ namespace ThesisStudentPortfolio2024.Repositories
             _context = context;
         }
 
-        async Task<bool> IStudentSeminarRepository<StudentSeminar>.AddStudentSeminartAsync(StudentSeminar studentSeminar)
+        async Task<bool> IStudentSeminarRepository.AddStudentSeminartAsync(StudentSeminar studentSeminar)
         {
             bool ret = false;
             try
@@ -32,7 +32,7 @@ namespace ThesisStudentPortfolio2024.Repositories
             return ret;
         }
 
-        async Task<bool> IStudentSeminarRepository<StudentSeminar>.UpdateStudentSeminarAsync(StudentSeminar studentSeminar)
+        async Task<bool> IStudentSeminarRepository.UpdateStudentSeminarAsync(StudentSeminar studentSeminar)
         {
             var existingStudentSeminar = await _context.StudentSeminars.FindAsync(studentSeminar.Id);
 
@@ -44,11 +44,10 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             // Update fields (you can add any other fields you want to update)            
             existingStudentSeminar.Title = studentSeminar.Title;            
-            existingStudentSeminar.DateAttendedFrom = studentSeminar.DateAttendedFrom;
-            existingStudentSeminar.DateAttendedTo = studentSeminar.DateAttendedTo;
-            existingStudentSeminar.TimeAttended = studentSeminar.TimeAttended;
+            existingStudentSeminar.DateAttended = studentSeminar.DateAttended;
+            existingStudentSeminar.TimeStart = studentSeminar.TimeStart;
+            existingStudentSeminar.TimeEnd = studentSeminar.TimeEnd;
             existingStudentSeminar.Reflection = studentSeminar.Reflection;
-            existingStudentSeminar.Deleted = studentSeminar.Deleted;
             existingStudentSeminar.LastModifiedDate = DateTime.Now;
 
             // Save changes to the database
@@ -57,22 +56,11 @@ namespace ThesisStudentPortfolio2024.Repositories
             return true;
         }
 
-        async Task<PagedResult<StudentSeminar>> IStudentSeminarRepository<StudentSeminar>.GetStudentSeminarByStudentIdAsync(PaginationParams paginationParams, int userId)
+        async Task<ICollection<StudentSeminar>> IStudentSeminarRepository.GetStudentSeminarByStudentIdAsync(int userId)
         {
-            var query = _context.StudentSeminars.Where(x => x.UserId == userId).AsQueryable();
-            var totalCount = await query.CountAsync();
-            var studSeminars = await query
-                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
-                .Take(paginationParams.PageSize)
-                .ToListAsync();
-
-            return new PagedResult<StudentSeminar>
-            {
-                Items = studSeminars,
-                TotalCount = totalCount,
-                PageNumber = paginationParams.PageNumber,
-                PageSize = paginationParams.PageSize
-            };
+            var result = await _context.StudentSeminars.Where(x => x.UserId == userId).ToListAsync();
+            
+            return result;
         }
     }
 }

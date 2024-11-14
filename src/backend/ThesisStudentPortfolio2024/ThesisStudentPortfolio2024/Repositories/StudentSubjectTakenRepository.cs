@@ -46,9 +46,9 @@ namespace ThesisStudentPortfolio2024.Repositories
             return ret;
         }
 
-        async Task<List<StudentSubjectTaken>> IStudentSubjectTakenRepository.GetAllStudentSubjetTakenByUser(int userId, int year)
+        async Task<List<StudentSubjectTaken>> IStudentSubjectTakenRepository.GetAllStudentSubjetTakenByUser(int userId)
         {
-            return await _context.StudentSubjectsTaken.Where(x => x.UserId == userId && x.Subject.Year == year).ToListAsync();
+            return await _context.StudentSubjectsTaken.Where(x => x.UserId == userId).ToListAsync();
         }
     }
 }

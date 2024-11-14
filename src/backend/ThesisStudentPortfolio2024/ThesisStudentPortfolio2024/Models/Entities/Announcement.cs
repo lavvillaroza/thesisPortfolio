@@ -5,18 +5,23 @@ namespace ThesisStudentPortfolio2024.Models.Entities
     public class Announcement
     {
         [Key]
-        public int Id { get; set; }        
-        public required string Title { get; set; }        
-        public required string Description { get; set; }        
-        public DateTime DateTimeFrom {  get; set; }        
-        public DateTime DateTimeTo { get; set; }        
-        public short AnnouncementType { get; set; } //0 = Event Announcement, 1 = FYI Announcement, 2 = Seminar Announcemnet
-        public required string CreatedBy { get; set; }        
-        public DateTime CreatedDate { get; set; }        
-        public required string LastModifiedBy { get; set; }        
-        public DateTime LastModifiedDate { get; set; }
-        public ICollection<AnnouncementAttendee>? AnnouncementAttendees { get; set; }
-        public ICollection<AnnouncementDetail>? AnnouncementDetails { get; set;}
-
+        public int Id { get; set; }
+        [Required]
+        public string Title { get; set; } = string.Empty;
+        [Required]
+        public string Description { get; set; } = string.Empty;
+        [Required]
+        public DateTime DateTimeFrom { get; set; } = DateTime.Now;
+        [Required]
+        public DateTime DateTimeTo { get; set; } = DateTime.Now;
+        [Required]
+        public int AnnouncementType { get; set; } //0 = Announcement, 1 = Seminar
+        [Required]
+        public string CreatedBy { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        [Required]
+        public string LastModifiedBy { get; set; } = string.Empty;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public int Delete { get; set; } = 0;
     }
 }

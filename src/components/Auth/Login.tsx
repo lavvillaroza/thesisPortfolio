@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import courseLogo from '../../assets/compsci2.png';
 import schoolLogo from '../../assets/pasigIcon.jpg';
-import { useAuth } from '../context/AuthContext'; // Import useAuth
+import { useAuth } from '../../context/AuthContext'; // Import useAuth
 import 'flowbite';
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
@@ -34,7 +34,7 @@ const Login: React.FC = () => {
               navigate('/');
             } else {
               // Token is valid, navigate based on user type
-              navigate(user.usertype === 1 ? '/admin' : '/student');
+              navigate(user.usertype === 1 ? '/admin' : '/student/portfolio');
             }
           } catch (error) {
             // If there is an error decoding the token, log out the user
@@ -57,28 +57,28 @@ const Login: React.FC = () => {
         const usertype = isAdmin ? 1 : 0; // Determine user type
         await login({ username, password, usertype });
         // Redirect based on user type after successful login
-        navigate(usertype === 1 ? '/admin' : '/student');
+        navigate(usertype === 1 ? '/admin' : '/student/portfolio');
       } catch (error) {
         setError("Invalid credentials or login failed");
       }
     };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-200">
-      <div className="max-w-md w-full flex justify-self-start m-4 ">
-        <div className="w-24 h-24 rounded-full overflow-hidden ">
-          <img src={schoolLogo} alt="" className="w-full h-full object-cover" />
+    <div className="font-roboto flex flex-col min-h-screen bg-gray-200">
+      <div className="flex justify-start m-5">
+        <div className="w-36 h-36 rounded-full overflow-hidden bg-gray-50">
+          <img src={schoolLogo} alt="" className="w-full h-full object-scale-down" />
         </div>
       </div>
-      <div className="flex justify-center mb-4">
-        <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-50">
-          <img src={courseLogo} alt="" className="w-full h-full object-fill" />
+      <div className="flex justify-center m-5">
+        <div className="w-28 h-28 rounded-full overflow-hidden bg-gray-50 border border-blue-500">
+        <img src={courseLogo} alt="" className="w-full h-full object-scale-down" />
         </div>
       </div>
       <div className='flex justify-center mb-4 drop-shadow-lg'>
-        <div className="max-w-md w-full space-y-10 bg-white padd p-8 rounded-lg">
+        <div className="max-w-md w-full space-y-10 bg-white padd p-8 rounded">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Log In Account</h2>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Log In</h2>
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
@@ -176,8 +176,7 @@ const Login: React.FC = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-black hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-50"
-              >
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-green-700 bg-gradient-to-br from-emerald-600 hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-50">
                 Sign in
               </button>
             </div>

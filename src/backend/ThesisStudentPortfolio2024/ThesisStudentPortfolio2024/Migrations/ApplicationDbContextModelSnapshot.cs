@@ -17,7 +17,7 @@ namespace ThesisStudentPortfolio2024.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -37,14 +37,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Deleted")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -61,6 +53,10 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SchoolEmail")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -84,8 +80,8 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<short>("AnnouncementType")
-                        .HasColumnType("smallint");
+                    b.Property<int>("AnnouncementType")
+                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -99,6 +95,9 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     b.Property<DateTime>("DateTimeTo")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Delete")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -131,9 +130,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<int>("AnnouncementId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -141,20 +137,13 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<short>("StudentAttendanceStatus")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("StudentUserUserId")
+                    b.Property<int>("StudentAttendanceStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("StudentUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AnnouncementId");
-
-                    b.HasIndex("StudentUserUserId");
 
                     b.ToTable("AnnouncementAttendees");
                 });
@@ -180,8 +169,6 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnnouncementId");
-
                     b.ToTable("AnnouncementDetails");
                 });
 
@@ -204,14 +191,16 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("LastModifiedBy")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
@@ -235,10 +224,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Deleted")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
-
                     b.Property<string>("SkillName")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -256,8 +241,8 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<short>("CertRecogType")
-                        .HasColumnType("smallint");
+                    b.Property<int>("CertRecogType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -275,8 +260,6 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("StudentCertifsAndRecogs");
                 });
 
@@ -288,31 +271,49 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Course")
+                    b.Property<string>("AttachedResume")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("PersonalEmail")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PortfolioUrl")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("SchoolEmail")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Section")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("StudentName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("UserId")
@@ -321,16 +322,13 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<int?>("YearEnd")
                         .HasColumnType("int");
 
-                    b.Property<string>("YearLevel")
-                        .HasColumnType("longtext");
+                    b.Property<int>("YearLevel")
+                        .HasColumnType("int");
 
                     b.Property<int>("YearStart")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("StudentDetails");
                 });
@@ -347,8 +345,17 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CoverPhotoFour")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CoverPhotoOne")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CoverPhotoThree")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CoverPhotoTwo")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
@@ -358,31 +365,7 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("StudentInformations");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentInformationDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CoverPhoto")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("StudentInformationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentInformationId");
-
-                    b.ToTable("StudentInformationDetails");
                 });
 
             modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentSeminar", b =>
@@ -396,15 +379,8 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateAttendedFrom")
+                    b.Property<DateTime>("DateAttended")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("DateAttendedTo")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Deleted")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
 
                     b.Property<string>("Facilitator")
                         .IsRequired()
@@ -419,8 +395,13 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<short>("SeminarType")
                         .HasColumnType("smallint");
 
-                    b.Property<DateTime>("TimeAttended")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("TimeEnd")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TimeStart")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -430,8 +411,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("StudentSeminars");
                 });
@@ -447,10 +426,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Deleted")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
-
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
@@ -461,10 +436,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SkillId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("StudentSkills");
                 });
@@ -480,10 +451,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Deleted")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
-
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
 
@@ -494,10 +461,6 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("StudentSubjectsTaken");
                 });
@@ -516,10 +479,6 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Deleted")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
 
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
@@ -576,6 +535,7 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("Prereq")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("SubjectDescription")
@@ -586,13 +546,7 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<short>("Term")
-                        .HasColumnType("smallint");
-
                     b.Property<short>("Units")
-                        .HasColumnType("smallint");
-
-                    b.Property<short>("Year")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
@@ -616,192 +570,7 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("SubjectDetail");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.AnnouncementAttendee", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.Announcement", "Announcement")
-                        .WithMany("AnnouncementAttendees")
-                        .HasForeignKey("AnnouncementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentUser", "StudentUser")
-                        .WithMany()
-                        .HasForeignKey("StudentUserUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Announcement");
-
-                    b.Navigation("StudentUser");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.AnnouncementDetail", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.Announcement", "Announcement")
-                        .WithMany("AnnouncementDetails")
-                        .HasForeignKey("AnnouncementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Announcement");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentCertAndRecog", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentUser", "StudentUser")
-                        .WithMany("StudentCertAndRecogs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentUser");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentDetail", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentUser", "StudentUser")
-                        .WithOne("StudentDetail")
-                        .HasForeignKey("ThesisStudentPortfolio2024.Models.Entities.StudentDetail", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentUser");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentInformation", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentUser", "StudentUser")
-                        .WithOne("StudentInformation")
-                        .HasForeignKey("ThesisStudentPortfolio2024.Models.Entities.StudentInformation", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentUser");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentInformationDetail", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentInformation", "StudentInformation")
-                        .WithMany("StudentInformationDetails")
-                        .HasForeignKey("StudentInformationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentInformation");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentSeminar", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentUser", "StudentUser")
-                        .WithMany("StudentSeminars")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentUser");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentSkill", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.Skill", "Skill")
-                        .WithMany("StudentSkills")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentUser", "StudentUser")
-                        .WithMany("StudentSkills")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Skill");
-
-                    b.Navigation("StudentUser");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentSubjectTaken", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.Subject", "Subject")
-                        .WithMany("StudentSubjectTakens")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.StudentUser", "StudentUser")
-                        .WithMany("StudentSubjectTakens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentUser");
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.SubjectDetail", b =>
-                {
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ThesisStudentPortfolio2024.Models.Entities.Subject", "Subject")
-                        .WithMany("SubjectDetails")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.Announcement", b =>
-                {
-                    b.Navigation("AnnouncementAttendees");
-
-                    b.Navigation("AnnouncementDetails");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.Skill", b =>
-                {
-                    b.Navigation("StudentSkills");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentInformation", b =>
-                {
-                    b.Navigation("StudentInformationDetails");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.StudentUser", b =>
-                {
-                    b.Navigation("StudentCertAndRecogs");
-
-                    b.Navigation("StudentDetail");
-
-                    b.Navigation("StudentInformation");
-
-                    b.Navigation("StudentSeminars");
-
-                    b.Navigation("StudentSkills");
-
-                    b.Navigation("StudentSubjectTakens");
-                });
-
-            modelBuilder.Entity("ThesisStudentPortfolio2024.Models.Entities.Subject", b =>
-                {
-                    b.Navigation("StudentSubjectTakens");
-
-                    b.Navigation("SubjectDetails");
+                    b.ToTable("SubjectDetails");
                 });
 #pragma warning restore 612, 618
         }

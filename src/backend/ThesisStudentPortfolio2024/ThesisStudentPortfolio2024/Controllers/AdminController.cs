@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Services;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ThesisStudentPortfolio2024.Controllers
 {
@@ -13,62 +15,123 @@ namespace ThesisStudentPortfolio2024.Controllers
         private readonly StudentService _studentService;
         private readonly AnnouncementService _announcementService;
         private readonly UserService _userService;
+        private readonly EncryptionService _encryptionService;
 
         // Constructor injection for the services
-        public AdminController(StudentService studentService, AnnouncementService announcementService, UserService userService)
+        public AdminController(StudentService studentService, AnnouncementService announcementService, UserService userService, EncryptionService encryptionService)
         {
             _studentService = studentService;
             _announcementService = announcementService;
             _userService = userService;
+            _encryptionService = encryptionService;
         }
 
         [Authorize]
-        [HttpPost("CreateAdminUser")]
-        public async Task<IActionResult> CreateAdminUser([FromBody] AdminUser adminUser)
+        [HttpGet("getadmin")]
+        public async Task<IActionResult> GetAdminUserByIdAsync([FromQuery] int userId)
+        {
+            var studentUsers = await _userService.GetAdminUserByIdAsync(userId);
+            return Ok(studentUsers);
+        }
+
+        [Authorize]
+        [HttpPost("addadmin")]
+        public async Task<IActionResult> AddAdminAsync([FromForm] AdminUserDto adminUser)
         {
             var createuser = await _userService.AddAdminUserAsync(adminUser);
 
             if (createuser)
             {
-                return Ok();
+                return Ok("Success");
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Failed");
             }
         }
 
         [Authorize]
-        [HttpPost("CreateStudentUser")]
-        public async Task<IActionResult> CreateStudentUser([FromBody] StudentUser studentUser)
+        [HttpPost("updateadmin")]
+        public async Task<IActionResult> UpdateAdminAsync([FromForm] AdminUserProfileDto adminUserProfile)
         {
-            var createuser = await _userService.AddStudentUserAsync(studentUser);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var updateuser = await _userService.UpdateAdminUserAsync(adminUserProfile);
 
-            if (createuser)
-            {
-                return Ok();
+                if (updateuser)
+                {
+                    return Ok("Success");
+                }
+                else
+                {
+                    return BadRequest("Failed");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest();
-            }
+                return BadRequest(ex.Message);
+            }            
         }
 
         [Authorize]
-        [HttpGet("GetAdminUsers")]
-        public async Task<IActionResult> GetAdminUsers()
+        [HttpPost("addstudent")]
+        public async Task<IActionResult> AddStudentAsync([FromForm] StudentDetailDto newStudent)
         {
-            var studentUsers = await _userService.GetAllAdminUserAsync();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var createuser = await _userService.AddStudentUserAsync(newStudent);
+                if (createuser)
+                {
+                    return Ok("Success");
+                }
+                else
+                {
+                    return BadRequest("Failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [Authorize]
+        [HttpGet("getadmins")]
+        public async Task<IActionResult> GetAdminUsersAsync([FromQuery] PaginationParamsDto paginationParamsDto)
+        {
+            var studentUsers = await _userService.GetAdminUsersAsync(paginationParamsDto);
             return Ok(studentUsers);
         }
 
 
         [Authorize]
-        [HttpGet("GetStudentUsers")]
-        public async Task<IActionResult> GetStudentUsers()
+        [HttpGet("getstudents")]
+        public async Task<IActionResult> GetStudentUsersAsync([FromQuery] PaginationParamsDto paginationParamsDto)
         {
-            var studentUsers = await _userService.GetAllStudentUserAsync();
+            var studentUsers = await _userService.GetStudentsAsync(paginationParamsDto);
             return Ok(studentUsers);
+        }
+
+        [Authorize]
+        [HttpGet("searchstudents")]
+        public async Task<IActionResult> SearchInStudents([FromQuery] PaginationParamsDto paginationParamsDto, [FromQuery] string searchValue)
+        {
+            if (string.IsNullOrWhiteSpace(searchValue))
+            {
+                var students = await _userService.GetStudentsAsync(paginationParamsDto);
+                return Ok(students);
+            } 
+            var searchStudents = await _userService.GetStudentsAsync(paginationParamsDto, searchValue);
+            return Ok(searchStudents);
         }
 
     }

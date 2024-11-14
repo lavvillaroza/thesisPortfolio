@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
 using ThesisStudentPortfolio2024.Data;
-using ThesisStudentPortfolio2024.Models;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 
 namespace ThesisStudentPortfolio2024.Repositories
 {
-    public class AnnouncementRepository : IAnnouncementRepository<Announcement>
+    public class AnnouncementRepository : IAnnouncementRepository
     {
         private readonly ApplicationDbContext _context;        
         public AnnouncementRepository(ApplicationDbContext context)
@@ -16,14 +16,69 @@ namespace ThesisStudentPortfolio2024.Repositories
             _context = context;
         }
 
-        async Task<bool> IAnnouncementRepository<Announcement>.AddAnnouncementAsync(Announcement announcement)
+        async Task<IEnumerable<Announcement>> IAnnouncementRepository.GetAnnouncementsByDateAsync(DateTime dateTime)
+        {                        
+            var announcements = await _context.Announcements
+                                    .Where(a => a.DateTimeFrom >= dateTime && a.DateTimeTo <= dateTime.AddDays(1) && a.Delete == 0)
+                                    .ToListAsync();
+            return announcements;
+
+        }
+
+        async Task<IEnumerable<Announcement>> IAnnouncementRepository.GetSeminarsByYearAsync(int year)
+        {
+            var announcements = await _context.Announcements
+                                    .Where(a => a.DateTimeFrom.Year == year && a.AnnouncementType == 1  && a.Delete == 0)
+                                    .ToListAsync();
+            return announcements;
+
+        }
+
+        async Task<IEnumerable<Announcement>> IAnnouncementRepository.GetSeminarsBySearchAsync(string search)
+        {
+            var announcements = await _context.Announcements
+                                    .Where(a => EF.Functions.Like(a.Title, $"%{search}%") && a.AnnouncementType == 1 && a.Delete == 0)
+                                    .ToListAsync();
+            return announcements;
+        }
+
+        async Task<IEnumerable<AnnouncementAttendee>> IAnnouncementRepository.GetSeminarAttendeesAsync(int announcementId)
+        {
+            var AnnouncementAttendees = await _context.AnnouncementAttendees
+                                        .Where(aa => aa.AnnouncementId == announcementId)
+                                        .ToListAsync();
+            return AnnouncementAttendees;
+        }
+
+        async Task<IEnumerable<AnnouncementAttendee>> IAnnouncementRepository.GetSeminarAttendeesAsync(int announcementId, int userId)
+        {
+            var AnnouncementAttendees = await _context.AnnouncementAttendees
+                                        .Where(aa => aa.AnnouncementId == announcementId && aa.StudentUserId == userId)
+                                        .ToListAsync();
+            return AnnouncementAttendees;
+        }
+
+        async Task<IEnumerable<AnnouncementDetail>> IAnnouncementRepository.GetAnnouncementDetailsAsync(int announcementId)
+        {
+            var announcementDetails = await _context.AnnouncementDetails
+                                    .Where(aa => aa.AnnouncementId == announcementId)
+                                    .ToListAsync();
+            return announcementDetails;
+        }
+
+        async Task<bool> IAnnouncementRepository.AddAnnouncementAsync(Announcement announcement, List<AnnouncementDetail> announcementsDetail)
         {
             bool ret = false;
             try
             {
                 await _context.Announcements.AddAsync(announcement);
                 await _context.SaveChangesAsync();
-                ret = true;
+                foreach (AnnouncementDetail dtl in announcementsDetail) {
+                    dtl.AnnouncementId = announcement.Id;
+                    await _context.AnnouncementDetails.AddAsync(dtl);
+                }                
+               await _context.SaveChangesAsync();
+               ret = true;
             }
             catch (Exception ex)
             {
@@ -31,98 +86,7 @@ namespace ThesisStudentPortfolio2024.Repositories
             }
             return ret;
         }
-
-        async Task<bool> IAnnouncementRepository<Announcement>.AddAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee)
-        {
-            bool ret = false;
-            try
-            {
-                await _context.AnnouncementAttendees.AddAsync(announcementAttendee);
-                await _context.SaveChangesAsync();
-                ret = true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
-            return ret;
-        }
-
-        async Task<bool> IAnnouncementRepository<Announcement>.AddAnnouncementDetailAsync(AnnouncementDetail announcementDetail)
-        {
-            bool ret = false;
-            try
-            {
-                await _context.AnnouncementDetails.AddAsync(announcementDetail);
-                await _context.SaveChangesAsync();
-                ret = true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
-            return ret;
-        }
-
-        async Task<PagedResult<Announcement>> IAnnouncementRepository<Announcement>.GetAllAnnouncementByPagedAsync(PaginationParams paginationParams)
-        {
-            var query = _context.Announcements.AsQueryable();
-            var totalCount = await query.CountAsync();
-            var announcements = await query
-                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
-                .Take(paginationParams.PageSize)
-                .ToListAsync();
-            
-            return new PagedResult<Announcement>
-            {
-                Items = announcements,
-                TotalCount = totalCount,
-                PageNumber = paginationParams.PageNumber,
-                PageSize = paginationParams.PageSize
-            };
-            
-        }
-
-        async Task<PagedResult<Announcement>> IAnnouncementRepository<Announcement>.GetAnnouncementByDateByPagedAsync(PaginationParams paginationParams, DateTime dateTime)
-        {
-            var query = _context.Announcements.Where(u => u.DateTimeFrom >= dateTime && u.DateTimeTo <= dateTime.AddDays(1))
-                        .Include(a => a.AnnouncementDetails)
-                        .AsQueryable();
-
-            var totalCount = await query.CountAsync();
-            var announcements = await query
-                .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
-                .Take(paginationParams.PageSize)
-                .ToListAsync();
-
-            //// Define the base URL (you might want to make this more dynamic)
-            //var baseUrl = "https://localhost:5050/"; // Replace with your actual domain
-
-            //// Update the AttachedPath for each AnnouncementDetail
-            //foreach (var announcement in announcements)
-            //{
-            //    foreach (var detail in announcement.AnnouncementDetails)
-            //    {
-            //        // Assuming AttachedPath holds the relative path to the image
-            //        detail.AttachedPath = Path.Combine(baseUrl, detail.AttachedPath);
-            //    }
-            //}
-
-               return new PagedResult<Announcement>
-            {
-                Items = announcements,
-                TotalCount = totalCount,
-                PageNumber = paginationParams.PageNumber,
-                PageSize = paginationParams.PageSize
-            };            
-        }
-
-        async Task<Announcement?> IAnnouncementRepository<Announcement>.GetAnnouncementByIdAsync(int id)
-        {
-            return await _context.Announcements.SingleOrDefaultAsync(u => u.Id == id);
-        }
-
-        async Task<bool> IAnnouncementRepository<Announcement>.UpdateAnnouncementAsync(Announcement announcement)
+        async Task<bool> IAnnouncementRepository.UpdateAnnouncementAsync(Announcement announcement)
         {
             var existingAnnouncement = await _context.Announcements.FindAsync(announcement.Id);
 
@@ -146,34 +110,17 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             return true;
         }
-
-        async Task<bool> IAnnouncementRepository<Announcement>.UpdateAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee)
-        {
-            var eAnnouncementAttendee = await _context.AnnouncementAttendees.FindAsync(announcementAttendee.Id);
-
-            if (eAnnouncementAttendee == null)
-            {
-                // Announcement not found
-                return false;
-            }
-
-            // Update fields (you can add any other fields you want to update)
-            eAnnouncementAttendee.StudentAttendanceStatus = announcementAttendee.StudentAttendanceStatus;            
-            eAnnouncementAttendee.LastModifiedBy = announcementAttendee.LastModifiedBy;
-            eAnnouncementAttendee.LastModifiedDate = announcementAttendee.LastModifiedDate;
-
-            // Save changes to the database
-            await _context.SaveChangesAsync();
-
-            return true;
-        }
-
-        async Task<bool> IAnnouncementRepository<Announcement>.DeleteAnnouncementDetailAsync(AnnouncementDetail announcementDetail)
-        {
+        async Task<bool> IAnnouncementRepository.DeleteAnnouncementAsync(Announcement announcement) {
             bool ret = false;
             try
             {
-                _context.AnnouncementDetails.Remove(announcementDetail);
+                var existingAnnouncement = await _context.Announcements.FindAsync(announcement.Id);
+                if (existingAnnouncement == null)
+                {
+                    // Announcement not found
+                    return ret;
+                }
+                existingAnnouncement.Delete = 1;                
                 await _context.SaveChangesAsync();
                 ret = true;
             }
@@ -182,6 +129,55 @@ namespace ThesisStudentPortfolio2024.Repositories
                 Log.Error(ex.Message);
             }
             return ret;
+        }
+        async Task<bool> IAnnouncementRepository.AddAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee)
+        {
+            bool ret = false;
+            try
+            {
+                await _context.AnnouncementAttendees.AddAsync(announcementAttendee);
+                await _context.SaveChangesAsync();
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+            return ret;
+        }        
+        async Task<bool> IAnnouncementRepository.UpdateAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee)
+        {
+            var eAnnouncementAttendee = await _context.AnnouncementAttendees.FindAsync(announcementAttendee.Id);
+
+            if (eAnnouncementAttendee == null)
+            {
+                // Announcement not found
+                return false;
+            }
+            // Update fields (you can add any other fields you want to update)
+            eAnnouncementAttendee.StudentAttendanceStatus = announcementAttendee.StudentAttendanceStatus;
+            eAnnouncementAttendee.LastModifiedBy = announcementAttendee.LastModifiedBy;
+            eAnnouncementAttendee.LastModifiedDate = announcementAttendee.LastModifiedDate;
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            return true;
         }       
+        async Task<bool> IAnnouncementRepository.AddAnnouncementDetailAsync(AnnouncementDetail announcementDetail)
+        {
+            bool ret = false;
+            try
+            {
+                await _context.AnnouncementDetails.AddAsync(announcementDetail);
+                await _context.SaveChangesAsync();
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+            return ret;
+        }
     }
 }

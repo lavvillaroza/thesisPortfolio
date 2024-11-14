@@ -4,7 +4,8 @@ namespace ThesisStudentPortfolio2024.Repositories
 {
     public interface IStudentDetailRepository
     {
-        Task<StudentDetail?> GetStudentDetailByUserIdAsync(int userId);
+        Task<StudentDetail> GetStudentDetailByUserIdAsync(int userId);
+        Task<IEnumerable<StudentDetail>> GetStudentsDetailAsync();
         Task<bool> AddStudentDetailAsync(StudentDetail studentDetail);
         Task<bool> UpdateStudentDetailAsync(StudentDetail studentDetail);
     }

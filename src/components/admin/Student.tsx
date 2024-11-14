@@ -1,66 +1,182 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
 import SideNavbar from './SideNavbar';
 import { StudentDetailModel } from '../../models/StudentDetailModel';
-import axios from 'axios';
 import { PiStudent } from "react-icons/pi";
+import { FaPlus } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { checkTokenAndLogout } from '../../utils/jwtUtil';
+import { addStudent, fetchSearchStudents, fetchStudents } from '../../api/adminApi';
+import { fetchCourses } from '../../api/courseApi';
+import studentIcon from '../../assets/studentIcon.png';
+import { BASE_URL } from '../../api/apiConfig';
+import { CourseModel } from '../../models/CourseModel';
+import CustomToast from '../common/CustomToast';
 
-const API_URL = "https://localhost:5050/api/Admin/GetStudentUsers";
+const initialStudentDetail: StudentDetailModel = {
+    id: 0,
+    studentId: '',
+    studentName: '',                                                  
+    courseId: 0,
+    courseCode: '',
+    yearLevel: '',                                                  
+    yearStart: '',
+    yearEnd: '',
+    section: '',
+    schoolEmail: '',
+    personalEmail: '',
+    portfolioURL: '',
+    profilePicture: null,
+    profilePictureUrl: '',
+    createdBy: '',
+    createdDate: null,
+    lastModifiedBy: '',
+    lastModifiedDate: null
+};
 
 const Student: React.FC = () => {
-  const [totalPages, setTotalPages] = useState(1);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [studentList, setStudentList] = useState<StudentDetailModel[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newStudent, setNewStudent] = useState<StudentDetailModel>({
-                                                  id: 0,
-                                                  studentId: '',
-                                                  studentName: '',                                                  
-                                                  course: '',
-                                                  yearLevel: '',                                                  
-                                                  yearStart: undefined,
-                                                  yearEnd: undefined,
-                                                  section: '',
-                                                  schoolEmail: '',
-                                                  personalEmail: '',
-                                                  portfolioURL: '',
-                                                  profilePicture: ''
-                                              });
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+    const [totalPages, setTotalPages] = useState(1);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [pageSize] = useState<number>(10);
+    const [studentList, setStudentList] = useState<StudentDetailModel[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [newStudentDetail, setNewStudentDetail] = useState<StudentDetailModel>(initialStudentDetail);
+                                              
+    const [searchValue, setSearchValue] = useState('');    
+    const closeModal = () => setIsModalOpen(false);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch student data from API
-    const fetchStudents = async () => {
+    const [showToast, setShowToast] = useState<boolean>(false); // For toast visibility
+    const [toastMessage, setToastMessage] = useState<string>(''); // Toast message content
+    const [toastType, setToastType] = useState<'success' | 'error'>('success'); // Toast type (success or error)    
+    const [courses, setCourses] = useState<CourseModel[]>([]);
+    const [selectedOption, setSelectedOption] = useState<string>('');
+
+    const [isClicked, setIsClicked] = useState(false);
+
+    const openModal = () => {        
+        setIsClicked(true);
+        // Additional logic to open modal
+        setTimeout(() => setIsClicked(false), 200); // Reset rotation after animation
+        setIsModalOpen(true);
+    };
+
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    
+        const user = localStorage.getItem('userDetails');        
+        if (user) {
+            const userParse = JSON.parse(user);
+            newStudentDetail.createdBy = userParse.username;
+            newStudentDetail.lastModifiedBy = userParse.username;            
+        } 
+        const formData = new FormData();
+        formData.append('studentId', newStudentDetail.studentId);
+        formData.append('studentName', newStudentDetail.studentName);
+        formData.append('courseId', newStudentDetail.courseId.toString());
+        formData.append('yearLevel', newStudentDetail.yearLevel);
+        formData.append('yearStart', newStudentDetail.yearStart);
+        formData.append('yearEnded', '');
+        formData.append('section', newStudentDetail.section);
+        formData.append('schoolEmail', newStudentDetail.schoolEmail);
+        formData.append('personalEmail', '');
+        formData.append('portfolioURL', '');
+        formData.append('createdBy', newStudentDetail.createdBy);
+        formData.append('lastModifiedBy', newStudentDetail.lastModifiedBy);
+        
         try {
-            const response = await axios.get<StudentDetailModel[]>(API_URL);
-            setStudentList(response.data); // Store the fetched data in state
+            await addStudent(formData); // Call the new API function
+            setToastMessage('Student added successfully!');
+            setToastType('success');
+            setShowToast(true);
+    
+            // Reset the form
+            setNewStudentDetail(initialStudentDetail);
+             // Close the modal
+            closeModal();
+            await fetchStudentsData('');
         } catch (error) {
-            console.error('Error fetching student data:', error);
+            setToastMessage('Error adding announcement.');
+            setToastType('error');
+            setShowToast(true);
+            console.error('Error adding announcement:', error);
+        } finally {
+            // Hide toast after 8 seconds
+            setTimeout(() => {
+                setShowToast(false);
+            }, 8000);
         }
     };
-    fetchStudents(); // Call the fetch function
-  }, []); // Empty dependency array means this will run once when the component mounts
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setNewStudent(prevStudent => ({ ...prevStudent, [name]: value}));
-  };
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setNewStudentDetail(prevStudent => ({ ...prevStudent, [name]: value}));
+    };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
+    // Handler for the onChange event
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {        
+        const { name, value } = e.target;
+        setSelectedOption(value); // Update selected option state
+        setNewStudentDetail(prevStudent => ({ ...prevStudent, [name]: value}));
+    };    
 
-  const filteredStudents = studentList.filter(student =>
-    student.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||    
-    student.studentId.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    const handleSearchButtonClick = () => {
+        fetchStudentsData(searchValue);
+    };
+    
+    const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);        
+    };
+ // Handle page changes for pagination
+    const handlePrevPage = async () => {
+        setPageNumber((prev) => Math.max(prev - 1, 1));        
+    };
 
-    // Handle page changes for pagination
-    const handlePrevPage = () => setPageNumber((prev) => Math.max(prev - 1, 1));
-    const handleNextPage = () => setPageNumber((prev) => Math.min(prev + 1, totalPages));
+    const handleNextPage = async () => {
+        setPageNumber((prev) => Math.min(prev + 1, totalPages));        
+    };    
+    
+    // Function to fetch student data based on search value
+    const fetchStudentsData = useCallback(async (searchTerm: string) => {
+        if (checkTokenAndLogout()) {
+            navigate("/");
+            return;
+        }        
+        try {
+            let result;
+            if (searchTerm) {
+                result = await fetchSearchStudents({ pageNumber, pageSize }, searchTerm);
+            } else {
+                result = await fetchStudents({ pageNumber, pageSize });
+            }
+            setStudentList(result.items);
+            setTotalPages(result.totalPages);
+        } catch (error) {
+            console.error('Error fetching students data:', error);
+        } 
+    }, [navigate, pageNumber, pageSize]);
+    
+
+      // Trigger search whenever `searchValue` or `pageNumber` changes
+      useEffect(() => {
+        fetchStudentsData(''); // Call with empty string initially
+    }, [fetchStudentsData, pageNumber]); // Add fetchStudentsData as a dependency
+    
+    useEffect(() => {
+        const fetchCoursesData = async () => {
+            try {
+                const result = await fetchCourses();
+                setCourses(result);
+            } catch (error) {
+                console.error('Error fetching courses data:', error);
+            }
+        };
+    
+        fetchCoursesData();
+    }, []); // Empty dependency array
+    
   return (
     <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
           <div className="flex-1 m-auto">
@@ -69,87 +185,108 @@ const Student: React.FC = () => {
             <SideNavbar />
             <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
               <div className="h-[60px] p-4">
-                <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">STUDENT MANAGEMENT</h5>                                        
+                <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">STUDENTS</h5>                                        
               </div> 
               <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
-                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
-                  <div className="flex-1 mx-auto p-4 drop-shadow-lg ">
-                    <div className="flex justify-between mb-4">                      
-                      <button
-                        onClick={openModal}
-                        className="bg-emerald-700 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">
-                        Add Student
-                      </button>
-                    </div>
+                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto  rounded transition-all duration-200">
+                  <div className="flex-1 mx-auto p-4 drop-shadow-lg ">                    
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
-                        <div className="pb-4 bg-white dark:bg-gray-900">
-                            <label htmlFor="table-search" className="sr-only">Search</label>
-                            <div className="w-full relative p-4 mt-1">
-                                <input 
-                                    type="text" 
-                                    id="table-search" 
-                                    className="block pt-2 ps-3 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                    placeholder="Search for students"
-                                    value={searchTerm}
-                                    onChange={handleSearch}
-                                />
-                            </div>
-                            <div className="relative w-full max-w-full overflow-x-auto">
-                                <table className="text-sm w-full text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead className="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" className="px-6 py-3">Student ID</th>
-                                            <th scope="col" className="px-6 py-3">Student Name</th>                                            
-                                            <th scope="col" className="px-6 py-3">Course</th>
-                                            <th scope="col" className="px-6 py-3">Year Started</th>
-                                            <th scope="col" className="px-6 py-3">Year Level</th>                                            
-                                            <th scope="col" className="px-6 py-3">School Email</th>
-                                            <th scope="col" className="px-6 py-3">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredStudents.length > 0 ? (
-                                            filteredStudents.map(student => (
-                                                <tr key={student.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                                    <td className="px-6 py-4">{student.studentId}</td>
-                                                    <td className="px-6 py-4">{student.studentName}</td>
-                                                    <td className="px-6 py-4">{student.course}</td>
-                                                    <td className="px-6 py-4">{student.yearStart}</td>
-                                                    <td className="px-6 py-4">{student.schoolEmail}</td>
-                                                    <td className="px-6 py-4">{student.yearLevel}</td>                                                    
-                                                    <td className="px-6 py-4">
-                                                        <a href={student.portfolioURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-500 hover:underline">View Portfolio</a>
-                                                    </td>                                                    
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                                <td colSpan={7} className="text-center px-6 py-4">No data available.</td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                                {/* Pagination controls */}
-                                <div className="flex flex-col items-end mt-5 mr-5">
-                                    <span className="text-sm text-gray-700 dark:text-gray-400">
-                                        Page {pageNumber} of {totalPages}
-                                    </span>
-                                    <div className="inline-flex mt-2 xs:mt-0">
-                                        <button
-                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                            onClick={handlePrevPage}
-                                            disabled={pageNumber === 1}>
-                                            Prev
-                                        </button>
-                                        <button
-                                            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                            onClick={handleNextPage}
-                                            disabled={pageNumber === totalPages}>
-                                            Next
-                                        </button>
+                        <div className="pb-4 bg-white dark:bg-gray-900 h-[600px]">
+                            <div className="w-full relative flex justify-between items-center">
+                                <label htmlFor="searchValue" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                <div className="relative ml-2 my-2 w-[400px]">
+                                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
                                     </div>
-                                </div>            
+                                    <input type="search" 
+                                        id="searchValue"
+                                        name="searchValue"
+                                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" 
+                                        placeholder="Search for student name"
+                                        value={searchValue}
+                                        onChange={handleSearchInputChange}
+                                        required />
+                                    <button 
+                                        onClick={handleSearchButtonClick} 
+                                        className="text-white absolute end-2.5 bottom-2.5 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800 hover:scale-110">
+                                            Search
+                                    </button>
+                                </div>                                
+                                <div className="relative py-3 pr-2">
+                                    <button
+                                        onClick={openModal}
+                                        className={`bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out transform flex items-center justify-center
+                                            ${isClicked ? 'rotate-45' : ''}
+                                            hover:scale-110`}
+                                    >
+                                        <FaPlus className="w-3 h-3" />
+                                    </button>   
+                                </div>                                
                             </div>                            
+                            <div className="relative w-full max-w-full overflow-x-auto">
+                                <div className="w-full h-[430px] px-2">
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-200">
+                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>                                                
+                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student Name</th>
+                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student ID</th>
+                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Course</th>
+                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Year Start</th>
+                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Year Level</th>
+                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {studentList.length > 0 ? (
+                                                    studentList.map(student => (
+                                                        <tr key={student.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                                                <img className="w-10 h-10 rounded-full border border-gray-500" src={student.profilePictureUrl == null ? studentIcon : BASE_URL + encodeURI(student.profilePictureUrl)} alt="Jese image"/>
+                                                                <div className="ps-3">
+                                                                    <div className="text-base font-semibold">{student.studentName}</div>
+                                                                    <div className="font-normal text-gray-500">{student.schoolEmail}</div>
+                                                                </div>  
+                                                            </th>                                                                                                                
+                                                            <td className="px-6 py-4">{student.studentId}</td>
+                                                            <td className="px-6 py-4">{student.courseCode}</td>
+                                                            <td className="px-6 py-4">{student.yearStart}</td>
+                                                            <td className="px-6 py-4">{student.yearLevel}</td>
+                                                            <td className="px-6 py-4">
+                                                                <a ref={student.portfolioURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-500 hover:underline">View Portfolio</a>
+                                                            </td>                                                    
+                                                        </tr>
+                                                    ))
+                                                ) : (
+                                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                        <td colSpan={7} className="text-center px-6 py-4">No data available.</td>
+                                                    </tr>
+                                                )}
+                                        </tbody>
+                                    </table>  
+                                </div>                               
+                            </div>      
+                             {/* Pagination controls */}
+                             <div className="relative flex flex-col items-end mt-5 mr-5">
+                                <span className="text-sm text-gray-700 dark:text-gray-400">
+                                    Page {pageNumber} of {totalPages}
+                                </span>
+                                <div className="inline-flex mt-2 xs:mt-0">
+                                    <button
+                                        className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        onClick={handlePrevPage}
+                                        disabled={pageNumber === 1}>
+                                        Prev
+                                    </button>
+                                    <button
+                                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        onClick={handleNextPage}
+                                        disabled={pageNumber === totalPages}>
+                                        Next
+                                    </button>
+                                </div>
+                            </div>                             
                         </div>                        
                     </div>
                   </div>
@@ -169,8 +306,7 @@ const Student: React.FC = () => {
                             <button
                                 type="button"
                                 className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                onClick={closeModal}
-                            >
+                                onClick={closeModal}>
                                 <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                 </svg>
@@ -178,16 +314,17 @@ const Student: React.FC = () => {
                             </button>
                         </div>
                         {/* Modal body */}
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="flex flex-col p-4 space-x-4">
                                 {/* Fillup Form Section */}                                
                                 <div className="grid gap-4 mb-6 md:grid-cols-2">
                                     <div>
-                                        <label htmlFor="student_id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student id</label>
+                                        <label htmlFor="studentId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student id</label>
                                         <input 
                                             type="text" 
-                                            id="student_id" 
-                                            value={newStudent?.studentId}
+                                            id="studentId" 
+                                            name="studentId"
+                                            value={newStudentDetail.studentId}
                                             onChange={handleInputChange}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                             placeholder="Student id" 
@@ -195,21 +332,34 @@ const Student: React.FC = () => {
                                     </div>  
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div>
-                                            <label htmlFor="course" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course</label>
+                                            <label htmlFor="courseId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course</label>
                                             <input 
-                                                type="text" 
-                                                id="course" 
-                                                value={newStudent?.course}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="Course" 
-                                                required />
+                                                hidden
+                                                type="text"
+                                                id="courseId"
+                                                name="courseId"
+                                                value={newStudentDetail.courseId}>
+                                            </input>
+                                            <select                                                 
+                                                value={selectedOption}                                                
+                                                onChange={handleSelectChange}
+                                                name="courseId"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                required>
+                                                <option selected>Course</option>
+                                                {courses.map((course) => (
+                                                        <option key={course.id} value={course.id}>{course.courseCode}</option>                                                        
+                                                ))}                                                
+                                            </select>                                            
                                         </div> 
                                         <div>
                                             <label htmlFor="section" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Section</label>
                                             <input 
                                                 type="text" 
                                                 id="section" 
-                                                value={newStudent?.section}
+                                                name="section"
+                                                value={newStudentDetail.section}
+                                                onChange={handleInputChange}
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                                 placeholder="Section"  />
                                         </div>   
@@ -218,21 +368,25 @@ const Student: React.FC = () => {
                                         <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Name</label>
                                         <input 
                                             type="text" 
-                                            id="first_name" 
-                                            value={newStudent.studentName}
+                                            id="studentName" 
+                                            name="studentName"
+                                            value={newStudentDetail.studentName}
+                                            onChange={handleInputChange}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                            placeholder="First name" 
+                                            placeholder="Student Name" 
                                             required />
                                     </div>
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div>
-                                            <label htmlFor="yearStarted" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Started</label>
+                                            <label htmlFor="yearStart" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Started</label>
                                             <input 
                                                 type="text" 
-                                                id="yearStarted" 
-                                                value={newStudent?.course}
+                                                id="yearStart" 
+                                                name="yearStart"
+                                                value={newStudentDetail.yearStart}
+                                                onChange={handleInputChange}
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="Year Started" 
+                                                placeholder="Year Start" 
                                                 required />
                                         </div> 
                                         <div>
@@ -240,7 +394,9 @@ const Student: React.FC = () => {
                                             <input 
                                                 type="text" 
                                                 id="yearLevel" 
-                                                value={newStudent?.section}
+                                                name="yearLevel"
+                                                value={newStudentDetail.yearLevel}
+                                                onChange={handleInputChange}
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                                 placeholder="Year Level"  />
                                         </div>   
@@ -249,8 +405,10 @@ const Student: React.FC = () => {
                                         <label htmlFor="school_email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">School email</label>
                                         <input 
                                             type="email" 
-                                            id="school_email" 
-                                            value={newStudent.schoolEmail}
+                                            id="schoolEmail" 
+                                            name="schoolEmail"
+                                            value={newStudentDetail.schoolEmail}
+                                            onChange={handleInputChange}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                             placeholder="juan.delacruz@school.com" 
                                             required />
@@ -269,6 +427,15 @@ const Student: React.FC = () => {
                         </form> 
                     </div>
                 </div>
+            )}
+
+            {/* Toast notification */}
+            {showToast && (
+                <CustomToast
+                message={toastMessage}
+                type={toastType}
+                onClose={() => setShowToast(false)}
+                />
             )}
         </div>    
     </div>

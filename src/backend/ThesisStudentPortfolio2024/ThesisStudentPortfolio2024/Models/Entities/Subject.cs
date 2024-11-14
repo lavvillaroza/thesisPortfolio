@@ -6,23 +6,23 @@ namespace ThesisStudentPortfolio2024.Models.Entities
 {
     public class Subject
     {
-        [Key]
-        public int Id { get; set; }        
-        public required string SubjectName { get; set; }        
-        public required string SubjectDescription { get; set; }        
-        public string? Prereq { get; set; }        
+        [Key]        
+        public int Id { get; set; }
+        [Required]
+        public string SubjectName { get; set; } = string.Empty;
+        [Required]
+        public string SubjectDescription { get; set; } = string.Empty;
+        public string Prereq { get; set; } = "NONE";
         public short Lec { get; set; }        
         public short Lab { get; set; }        
-        public short Units { get; set; }        
-        public short Hrs { get; set; }
-        public short Year {  get; set; } // 1 = 1st year, 2 = 2nd year, 3 = 3rd year, 4 = 4th year
-        public short Term { get; set; } // 1 = 1st term or sem, 2 = 2nd term or sem
-        public required string CreatedBy { get; set; }        
-        public DateTime CreatedDate { get; set; }        
-        public required string LastModifiedBy { get; set; }        
-        public DateTime LastModifiedDate { get; set; }
-        [JsonIgnore]
-        public ICollection<StudentSubjectTaken>? StudentSubjectTakens { get; set; }
-        public ICollection<SubjectDetail>? SubjectDetails { get; set; }
+        public short Units { get; set; }
+        [Required]
+        public short Hrs { get; set; }        
+        [Required]
+        public string CreatedBy { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        [Required]
+        public string LastModifiedBy { get; set; } = string.Empty;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;        
     }
 }

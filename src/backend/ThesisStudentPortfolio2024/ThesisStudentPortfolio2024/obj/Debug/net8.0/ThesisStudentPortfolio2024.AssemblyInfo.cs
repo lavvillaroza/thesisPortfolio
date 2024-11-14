@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThesisStudentPortfolio2024")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68cda1b859acb8d47f9346d6f3257d2ebc14ba91")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc2b7da12d4cface9da1b48e96681026f5c6e3ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThesisStudentPortfolio2024")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThesisStudentPortfolio2024")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

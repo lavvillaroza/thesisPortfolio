@@ -1,19 +1,21 @@
-﻿using ThesisStudentPortfolio2024.Models;
+﻿using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 
 namespace ThesisStudentPortfolio2024.Repositories
 {
-    public interface IAnnouncementRepository<T> where T : class
-    {        
-        Task<Announcement?> GetAnnouncementByIdAsync(int id);
-        Task<bool> AddAnnouncementAsync(Announcement announcement);
+    public interface IAnnouncementRepository
+    {                                
+        Task<IEnumerable<Announcement>> GetAnnouncementsByDateAsync(DateTime dateTime);
+        Task<IEnumerable<Announcement>> GetSeminarsByYearAsync(int year);
+        Task<IEnumerable<Announcement>> GetSeminarsBySearchAsync(string search);
+        Task<IEnumerable<AnnouncementAttendee>> GetSeminarAttendeesAsync(int announcementId);
+        Task<IEnumerable<AnnouncementAttendee>> GetSeminarAttendeesAsync(int announcementId, int userId);
+        Task<IEnumerable<AnnouncementDetail>> GetAnnouncementDetailsAsync(int announcementId);
+        Task<bool> AddAnnouncementAsync(Announcement announcement, List<AnnouncementDetail> announcementDetails);
         Task<bool> UpdateAnnouncementAsync(Announcement announcement);
-        Task<PagedResult<T>> GetAllAnnouncementByPagedAsync(PaginationParams paginationParams);
-        Task<PagedResult<T>> GetAnnouncementByDateByPagedAsync(PaginationParams paginationParams, DateTime dateTime);
-        Task<bool> AddAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee);
-        Task<bool> AddAnnouncementDetailAsync(AnnouncementDetail announcementDetail);
-        Task<bool> UpdateAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee);
-        Task<bool> DeleteAnnouncementDetailAsync(AnnouncementDetail announcementDetail);
-
+        Task<bool> DeleteAnnouncementAsync(Announcement announcement);
+        Task<bool> AddAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee);        
+        Task<bool> UpdateAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee);        
+        Task<bool> AddAnnouncementDetailAsync(AnnouncementDetail announcementDetail);                
     }
 }

@@ -31,8 +31,7 @@ const GridList: React.FC<GridListProps> = ({ items }) => {
             </div>
           )}                      
         </div>        
-      ))}
-      
+      ))}      
     </div>
     
   );

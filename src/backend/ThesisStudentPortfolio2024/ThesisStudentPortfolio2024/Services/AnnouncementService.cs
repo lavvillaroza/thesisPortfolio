@@ -1,4 +1,5 @@
-﻿using ThesisStudentPortfolio2024.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Repositories;
 using static System.Net.Mime.MediaTypeNames;
@@ -7,18 +8,17 @@ namespace ThesisStudentPortfolio2024.Services
 {
     public class AnnouncementService
     {
-        private readonly IAnnouncementRepository<Announcement> _announcementRepository;
+        private readonly IAnnouncementRepository _announcementRepository;
         private readonly IWebHostEnvironment _webhostEnvironment;
-
-        public AnnouncementService(IAnnouncementRepository<Announcement> announcementRepository, IWebHostEnvironment webHostEnvironment)
+        private readonly IStudentDetailRepository _studentDetailRepository;
+        public AnnouncementService(IAnnouncementRepository announcementRepository, IWebHostEnvironment webHostEnvironment, IStudentDetailRepository studentDetailRepository )
         {
             _announcementRepository = announcementRepository;
             _webhostEnvironment = webHostEnvironment;
-        }
-        public async Task<Announcement?> GetAnnouncementByIdAsync(int id) { 
-            return await _announcementRepository.GetAnnouncementByIdAsync(id);
-        }
-        public async Task<bool> AddAnnouncementAsync(AnnouncementDTO announcementDTO) {
+            _studentDetailRepository = studentDetailRepository;
+        }  
+
+        public async Task<bool> AddAnnouncementAsync(AnnouncementDto announcementDTO) {
             var announcement = new Announcement
             {
                 Title = announcementDTO.Title,
@@ -33,8 +33,9 @@ namespace ThesisStudentPortfolio2024.Services
             };
 
             // Ensure the Uploads directory exists
-            var contentPath = _webhostEnvironment.WebRootPath;
-            string uploadsDirectory = Path.Combine(contentPath, "Uploads", "Ann");
+            var contentPath = _webhostEnvironment.WebRootPath;            
+            string uploadsFolderName = Path.Combine("Uploads", "AnnouncementsFiles");
+            string uploadsDirectory = Path.Combine(contentPath, uploadsFolderName);
 
             // Check if the directory exists
             if (!Directory.Exists(uploadsDirectory))
@@ -43,18 +44,17 @@ namespace ThesisStudentPortfolio2024.Services
                 Directory.CreateDirectory(uploadsDirectory);
             }
 
+            ICollection<AnnouncementDetail> announcementDetails = new List<AnnouncementDetail>();
             // Check if images are provided
             if (announcementDTO.Images != null && announcementDTO.Images.Count > 0)
-            {
-                ICollection<AnnouncementDetail> announcementDetails = new List<AnnouncementDetail>();
-
+            {               
                 foreach (var image in announcementDTO.Images)
                 {
                     var fileName = Path.GetFileNameWithoutExtension(image.FileName);
                     var extension = Path.GetExtension(image.FileName);
                     var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
                     var fullFileName = Path.Combine(uploadsDirectory, newFileName);
-                    var attachedPath = Path.Combine("Uploads","Ann", newFileName);
+                    var attachedPath = Path.Combine(uploadsFolderName, newFileName);
 
                     using (var stream = new FileStream(fullFileName, FileMode.Create))
                     {
@@ -64,39 +64,225 @@ namespace ThesisStudentPortfolio2024.Services
                     var announcementDetail = new AnnouncementDetail
                     {
                         AttachedImage = fileName,
-                        AttachedPath = attachedPath,
-                        Announcement = announcement
+                        AttachedPath = attachedPath,                        
                     };
 
                     announcementDetails.Add(announcementDetail);
-                }
-
-                announcement.AnnouncementDetails = announcementDetails;
+                }                
             }
 
-            return await _announcementRepository.AddAnnouncementAsync(announcement);
+            return await _announcementRepository.AddAnnouncementAsync(announcement, announcementDetails.ToList());
         }
         public async Task<bool> UpdateAnnouncementAsync(Announcement announcement) { 
             return await _announcementRepository.UpdateAnnouncementAsync(announcement);
         }
-        public async Task<PagedResult<Announcement>> GetAllAnnouncementAsync(PaginationParams paginationParams) { 
-            return await _announcementRepository.GetAllAnnouncementByPagedAsync(paginationParams);
-        }
-        public async Task<PagedResult<Announcement>> GetAnnouncementByDateAsync(PaginationParams paginationParams, DateTime dateTime) { 
-            return await _announcementRepository.GetAnnouncementByDateByPagedAsync(paginationParams, dateTime);
-        }
+        public async Task<PagedResultDto> GetAnnouncementsWithDetailsAsync(PaginationParamsDto paginationParamsDto, DateTime dateTime) {
+            IEnumerable<Announcement> fetchAnnouncements = await _announcementRepository.GetAnnouncementsByDateAsync(dateTime);            
+            PagedResultDto pagedResultDto = new PagedResultDto();
+            pagedResultDto.TotalCount = fetchAnnouncements.Count();
+            pagedResultDto.PageNumber = paginationParamsDto.PageNumber;
+            pagedResultDto.PageSize = paginationParamsDto.PageSize;
 
-        public async Task<bool> AddAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee) {
+            var announcements = fetchAnnouncements
+                               .Skip(paginationParamsDto.Skip)
+                               .Take(paginationParamsDto.PageSize);
+
+            List<AnnouncementDto> announcementsDto = new List<AnnouncementDto>();
+            foreach (Announcement announcement in announcements)
+            {
+                AnnouncementDto newAnnouncement = new AnnouncementDto
+                {
+                    Id = announcement.Id,
+                    Title = announcement.Title,
+                    Description = announcement.Description,
+                    DateTimeFrom = announcement.DateTimeFrom,
+                    DateTimeTo = announcement.DateTimeTo,
+                    AnnouncementType = announcement.AnnouncementType,
+                    CreatedBy = announcement.CreatedBy,
+                    CreatedDate = announcement.CreatedDate,
+                    LastModifiedBy = announcement.LastModifiedBy,
+                    LastModifiedDate = announcement.LastModifiedDate,
+                };                
+                List<AnnouncementDetailDto> announcementDetailDtos = new List<AnnouncementDetailDto>();
+                IEnumerable<AnnouncementDetail> fetchAnnouncementsDetail = await _announcementRepository.GetAnnouncementDetailsAsync(announcement.Id);
+                if (fetchAnnouncementsDetail.Any()) {
+                    foreach (AnnouncementDetail announcementDetail in fetchAnnouncementsDetail)
+                    {
+                        AnnouncementDetailDto newAnnouncementDetailDto = new AnnouncementDetailDto
+                        {
+                            Id = announcementDetail.Id,
+                            AttachedImage = announcementDetail.AttachedImage,
+                            AttachedPath = announcementDetail.AttachedPath
+                        };
+                        announcementDetailDtos.Add(newAnnouncementDetailDto);
+                    }
+                }                
+                newAnnouncement.AnnouncementDetails = announcementDetailDtos;                
+                announcementsDto.Add(newAnnouncement);
+            }
+            pagedResultDto.Items = announcementsDto.Cast<object>().ToList();
+            return pagedResultDto;
+        }
+        public async Task<PagedResultDto> GetSeminarsAsync(PaginationParamsDto paginationParamsDto, int year)
+        {
+            IEnumerable<Announcement> fetchAnnouncements = await _announcementRepository.GetSeminarsByYearAsync(year);
+            PagedResultDto pagedResultDto = new PagedResultDto();
+            pagedResultDto.TotalCount = fetchAnnouncements.Count();
+            pagedResultDto.PageNumber = paginationParamsDto.PageNumber;
+            pagedResultDto.PageSize = paginationParamsDto.PageSize;
+
+            var announcements = fetchAnnouncements
+                               .Skip(paginationParamsDto.Skip)
+                               .Take(paginationParamsDto.PageSize);
+
+            List<AnnouncementDto> announcementsDto = new List<AnnouncementDto>();
+            foreach (Announcement announcement in announcements)
+            {
+                AnnouncementDto newAnnouncement = new AnnouncementDto
+                {
+                    Id = announcement.Id,
+                    Title = announcement.Title,
+                    Description = announcement.Description,
+                    DateTimeFrom = announcement.DateTimeFrom,
+                    DateTimeTo = announcement.DateTimeTo,
+                    AnnouncementType = announcement.AnnouncementType,
+                    CreatedBy = announcement.CreatedBy,
+                    CreatedDate = announcement.CreatedDate,
+                    LastModifiedBy = announcement.LastModifiedBy,
+                    LastModifiedDate = announcement.LastModifiedDate,
+                };
+                List<AnnouncementDetailDto> announcementDetailDtos = new List<AnnouncementDetailDto>();
+                IEnumerable<AnnouncementDetail> fetchAnnouncementsDetail = await _announcementRepository.GetAnnouncementDetailsAsync(announcement.Id);
+                if (fetchAnnouncementsDetail.Any())
+                {
+                    foreach (AnnouncementDetail announcementDetail in fetchAnnouncementsDetail)
+                    {
+                        AnnouncementDetailDto newAnnouncementDetailDto = new AnnouncementDetailDto
+                        {
+                            Id = announcementDetail.Id,
+                            AttachedImage = announcementDetail.AttachedImage,
+                            AttachedPath = announcementDetail.AttachedPath
+                        };
+                        announcementDetailDtos.Add(newAnnouncementDetailDto);
+                    }
+                }
+                newAnnouncement.AnnouncementDetails = announcementDetailDtos;
+                announcementsDto.Add(newAnnouncement);
+            }
+            pagedResultDto.Items = announcementsDto.Cast<object>().ToList();
+            return pagedResultDto;
+        }
+        public async Task<PagedResultDto> GetSeminarsBySearchAsync(PaginationParamsDto paginationParamsDto, string searchValue)
+        {
+            IEnumerable<Announcement> fetchAnnouncements = await _announcementRepository.GetSeminarsBySearchAsync(searchValue);
+            PagedResultDto pagedResultDto = new PagedResultDto();
+            pagedResultDto.TotalCount = fetchAnnouncements.Count();
+            pagedResultDto.PageNumber = paginationParamsDto.PageNumber;
+            pagedResultDto.PageSize = paginationParamsDto.PageSize;
+
+            var announcements = fetchAnnouncements
+                               .Skip(paginationParamsDto.Skip)
+                               .Take(paginationParamsDto.PageSize);
+
+            List<AnnouncementDto> announcementsDto = new List<AnnouncementDto>();
+            foreach (Announcement announcement in announcements)
+            {
+                AnnouncementDto newAnnouncement = new AnnouncementDto
+                {
+                    Id = announcement.Id,
+                    Title = announcement.Title,
+                    Description = announcement.Description,
+                    DateTimeFrom = announcement.DateTimeFrom,
+                    DateTimeTo = announcement.DateTimeTo,
+                    AnnouncementType = announcement.AnnouncementType,
+                    CreatedBy = announcement.CreatedBy,
+                    CreatedDate = announcement.CreatedDate,
+                    LastModifiedBy = announcement.LastModifiedBy,
+                    LastModifiedDate = announcement.LastModifiedDate,
+                };
+                List<AnnouncementDetailDto> announcementDetailDtos = new List<AnnouncementDetailDto>();
+                IEnumerable<AnnouncementDetail> fetchAnnouncementsDetail = await _announcementRepository.GetAnnouncementDetailsAsync(announcement.Id);
+                if (fetchAnnouncementsDetail.Any())
+                {
+                    foreach (AnnouncementDetail announcementDetail in fetchAnnouncementsDetail)
+                    {
+                        AnnouncementDetailDto newAnnouncementDetailDto = new AnnouncementDetailDto
+                        {
+                            Id = announcementDetail.Id,
+                            AttachedImage = announcementDetail.AttachedImage,
+                            AttachedPath = announcementDetail.AttachedPath
+                        };
+                        announcementDetailDtos.Add(newAnnouncementDetailDto);
+                    }
+                }
+                newAnnouncement.AnnouncementDetails = announcementDetailDtos;
+                announcementsDto.Add(newAnnouncement);
+            }
+            pagedResultDto.Items = announcementsDto.Cast<object>().ToList();
+            return pagedResultDto;
+        }
+        public async Task<PagedResultDto> GetSeminarAttendeesAsync(PaginationParamsDto paginationParamsDto, int announcementId) {
+            IEnumerable<AnnouncementAttendee> fetchAnnouncementsAttendees = await _announcementRepository.GetSeminarAttendeesAsync(announcementId);
+            IEnumerable<StudentDetail> fetchStudentsDetail = await _studentDetailRepository.GetStudentsDetailAsync();
+            PagedResultDto pagedResultDto = new PagedResultDto();
+            pagedResultDto.TotalCount = fetchAnnouncementsAttendees.Count();
+            pagedResultDto.PageNumber = paginationParamsDto.PageNumber;
+            pagedResultDto.PageSize = paginationParamsDto.PageSize;
+
+            var seminarattendees = fetchAnnouncementsAttendees
+                            .GroupJoin(
+                                fetchStudentsDetail,
+                                attendee => attendee.StudentUserId,
+                                userDetail => userDetail.UserId,
+                                (attendeeStudent, userDetails) => new { attendeeStudent, userDetails }
+                            )
+                            .SelectMany(
+                                sa => sa.userDetails.DefaultIfEmpty(),
+                                (sa, userDetails) => new AnnouncementAttendeeDto
+                                {
+                                    Id = sa.attendeeStudent.Id,
+                                    LastModifiedBy = sa.attendeeStudent.LastModifiedBy,
+                                    LastModifiedDate = sa.attendeeStudent.LastModifiedDate,
+                                    UserId = sa.attendeeStudent.StudentUserId,
+                                    StudentName = userDetails.StudentName,
+                                    StudentCourse = userDetails.CourseId.ToString(),
+                                    StudentYearLevel = userDetails.YearLevel.ToString(),
+                                    StudentEmail = userDetails.SchoolEmail,
+                                    StudentAttendanceStatus = sa.attendeeStudent.StudentAttendanceStatus
+                                }
+                            ).Skip(paginationParamsDto.Skip)
+                            .Take(paginationParamsDto.PageSize).ToList();
+                        
+            pagedResultDto.Items = seminarattendees.Cast<object>().ToList();
+            return pagedResultDto;
+        }        
+        public async Task<bool> AddSeminarAttendeeAsync(int announcementId, int userId) {
+            var getUserDetail = await _studentDetailRepository.GetStudentDetailByUserIdAsync(userId);
+            AnnouncementAttendee announcementAttendee = new AnnouncementAttendee
+            {
+                AnnouncementId = announcementId,
+                StudentAttendanceStatus = 1,
+                StudentUserId = userId,
+                LastModifiedBy = getUserDetail.SchoolEmail,
+                LastModifiedDate = DateTime.Now,
+            };
             return await _announcementRepository.AddAnnouncementAttendeeAsync(announcementAttendee);
         }
+        public async Task<bool> CheckSeminarAttendeeAsync(int announcementId, int userId)
+        {
+            var checkUserAttendee = await _announcementRepository.GetSeminarAttendeesAsync(announcementId, userId);
+
+            if (checkUserAttendee.Any()) {
+                return true;
+            }
+            return false;            
+        }
+
         public async Task<bool> AddAnnouncementDetailAsync(AnnouncementDetail announcementDetail) {
             return await _announcementRepository.AddAnnouncementDetailAsync(announcementDetail);
         }
         public async Task<bool> UpdateAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee) {
             return await _announcementRepository.UpdateAnnouncementAttendeeAsync(announcementAttendee);
-        }
-        public async Task<bool> DeleteAnnouncementDetailAsync(AnnouncementDetail announcementDetail) {
-            return await _announcementRepository.DeleteAnnouncementDetailAsync(announcementDetail);
         }
     }
 }

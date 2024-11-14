@@ -46,33 +46,36 @@ namespace ThesisStudentPortfolio2024.Repositories
             return ret;
         }
 
-        async Task<List<Subject>> ISubjectRepository.GetAllSubjects()
+        async Task<List<Subject>> ISubjectRepository.GetSubjectsAsync()
+        {
+            return await _context.Subjects.ToListAsync();
+        }
+
+        async Task<List<Subject>> ISubjectRepository.GetSearchSubjectsAsync(string searchValue)
         {
             return await _context.Subjects.ToListAsync();
         }
 
         async Task<bool> ISubjectRepository.UpdateSubjetAsync(Subject subject)
         {
-            var existingSubject = await _context.Subjects.FindAsync(subject.Id);
+            var eSubject = await _context.Subjects.FindAsync(subject.Id);
 
-            if (existingSubject == null)
+            if (eSubject == null)
             {
                 // User not found
                 return false;
             }
 
             // Update fields (you can add any other fields you want to update)
-            existingSubject.SubjectName = subject.SubjectName;
-            existingSubject.SubjectDescription = subject.SubjectDescription;
-            existingSubject.Prereq = subject.Prereq;
-            existingSubject.Lec = subject.Lec;
-            existingSubject.Lab = subject.Lab;
-            existingSubject.Units = subject.Units;
-            existingSubject.Hrs = subject.Hrs;
-            existingSubject.Year = subject.Year;
-            existingSubject.Term = subject.Term;
-            existingSubject.LastModifiedBy = subject.LastModifiedBy;
-            existingSubject.LastModifiedDate = subject.LastModifiedDate;            
+            eSubject.SubjectName = subject.SubjectName;
+            eSubject.SubjectDescription = subject.SubjectDescription;
+            eSubject.Prereq = subject.Prereq;
+            eSubject.Lec = subject.Lec;
+            eSubject.Lab = subject.Lab;
+            eSubject.Units = subject.Units;
+            eSubject.Hrs = subject.Hrs;            
+            eSubject.LastModifiedBy = subject.LastModifiedBy;
+            eSubject.LastModifiedDate = subject.LastModifiedDate;            
             // Save changes to the database
             await _context.SaveChangesAsync();
 

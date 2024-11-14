@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ThesisStudentPortfolio2024.Models;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Services;
 
@@ -14,16 +14,19 @@ namespace ThesisStudentPortfolio2024.Controllers
         public StudentController(StudentService studentService)
         {
             _studentService = studentService;
-        }        
-        [HttpGet("Detail/{id}")]
-        public async Task<IActionResult> StudentDetail(int userId)
+        }
+        
+        [HttpGet("detail")]
+        public async Task<IActionResult> GetStudentDetail([FromQuery] int userId)
         {
             var studentDetail = await _studentService.GetStudentDetailByUserIdAsync(userId);
             return Ok(studentDetail);
         }
+
+
         [Authorize]
-        [HttpPost("Detail/Add")]
-        public async Task<IActionResult> AddStudentDetailAsync([FromBody] StudentDetail studentDetail)
+        [HttpPost("detail/add")]
+        public async Task<IActionResult> AddStudentDetailAsync([FromForm] StudentDetail studentDetail)
         {
             if (!ModelState.IsValid)
             {
@@ -37,14 +40,14 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPut("Detail/Update")]
-        public async Task<IActionResult> UpdateStudentDetailAsync([FromBody] StudentDetail studentDetail)
+        [HttpPost("detail/update")]
+        public async Task<IActionResult> UpdateStudentDetailAsync([FromForm] StudentDetailDto studentDetailDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _studentService.UpdateStudentDetailAsync(studentDetail);
+            var result = await _studentService.UpdateStudentDetailAsync(studentDetailDto);
             if (result)
                 return Ok("Success");
             else
@@ -52,14 +55,14 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [HttpGet("Seminar/{id}")]
-        public async Task<IActionResult> GetStudentSeminarByUserIdAsync(PaginationParams paginationParams, int userId)
+        public async Task<IActionResult> GetStudentSeminarByUserIdAsync(PaginationParamsDto paginationParams, int userId)
         {
-            var studentSeminar = await _studentService.GetStudentSeminarByUserIdAsync(paginationParams, userId);
+            var studentSeminar = await _studentService.GetStudentSeminarByUserIdAsync(userId);
             return Ok(studentSeminar);
         }
         [Authorize]
-        [HttpPost("Seminar/Add")]
-        public async Task<IActionResult> AddStudentSeminarAsync([FromBody] StudentSeminar studentSeminar)
+        [HttpPost("Seminar/add")]
+        public async Task<IActionResult> AddStudentSeminarAsync([FromForm] StudentSeminar studentSeminar)
         {
             if (!ModelState.IsValid)
             {
@@ -73,8 +76,8 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPut("Seminar/Update")]
-        public async Task<IActionResult> UpdateStudentSeminarAsync([FromBody] StudentSeminar studentSeminar)
+        [HttpPut("Seminar/update")]
+        public async Task<IActionResult> UpdateStudentSeminarAsync([FromForm] StudentSeminar studentSeminar)
         {
             if (!ModelState.IsValid)
             {
@@ -100,8 +103,8 @@ namespace ThesisStudentPortfolio2024.Controllers
             return Ok(skills);
         }
         [Authorize]
-        [HttpPost("Skill/Add")]
-        public async Task<IActionResult> AddStudentSkillAsync([FromBody] StudentSkill studentSkill)
+        [HttpPost("Skill/add")]
+        public async Task<IActionResult> AddStudentSkillAsync([FromForm] StudentSkill studentSkill)
         {
             if (!ModelState.IsValid)
             {
@@ -115,8 +118,8 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPut("Skill/Delete")]
-        public async Task<IActionResult> DeleteStudentSkillAsync([FromBody] StudentSkill studentSkill)
+        [HttpPut("Skill/delete")]
+        public async Task<IActionResult> DeleteStudentSkillAsync([FromForm] StudentSkill studentSkill)
         {
             if (!ModelState.IsValid)
             {
@@ -129,102 +132,62 @@ namespace ThesisStudentPortfolio2024.Controllers
                 return BadRequest("Failed");
         }
 
-        [HttpGet("SubjectTaken/{id}/{year}")]
-        public async Task<IActionResult> GetAllStudentSubjetTakenByUser(int userId, int year)
+        [HttpGet("subjectstaken")]
+        public async Task<IActionResult> GetAllStudentSubjetTakenByUser([FromQuery] int userId)
         {
             var studentSkills = await _studentService.GetStudentSkillsByUserIdAsync(userId);
             return Ok(studentSkills);
         }
         [Authorize]
-        [HttpPost("SubjectTaken/Add")]
-        public async Task<IActionResult> AddStudentSubjetTakenAsync([FromBody] StudentSubjectTaken studentSubjectTaken)
+        [HttpPost("subjectstaken/add")]
+        public async Task<IActionResult> AddStudentSubjetTakenAsync([FromForm] StudentSubjectTakenDto studentSubjectTakenDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _studentService.AddStudentSubjetTakenAsync(studentSubjectTaken);
+            var result = await _studentService.AddStudentSubjetTakenAsync(studentSubjectTakenDto);
             if (result)
                 return Ok("Success");
             else
                 return BadRequest("Failed");
         }
         [Authorize]
-        [HttpPut("SubjectTaken/Delete")]
-        public async Task<IActionResult> DeleteStudentSubjetTakenAsync([FromBody] StudentSubjectTaken studentSubjectTaken)
+        [HttpPut("subjectstaken/delete")]
+        public async Task<IActionResult> DeleteStudentSubjetTakenAsync([FromForm] StudentSubjectTakenDto studentSubjectTakenDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _studentService.DeleteStudentSubjetTakenAsync(studentSubjectTaken);
+            var result = await _studentService.DeleteStudentSubjetTakenAsync(studentSubjectTakenDto);
             if (result)
                 return Ok("Success");
             else
                 return BadRequest("Failed");
         }
 
-        [HttpGet("Information/{id}")]
-        public async Task<IActionResult> GetStudentInformationByUserIdAsync(int userId)
+        [HttpGet("information")]
+        public async Task<IActionResult> GetStudentInformationByUserIdAsync([FromQuery] int userId)
         {
             var studentSkills = await _studentService.GetStudentInformationByUserIdAsync(userId);
             return Ok(studentSkills);
         }
+
+
         [Authorize]
-        [HttpPost("Information/Add")]
-        public async Task<IActionResult> AddStudentInformationAsync([FromBody] StudentInformation studentInfo)
+        [HttpPost("information/addorupdate")]
+        public async Task<IActionResult> AddOrUpdateStudentInformationAsync([FromForm] StudentInformationDto studentInfoDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _studentService.AddStudentInformationAsync(studentInfo);
+            var result = await _studentService.AddOrUpdateStudentInformationAsync(studentInfoDto);
             if (result)
                 return Ok("Success");
             else
                 return BadRequest("Failed");
-        }
-        [Authorize]
-        [HttpPost("InformationDetail/Add")]
-        public async Task<IActionResult> AddStudentInformationDetailAsync([FromBody] StudentInformationDetail studentInfoDtl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var result = await _studentService.AddStudentInformationDetailAsync(studentInfoDtl);
-            if (result)
-                return Ok("Success");
-            else
-                return BadRequest("Failed");
-        }
-        [Authorize]
-        [HttpPut("Information/Update")]
-        public async Task<IActionResult> UpdateStudentInformationAsync([FromBody] StudentInformation studentInfo)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var result = await _studentService.UpdateStudentInformationAsync(studentInfo);
-            if (result)
-                return Ok("Success");
-            else
-                return BadRequest("Failed");
-        }
-        [Authorize]
-        [HttpPut("InformationDetail/Update")]
-        public async Task<IActionResult> UpdateStudentInformationDetailAsync([FromBody] StudentInformationDetail studentInfoDtl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var result = await _studentService.UpdateStudentInformationDetailAsync(studentInfoDtl);
-            if (result)
-                return Ok("Success");
-            else
-                return BadRequest("Failed");
-        }
+        }        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Services;
 
@@ -16,22 +17,35 @@ namespace ThesisStudentPortfolio2024.Controllers
             _subjectService = subjectService;
         }
         [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetAllSubjectsAsync()
+        [HttpGet("getsubjects")]
+        public async Task<IActionResult> GetSubjectsAsync([FromQuery] PaginationParamsDto paginationParamsDto)
         {
-            var subjects = await _subjectService.GetAllSubjects();
+            var subjects = await _subjectService.GetSubjectsAsync(paginationParamsDto);
             return Ok(subjects);
         }
 
         [Authorize]
+        [HttpGet("searchsubjects")]
+        public async Task<IActionResult> SearchInStudents([FromQuery] PaginationParamsDto paginationParamsDto, [FromQuery] string searchValue)
+        {
+            if (string.IsNullOrWhiteSpace(searchValue))
+            {
+                var students = await _subjectService.GetSubjectsAsync(paginationParamsDto);
+                return Ok(students);
+            }
+            var searchStudents = await _subjectService.GetSubjectsAsync(paginationParamsDto, searchValue);
+            return Ok(searchStudents);
+        }
+
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddSubjetAsync([FromBody] Subject subject)
+        public async Task<IActionResult> AddSubjetAsync([FromForm] SubjectDto subjectDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var createdAnnouncemnet = await _subjectService.AddSubjetAsync(subject);
+            var createdAnnouncemnet = await _subjectService.AddSubjetAsync(subjectDto);
 
             return Ok("Success");
         }
@@ -48,6 +62,7 @@ namespace ThesisStudentPortfolio2024.Controllers
 
             return Ok("Success");
         }
+
         [Authorize]
         [HttpPut("Delete")]
         public async Task<IActionResult> DeleteSubjetAsync([FromBody] Subject subject)
