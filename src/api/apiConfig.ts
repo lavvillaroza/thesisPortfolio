@@ -34,3 +34,11 @@ export const ADDUP_STUDENT_INFO_URL = `/Student/information/addorupdate`;
 export const GET_STUDENT_SUBJECTS_TAKEN_URL = `/Student/subjectstaken`;
 export const ADD_STUDENT_SUBJECTS_TAKEN_URL = `/Student/subjectstaken/add`;
 export const DELETE_STUDENT_SUBJECTS_TAKEN_URL = `/Student/subjectstaken/delete`;
+export const GET_STUDENT_SKILLS_URL = `/Student/skills`;
+export const ADD_STUDENT_SKILLS_URL = `/Student/skill/add`;
+export const DELETE_STUDENT_SKILLS_URL = `/Student/skill/delete`;
+
+
+//Endpoints AI or Machine Learning Future Career Prediction based on skills
+export const GET_STUDENT_FUTURE_CAREER_URL = `/Student/futurecareers`;
+

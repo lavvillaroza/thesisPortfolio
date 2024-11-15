@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 //import Profile from './Profile';
 //import Navbar from './NavMenu';
 import NavHeader from './NavHeader';
+import { FaPencil } from 'react-icons/fa6';
+import { StudentSkillModel } from '../../models/StudentSkill';
+import { fetchStudentFutureCareers, fetchStudentSkills } from '../../api/studentApi';
+import { useNavigate } from 'react-router-dom';
 
 interface Item {
   id: number;
   text: string;
   rating: 'Well' | 'Better' | 'Best';  // Replace numeric rating with string type
 }
+
+const iniStudentSkill: StudentSkillModel = {
+  id: 0,
+  userId: 0,
+  skillName: '',
+  skillRating: 0,   
+};
 
 const initialItems: Item[] = [
   { id: 1, text: 'C++', rating: 'Better' },
@@ -20,13 +31,40 @@ const initialItems: Item[] = [
 ];
 
 const Skills: React.FC = () => {
-  const [items, setItems] = useState<Item[]>(initialItems);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [studentSkills, setStudentSkills] = useState<StudentSkillModel[]>([]);
+  const [newStudentSkill, setNewStudentSkill] = useState<StudentSkillModel>(iniStudentSkill);
+  const [futureCareers, setFutureCareers] = useState<string[]>([]);
+  const [items, setItems] = useState<Item[]>(initialItems);  
   const [newItemText, setNewItemText] = useState('');
   const [newItemRating, setNewItemRating] = useState<'Well' | 'Better' | 'Best'>('Well'); // Default to 'Well'
+  const [isModalOpen, setIsModalOpen] = useState(false);  
+  const navigate = useNavigate();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem('userDetails');
+    const fetchData = async () => {        
+        try {
+            if (user) {
+                const userParse = JSON.parse(user);
+                // Run both data fetching functions concurrently
+                const [studentSkillsData, studentFutureCareersData] = await Promise.all([
+                  fetchStudentSkills(userParse.userid),
+                  fetchStudentFutureCareers(userParse.userid),
+              ]);                
+                setStudentSkills(studentSkillsData);
+                setFutureCareers(studentFutureCareersData);               
+            } else {
+                navigate("/");
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    fetchData();
+}, [navigate]);
 
   const handleAddItem = () => {
     if (newItemText.trim()) {
@@ -52,8 +90,8 @@ const Skills: React.FC = () => {
                                       <label className="text-gray-700 text-left mx-2 text-2xl">SKILLS</label>
                                       <button
                                         onClick={openModal}
-                                        className="hover:bg-white text-emerald-800 font-bold rounded-full focus:outline-none focus:shadow-outline ">
-                                        <FaPlusCircle />
+                                        className="bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-2 rounded-full transition duration-150 ease-in-out">
+                                        <FaPencil />
                                       </button>
                                     </div>
                                     <div className="p-4 w-full m-auto h-[570px] bg-white drop-shadow-md rounded-lg overflow-auto">
@@ -73,19 +111,20 @@ const Skills: React.FC = () => {
                                       </div>
                                       <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
                                       <div className="grid grid-cols-2 ">
-                                        {items.map(item => (
-                                              <div key={item.id} className="py-2">                                                  
-                                                <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">                                                    
-                                                  <span
-                                                    className={`flex w-2.5 h-2.5 ${
-                                                      item.rating === 'Well' ? 'bg-yellow-300 ' :
-                                                      item.rating === 'Better' ? 'bg-blue-600 ' :
-                                                      'bg-green-600 '} rounded-full me-1.5 flex-shrink-0`}>                                                      
-                                                  </span>
-                                                  {item.text}                                                    
-                                                </span>                                                  
-                                              </div>
-                                            ))} 
+                                        {studentSkills && studentSkills.length > 0 ||
+                                          studentSkills.map(item => (
+                                                <div key={item.id} className="py-2">                                                  
+                                                  <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">                                                    
+                                                    <span
+                                                      className={`flex w-2.5 h-2.5 ${
+                                                        item.skillRating === 0 ? 'bg-yellow-300 ' :
+                                                        item.skillRating === 1 ? 'bg-blue-600 ' :
+                                                        'bg-green-600 '} rounded-full me-1.5 flex-shrink-0`}>                                                      
+                                                    </span>
+                                                    {item.skillName}                                                    
+                                                  </span>                                                  
+                                                </div>
+                                              ))} 
                                       </div>                                       
                                     </div>
                                   </div>

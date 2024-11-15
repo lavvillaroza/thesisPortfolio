@@ -21,8 +21,7 @@ namespace ThesisStudentPortfolio2024.Data
         public DbSet<SubjectDetail> SubjectDetails { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<AnnouncementAttendee> AnnouncementAttendees { get; set; }
-        public DbSet<AnnouncementDetail> AnnouncementDetails { get; set; }
-        public DbSet<Skill> Skills { get; set; }
+        public DbSet<AnnouncementDetail> AnnouncementDetails { get; set; }        
         public DbSet<Course> Courses { get; set; }        
     }
 }

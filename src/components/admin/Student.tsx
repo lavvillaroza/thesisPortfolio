@@ -10,25 +10,25 @@ import { checkTokenAndLogout } from '../../utils/jwtUtil';
 import { addStudent, fetchSearchStudents, fetchStudents } from '../../api/adminApi';
 import { fetchCourses } from '../../api/courseApi';
 import studentIcon from '../../assets/studentIcon.png';
-import { BASE_URL } from '../../api/apiConfig';
 import { CourseModel } from '../../models/CourseModel';
 import CustomToast from '../common/CustomToast';
 
 const initialStudentDetail: StudentDetailModel = {
     id: 0,
+    userId: 0,
     studentId: '',
     studentName: '',                                                  
     courseId: 0,
-    courseCode: '',
-    yearLevel: '',                                                  
-    yearStart: '',
-    yearEnd: '',
+    courseName: '',
+    yearLevel: 0,                                                  
+    yearStart: 0,
+    yearEnd: null,
     section: '',
     schoolEmail: '',
     personalEmail: '',
     portfolioURL: '',
-    profilePicture: null,
-    profilePictureUrl: '',
+    attachedResume: '',
+    attachedResumeFile: null,
     createdBy: '',
     createdDate: null,
     lastModifiedBy: '',
@@ -76,8 +76,8 @@ const Student: React.FC = () => {
         formData.append('studentId', newStudentDetail.studentId);
         formData.append('studentName', newStudentDetail.studentName);
         formData.append('courseId', newStudentDetail.courseId.toString());
-        formData.append('yearLevel', newStudentDetail.yearLevel);
-        formData.append('yearStart', newStudentDetail.yearStart);
+        formData.append('yearLevel', newStudentDetail.yearLevel.toString());
+        formData.append('yearStart', newStudentDetail.yearStart.toString());
         formData.append('yearEnded', '');
         formData.append('section', newStudentDetail.section);
         formData.append('schoolEmail', newStudentDetail.schoolEmail);
@@ -91,7 +91,6 @@ const Student: React.FC = () => {
             setToastMessage('Student added successfully!');
             setToastType('success');
             setShowToast(true);
-    
             // Reset the form
             setNewStudentDetail(initialStudentDetail);
              // Close the modal
@@ -160,7 +159,7 @@ const Student: React.FC = () => {
     
 
       // Trigger search whenever `searchValue` or `pageNumber` changes
-      useEffect(() => {
+    useEffect(() => {
         fetchStudentsData(''); // Call with empty string initially
     }, [fetchStudentsData, pageNumber]); // Add fetchStudentsData as a dependency
     
@@ -172,11 +171,24 @@ const Student: React.FC = () => {
             } catch (error) {
                 console.error('Error fetching courses data:', error);
             }
-        };
-    
+        };    
         fetchCoursesData();
     }, []); // Empty dependency array
     
+    const getYearString = (year: number): string => {
+        switch (year) {
+          case 1:
+            return '1st Year';
+          case 2:
+            return '2nd Year';
+          case 3:
+            return '3rd Year';
+          case 4:
+            return '4th Year';
+          default:
+            return `${year}th Year`;
+        }
+      };
   return (
     <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
           <div className="flex-1 m-auto">
@@ -243,16 +255,16 @@ const Student: React.FC = () => {
                                                     studentList.map(student => (
                                                         <tr key={student.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                                             <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                                                <img className="w-10 h-10 rounded-full border border-gray-500" src={student.profilePictureUrl == null ? studentIcon : BASE_URL + encodeURI(student.profilePictureUrl)} alt="Jese image"/>
+                                                                <img className="w-10 h-10 rounded-full border border-gray-500" src={studentIcon} alt="Jese image"/>
                                                                 <div className="ps-3">
                                                                     <div className="text-base font-semibold">{student.studentName}</div>
                                                                     <div className="font-normal text-gray-500">{student.schoolEmail}</div>
                                                                 </div>  
                                                             </th>                                                                                                                
                                                             <td className="px-6 py-4">{student.studentId}</td>
-                                                            <td className="px-6 py-4">{student.courseCode}</td>
+                                                            <td className="px-6 py-4">{student.courseName}</td>
                                                             <td className="px-6 py-4">{student.yearStart}</td>
-                                                            <td className="px-6 py-4">{student.yearLevel}</td>
+                                                            <td className="px-6 py-4">{getYearString(student.yearLevel)}</td>
                                                             <td className="px-6 py-4">
                                                                 <a ref={student.portfolioURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-500 hover:underline">View Portfolio</a>
                                                             </td>                                                    
@@ -392,13 +404,14 @@ const Student: React.FC = () => {
                                         <div>
                                             <label htmlFor="yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
                                             <input 
-                                                type="text" 
+                                                type="number" 
                                                 id="yearLevel" 
                                                 name="yearLevel"
                                                 value={newStudentDetail.yearLevel}
                                                 onChange={handleInputChange}
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="Year Level"  />
+                                                placeholder="Year Level"  
+                                                required/>
                                         </div>   
                                     </div>                                                                             
                                     <div className="mb-6">

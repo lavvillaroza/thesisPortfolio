@@ -16,7 +16,7 @@ namespace ThesisStudentPortfolio2024.Services
         private readonly IStudentInformationRepository _studentInformationRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IWebHostEnvironment _webhostEnvironment;
-        private readonly ISubjectRepository _subjectRepository;
+        private readonly ISubjectRepository _subjectRepository;        
         public StudentService(IStudentDetailRepository studentDetailRepository, 
                                IStudentSeminarRepository studentSeminarRepository, 
                                IStudentSkillRepository studentSkillRepository, 
@@ -123,16 +123,42 @@ namespace ThesisStudentPortfolio2024.Services
         }
 
         //Skill
-        public async Task<List<StudentSkill>> GetStudentSkillsByUserIdAsync(int userId) {
-            return await _studentSkillRepository.GetStudentSkillsByStudentIdAsync(userId);
-        }
-        public async Task<List<Skill>> GetAllSkillsAsync() { 
-            return await _studentSkillRepository.GetAllSkillsAsync();
-        }
-        public async Task<bool> AddStudentSkillAsync(StudentSkill studentSkill) { 
+        public async Task<IEnumerable<StudentSkillDto>> GetStudentSkillsByUserIdAsync(int userId) {
+            var getStudentSkills = await _studentSkillRepository.GetStudentSkillsByStudentIdAsync(userId);
+            List<StudentSkillDto> studentSkillsDto = new List<StudentSkillDto>();
+            foreach (var skill in getStudentSkills) {
+                StudentSkillDto studentSkillDto = new StudentSkillDto
+                {
+                    Id = skill.Id,
+                    UserId = skill.UserId,
+                    SkillName = skill.SkillName,
+                    SkillRating = skill.SkillRating,
+                };
+                studentSkillsDto.Add(studentSkillDto);
+            }
+            return studentSkillsDto;
+        }        
+        public async Task<bool> AddStudentSkillAsync(StudentSkillDto studentSkillDto) {
+            StudentSkill studentSkill = new StudentSkill
+            {
+                Id = studentSkillDto.Id,
+                UserId = studentSkillDto.UserId,
+                SkillName = studentSkillDto.SkillName,
+                SkillRating = studentSkillDto.SkillRating,
+                CreatedDate = DateTime.Now
+            };
+
             return await _studentSkillRepository.AddStudentSkillAsync(studentSkill);
         }
-        public async Task<bool> DeleteStudentSkillAsync(StudentSkill studentSkill) {
+        public async Task<bool> DeleteStudentSkillAsync(StudentSkillDto studentSkillDto) {
+            StudentSkill studentSkill = new StudentSkill
+            {
+                Id = studentSkillDto.Id,
+                UserId = studentSkillDto.UserId,
+                SkillName = studentSkillDto.SkillName,
+                SkillRating = studentSkillDto.SkillRating,
+                CreatedDate = DateTime.Now
+            };
             return await _studentSkillRepository.DeleteStudentSkillAsync(studentSkill);
         }
 

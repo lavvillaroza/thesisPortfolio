@@ -13,6 +13,10 @@ namespace ThesisStudentPortfolio2024.Repositories
         {
             _context = context;
         }
+        async Task<List<StudentSkill>> IStudentSkillRepository.GetStudentSkillsByStudentIdAsync(int userId)
+        {
+            return await _context.StudentSkills.Where(x => x.UserId == userId).ToListAsync();
+        }
 
         async Task<bool> IStudentSkillRepository.AddStudentSkillAsync(StudentSkill studentSkill)
         {
@@ -29,7 +33,6 @@ namespace ThesisStudentPortfolio2024.Repositories
             }
             return ret;
         }
-
         async Task<bool> IStudentSkillRepository.DeleteStudentSkillAsync(StudentSkill studentSkill)
         {
             bool ret = false;
@@ -44,16 +47,6 @@ namespace ThesisStudentPortfolio2024.Repositories
                 Log.Error(ex.Message);
             }
             return ret;
-        }
-
-        async Task<List<Skill>> IStudentSkillRepository.GetAllSkillsAsync()
-        {
-            return await _context.Skills.ToListAsync();
-        }
-
-        async Task<List<StudentSkill>> IStudentSkillRepository.GetStudentSkillsByStudentIdAsync(int userId)
-        {
-            return await _context.StudentSkills.Where(x => x.UserId == userId).ToListAsync();
-        }
+        }                
     }
 }

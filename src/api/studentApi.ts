@@ -2,9 +2,10 @@ import { PagedResultModel } from "../models/PagedResultModel";
 import { PaginationParamsModel } from "../models/PaginationParamsModel";
 import { StudentDetailModel } from "../models/StudentDetailModel";
 import { StudentInformationModel } from "../models/StudentInformationModel";
+import { StudentSkillModel } from "../models/StudentSkill";
 import { StudentSubjectTakenModel } from "../models/StudentSubjectTakenModel";
 import apiClient from "./apiClient";
-import { ADD_STUDENT_SUBJECTS_TAKEN_URL, ADDUP_STUDENT_INFO_URL, DELETE_STUDENT_SUBJECTS_TAKEN_URL, GET_STUDENT_DETAIL_URL, GET_STUDENT_INFO_URL, GET_STUDENT_SUBJECTS_TAKEN_URL, UPDATE_STUDENT_DETAIL_URL } from "./apiConfig";
+import { ADD_STUDENT_SUBJECTS_TAKEN_URL, ADDUP_STUDENT_INFO_URL, DELETE_STUDENT_SUBJECTS_TAKEN_URL, GET_STUDENT_DETAIL_URL, GET_STUDENT_FUTURE_CAREER_URL, GET_STUDENT_INFO_URL, GET_STUDENT_SKILLS_URL, GET_STUDENT_SUBJECTS_TAKEN_URL, UPDATE_STUDENT_DETAIL_URL } from "./apiConfig";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -107,3 +108,37 @@ export const deleteStudentSubjectTaken = async (formData: FormData) => {
         throw new Error(`Error delete student subject: ${error}`);
     }
 };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchStudentSkills(
+    userId: number | null
+): Promise<StudentSkillModel[]> {
+    try {
+        const response = await apiClient.get<StudentSkillModel[]>(`${GET_STUDENT_SKILLS_URL}`, {
+            params: {
+                userId: userId                
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching detail:", error);
+        throw error; // Handle this in your component
+    }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchStudentFutureCareers(
+    userId: number | null
+): Promise<string[]> {
+    try {
+        const response = await apiClient.get<string[]>(`${GET_STUDENT_FUTURE_CAREER_URL}`, {
+            params: {
+                userId: userId                
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error careers prediction", error);
+        throw error; // Handle this in your component
+    }
+}

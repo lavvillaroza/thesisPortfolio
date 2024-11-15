@@ -11,9 +11,11 @@ namespace ThesisStudentPortfolio2024.Controllers
     public class StudentController : ControllerBase
     {
         private readonly StudentService _studentService;
-        public StudentController(StudentService studentService)
+        private readonly CareerPredictionService _careerPredictionService;
+        public StudentController(StudentService studentService, CareerPredictionService careerPredictionService)
         {
             _studentService = studentService;
+            _careerPredictionService = careerPredictionService;
         }
         
         [HttpGet("detail")]
@@ -89,28 +91,33 @@ namespace ThesisStudentPortfolio2024.Controllers
             else
                 return BadRequest("Failed");
         }
+        [HttpGet("futurecareers")]
+        public async Task<IActionResult> GetStudentFutureCareerAiAsync(int userId)
+        {            
+            var studentSkills = await _studentService.GetStudentSkillsByUserIdAsync(userId);
+            var studentSkillsList = studentSkills.Select(x => x.SkillName).ToList();
+            var studentFutureCareers = await _careerPredictionService.PredictCareers(studentSkillsList);
 
-        [HttpGet("Skill/{id}")]
+            return Ok(studentFutureCareers);
+        }
+
+
+        [HttpGet("skills")]
         public async Task<IActionResult> GetStudentSkillsByUserIdAsync(int userId)
         {
             var studentSkills = await _studentService.GetStudentSkillsByUserIdAsync(userId);
             return Ok(studentSkills);
         }
-        [HttpGet("Skill")]
-        public async Task<IActionResult> GetAllSkillsAsync()
-        {
-            var skills = await _studentService.GetAllSkillsAsync();
-            return Ok(skills);
-        }
+        
         [Authorize]
-        [HttpPost("Skill/add")]
-        public async Task<IActionResult> AddStudentSkillAsync([FromForm] StudentSkill studentSkill)
+        [HttpPost("skill/add")]
+        public async Task<IActionResult> AddStudentSkillAsync([FromForm] StudentSkillDto studentSkillDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _studentService.AddStudentSkillAsync(studentSkill);
+            var result = await _studentService.AddStudentSkillAsync(studentSkillDto);
             if (result)
                 return Ok("Success");
             else
@@ -118,14 +125,14 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPut("Skill/delete")]
-        public async Task<IActionResult> DeleteStudentSkillAsync([FromForm] StudentSkill studentSkill)
+        [HttpPut("skill/delete")]
+        public async Task<IActionResult> DeleteStudentSkillAsync([FromForm] StudentSkillDto studentSkillDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _studentService.DeleteStudentSkillAsync(studentSkill);
+            var result = await _studentService.DeleteStudentSkillAsync(studentSkillDto);
             if (result)
                 return Ok("Success");
             else

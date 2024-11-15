@@ -15,7 +15,7 @@ namespace ThesisStudentPortfolio2024.Services
         public CareerPredictionService()
         {
             _mlContext = new MLContext();
-            _modelPath = Path.Combine(AppContext.BaseDirectory, "job_career_model.zip");
+            _modelPath = Path.Combine(AppContext.BaseDirectory, "MachineLearningModel", "job_career_model.zip");
 
             // Load the model when the service is created
             LoadModel();
@@ -32,7 +32,7 @@ namespace ThesisStudentPortfolio2024.Services
             }
         }
 
-        public List<JobCareerPrediction> PredictCareers(List<string> skillsList)
+        public Task<List<JobCareerPrediction>> PredictCareers(List<string> skillsList)
         {
             if (_model == null)
             {
@@ -48,7 +48,7 @@ namespace ThesisStudentPortfolio2024.Services
                 predictions.Add(new JobCareerPrediction { Skills = skills, PredictedJobCareer = predictionResult.PredictedCareer });
             }
 
-            return predictions;
+            return Task.FromResult(predictions);
         }
         private class CareerPredictionResult
         {
