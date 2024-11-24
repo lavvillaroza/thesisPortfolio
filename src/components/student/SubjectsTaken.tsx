@@ -1,95 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import NavHeader from './NavHeader';
 import { checkTokenAndLogout } from '../../utils/jwtUtil';
-//import { addSubject, fetchSearchSubjects, fetchSubjects } from '../../api/subjectApi';
-//import { PiBook } from 'react-icons/pi';
-import { FaPlus } from 'react-icons/fa';
+import { FaEdit, FaPlus, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-//import { SubjectModel } from '../../models/SubjectModel';
 import { StudentSubjectTakenModel } from '../../models/StudentSubjectTakenModel';
-import { fetchStudentSubjectsTaken } from '../../api/studentApi';
+import { deleteStudentSubjectTaken, fetchStudentSubjectsTaken } from '../../api/studentApi';
+import CustomToast from '../common/CustomToast';
+import SubjectTakenModal from './modal/SubjectTakentModal';
+import ConfirmationModal from '../common/ConfirmationModal';
+import UpdateSubjectTakenModal from './modal/UpdateSubjectTakenModal';
 
-// const initialStudentSubject: StudentSubjectTakenModel = {
-//   id: 0,
-//   userId: 0,
-//   subjectId: 0,
-//   subjectName: '',
-//   subjectDescription: '',
-//   prereq: '',
-//   lec: 0,
-//   lab: 0,
-//   units: 0,
-//   hrs: 0,  
-//   lastModifiedDate:  ''
-// }
+const initialStudentSubject: StudentSubjectTakenModel = {
+    id: 0,
+    userId: 0,
+    subjectId: 0,
+    subjectName: '',
+    subjectDescription: '',
+    subjectStatus: 0,
+    prereq: '',
+    lec: 0,
+    lab: 0,
+    units: 0,
+    hrs: 0
+  }
+
 
 const SubjectsTaken: React.FC = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize] = useState<number>(10);
     const [studentSubjects, setStudentSubjects] = useState<StudentSubjectTakenModel[]>([]);    
-    // const [newStudentSubject, setNewStudentSubject] = useState<StudentSubjectTakenModel>(initialStudentSubject);
-    // const [subjects, setSubjects] = useState<SubjectModel[]>([]);
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // const openModal = () => setIsModalOpen(true);
-    // const closeModal = () => setIsModalOpen(false);
-    const navigate = useNavigate();
-
-    // const [showToast, setShowToast] = useState<boolean>(false); // For toast visibility
-    // const [toastMessage, setToastMessage] = useState<string>(''); // Toast message content
-    // const [toastType, setToastType] = useState<'success' | 'error'>('success'); // Toast type (success or error)    
-    const [dropdownOpenRowId, setDropdownOpenRowId] = useState<number | null>(null);
-
-    // Toggle dropdown visibility
-    const toggleDropdown = (id: number) => {
-        // Toggle the dropdown only for the current row
-        setDropdownOpenRowId(prevId => (prevId === id ? null : id));
-    };
-
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-
-    //     const user = localStorage.getItem('userDetails');        
-    //     if (user) {
-    //         const userParse = JSON.parse(user);
-    //         newSubject.createdBy = userParse.username;
-    //         newSubject.lastModifiedBy = userParse.username;            
-    //     } 
-    //     const formData = new FormData();
-    //     formData.append('subjectName', newSubject.subjectName);
-    //     formData.append('subjectDescription', newSubject.subjectDescription);
-    //     formData.append('prereq', newSubject.prereq);
-    //     formData.append('lec', newSubject.lec.toString());
-    //     formData.append('lab', newSubject.lab.toString());
-    //     formData.append('units', newSubject.units.toString());
-    //     formData.append('hours', newSubject.hrs.toString());
-    //     formData.append('createdBy', newSubject.createdBy);
-    //     formData.append('lastModifiedBy', newSubject.createdBy);        
-        
-    //     try {
-    //         await addSubject(formData); // Call the new API function
-    //         setToastMessage('Student added successfully!');
-    //         setToastType('success');
-    //         setShowToast(true);
-    
-    //         // Reset the form
-    //         setNewSubject(initialSubject);
-    //         // Close the modal
-    //         closeModal();
-    //         await fetchSubjectsData('');
-    //     } catch (error) {
-    //         setToastMessage('Error adding announcement.');
-    //         setToastType('error');
-    //         setShowToast(true);
-    //         console.error('Error adding announcement:', error);
-    //     } finally {
-    //         // Hide toast after 8 seconds
-    //         setTimeout(() => {
-    //             setShowToast(false);
-    //         }, 8000);
-    //     }
-    // };
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [userId, setUserId] = useState<number>(0);
+    const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+    const openAddModal = () => setIsAddModalOpen(true);
+    const closeAddModal = () => setIsAddModalOpen(false);
+    const closeEditModal = () => setIsEditModalOpen(false);
+    const navigate = useNavigate();        
+    const [selectedStudentSubject, setSelectedStudentSubject] = useState<StudentSubjectTakenModel | null>(null);
+    const [updateStudentSubject, setUpdateStudentSubject] = useState<StudentSubjectTakenModel>(initialStudentSubject);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   // Handle page changes for pagination
     const handlePrevPage = async () => {
@@ -113,6 +64,7 @@ const SubjectsTaken: React.FC = () => {
                 const result = await fetchStudentSubjectsTaken({ pageNumber, pageSize }, userParse.userid);            
                 setStudentSubjects(result.items);
                 setTotalPages(result.totalPages);
+                setUserId(userParse.userid);
             }
             else {
                 navigate("/");
@@ -125,8 +77,34 @@ const SubjectsTaken: React.FC = () => {
 
     useEffect(() => {
         fetchStudentSubjectsTakenData()
-    },);
+    }, [pageNumber, pageSize]);
 
+    const confirmDeleteSubject = (subject: StudentSubjectTakenModel) => {
+        setSelectedStudentSubject(subject);
+        setIsConfirmModalOpen(true);
+      };
+    
+    const handleDeleteSubject = async () => {
+        if (selectedStudentSubject) {
+            try {
+            await deleteStudentSubjectTaken(selectedStudentSubject.id); // Call API to delete
+            setIsConfirmModalOpen(false);
+            setSelectedStudentSubject(null);
+            fetchStudentSubjectsTakenData(); // Refresh list
+            setToast({ message: 'Subject ' + selectedStudentSubject.subjectName +  ' deleted sucessfully', type: 'success' });
+            } catch (error) {
+            setToast({ message: 'Error deleting subject: ' + error, type: 'error' });        
+            }
+        }
+    };      
+    const handleUpdateSubject = async (subject: StudentSubjectTakenModel) => {
+        try {                        
+            setUpdateStudentSubject(subject);
+            setIsEditModalOpen(true);                        
+        } catch (error) {
+            setToast({ message: 'Error deleting subject: ' + error, type: 'error' });        
+        }
+    };    
   return (
       <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
         <div className="flex-1 m-auto">
@@ -141,7 +119,7 @@ const SubjectsTaken: React.FC = () => {
                                   <div className="w-full relative flex justify-between items-center">                                      
                                       <div className="relative py-3 pr-2">
                                           <button
-                                              //onClick={openModal}
+                                              onClick={openAddModal}
                                               className="bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out flex items-center justify-center">
                                               <FaPlus className="w-3 h-3" />
                                           </button>   
@@ -158,7 +136,8 @@ const SubjectsTaken: React.FC = () => {
                                                       <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Lec</th>
                                                       <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Lab</th>
                                                       <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Units</th>
-                                                      <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Hrs</th>                                                            
+                                                      <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Hrs</th>
+                                                      <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Status</th>  
                                                       <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Action</th>
                                                   </tr>
                                               </thead>
@@ -173,33 +152,28 @@ const SubjectsTaken: React.FC = () => {
                                                           <td className="px-4 py-1.5">{subjectTaken.lab}</td>
                                                           <td className="px-4 py-1.5">{subjectTaken.units}</td>
                                                           <td className="px-4 py-1.5">{subjectTaken.hrs}</td>                                                                
+                                                          <td className="px-4 py-1.5">  
+                                                            <span className={` ${subjectTaken.subjectStatus === 0
+                                                                            ? 'bg-yellow-100 text-yellow-800'
+                                                                            : subjectTaken.subjectStatus === 1
+                                                                            ? 'bg-emerald-100 text-emerald-800'
+                                                                            : 'bg-red-100 text-red-800'} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full`}>
+                                                                {subjectTaken.subjectStatus == 0 ? 'On-Going' : subjectTaken.subjectStatus == 1 ? 'Passed' : 'Failed'}
+                                                            </span>                                                            
+                                                          </td>  
                                                           <td className="px-4 py-1.5">
-                                                              <div className="relative">
-                                                                  <button 
-                                                                      id={`dropdownMenuIconButton-${subjectTaken.id}`} 
-                                                                      onClick={() => toggleDropdown(subjectTaken.id)}                                            
-                                                                      className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none  focus:ring-gray-50 "
-                                                                      type="button">
-                                                                      <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                                                                          <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-                                                                      </svg>
-
-                                                                  </button>
-
-                                                                  {/* Dropdown menu */}
-                                                                  <div 
-                                                                      id={`dropdownDots-${subjectTaken.id}`} 
-                                                                      className={`${dropdownOpenRowId === subjectTaken.id  ? 'block' : 'hidden'} z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-22  absolute mt-2`}>
-                                                                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
-                                                                          <li>
-                                                                              <a href="#" className="block px-4 py-2 hover:bg-gray-100 ">Update</a>
-                                                                          </li>
-                                                                          <li>
-                                                                              <a href="#" className="block px-4 py-2 hover:bg-gray-100 ">Delete</a>
-                                                                          </li>                                                                            
-                                                                      </ul>                                                                        
-                                                                  </div>
-                                                              </div>                                                                    
+                                                            <div className="relative">
+                                                                <button
+                                                                    onClick={() => handleUpdateSubject(subjectTaken)}
+                                                                    className="text-emerald-500 hover:text-emerald-900 mr-2">
+                                                                    <FaEdit />
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => confirmDeleteSubject(subjectTaken)}
+                                                                    className="text-red-500 hover:text-red-900 mr-2">
+                                                                    <FaTrashAlt />
+                                                                </button>
+                                                              </div>                                                                                                                                  
                                                           </td>                                                    
                                                       </tr>
                                                   ))
@@ -217,13 +191,13 @@ const SubjectsTaken: React.FC = () => {
                                       <span className="text-sm text-gray-700 dark:text-gray-400">
                                           Page {pageNumber} of {totalPages}
                                       </span>
-                                      <div className="inline-flex mt-2 xs:mt-0">
-                                          <button
-                                              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                              onClick={handlePrevPage}
-                                              disabled={pageNumber === 1}>
-                                              Prev
-                                          </button>
+                                      <div className="inline-flex mt-2 xs:mt-0">                                        
+                                        <button
+                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            onClick={handlePrevPage}
+                                            disabled={pageNumber === 1}>
+                                            Prev
+                                        </button>
                                           <button
                                               className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                               onClick={handleNextPage}
@@ -237,7 +211,41 @@ const SubjectsTaken: React.FC = () => {
                           </div>  
                         </div>                            
                     </div>
-                </main>                  
+                </main>     
+                {/* Modal for Adding/Editing Subject */}
+                {isEditModalOpen && (
+                    <UpdateSubjectTakenModal
+                        subjectTaken={updateStudentSubject}                        
+                        isOpen={isEditModalOpen}
+                        onClose={closeEditModal}
+                        onSubjectUpdate={fetchStudentSubjectsTakenData}
+                    />
+                )}
+
+                {isAddModalOpen && (
+                    <SubjectTakenModal
+                        userId={userId}
+                        isOpen={isAddModalOpen}
+                        onClose={closeAddModal}
+                        onSubjectAdd={fetchStudentSubjectsTakenData}
+                    />
+                )}
+                {/* Confirmation Modal */}
+                {isConfirmModalOpen && selectedStudentSubject && (
+                    <ConfirmationModal
+                    isOpen={isConfirmModalOpen}
+                    message={`Are you sure you want to delete the Subject: "${selectedStudentSubject.subjectName}"?`}
+                    onClose={() => setIsConfirmModalOpen(false)}
+                    onConfirm={handleDeleteSubject}
+                    />
+                )}            
+                {toast && (
+                    <CustomToast
+                        message={toast.message}
+                        type={toast.type}
+                        onClose={() => setToast(null)}
+                    />
+                )}             
             </div>                                          
         </div>
     </div> 

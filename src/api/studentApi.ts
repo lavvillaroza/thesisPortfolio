@@ -1,11 +1,15 @@
 import { PagedResultModel } from "../models/PagedResultModel";
 import { PaginationParamsModel } from "../models/PaginationParamsModel";
+import { PredictedCareerModel } from "../models/PredictedCareerModel";
+import { StudentCertAndRecogModel } from "../models/StudentCertiAndRecogModel";
+import { StudentCourseWithSubjectsModel } from "../models/StudentCourseWithSubjectsModel";
 import { StudentDetailModel } from "../models/StudentDetailModel";
 import { StudentInformationModel } from "../models/StudentInformationModel";
+import { StudentSeminarModel } from "../models/StudentSeminarModel";
 import { StudentSkillModel } from "../models/StudentSkill";
 import { StudentSubjectTakenModel } from "../models/StudentSubjectTakenModel";
 import apiClient from "./apiClient";
-import { ADD_STUDENT_SUBJECTS_TAKEN_URL, ADDUP_STUDENT_INFO_URL, DELETE_STUDENT_SUBJECTS_TAKEN_URL, GET_STUDENT_DETAIL_URL, GET_STUDENT_FUTURE_CAREER_URL, GET_STUDENT_INFO_URL, GET_STUDENT_SKILLS_URL, GET_STUDENT_SUBJECTS_TAKEN_URL, UPDATE_STUDENT_DETAIL_URL } from "./apiConfig";
+import { ADD_STUDENT_CERTIFICATE_URL, ADD_STUDENT_RECOGNITION_URL, ADD_STUDENT_SEMINAR_URL, ADD_STUDENT_SKILLS_URL, ADD_STUDENT_SUBJECTS_TAKEN_URL, ADDUP_STUDENT_INFO_URL, DELETE_STUDENT_CERTIFICATE_URL, DELETE_STUDENT_RECOGNITION_URL, DELETE_STUDENT_SEMINAR_URL, DELETE_STUDENT_SKILLS_URL, DELETE_STUDENT_SUBJECTS_TAKEN_URL, GET_STUDENT_CERTIFICATES_URL, GET_STUDENT_COURSE_PROGRESS_URL, GET_STUDENT_DETAIL_URL, GET_STUDENT_FUTURE_CAREER_URL, GET_STUDENT_INFO_URL, GET_STUDENT_RECOGNITIONS_URL, GET_STUDENT_SCHOOL_SEMINARS_URL, GET_STUDENT_SEMINARS_URL, GET_STUDENT_SKILLS_URL, GET_STUDENT_SUBJECTS_TAKEN_URL, UPDATE_STUDENT_DETAIL_URL, UPDATE_STUDENT_SEMINAR_URL, UPDATE_STUDENT_SUBJECTS_TAKEN_URL } from "./apiConfig";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -87,7 +91,7 @@ export async function fetchStudentSubjectsTaken(
     }
 }
 
-//Add Student Subject
+//Add Student Subject Taken
 export const addStudentSubjectTaken = async (formData: FormData) => {
     try {        
         const response = await apiClient.post(`${ADD_STUDENT_SUBJECTS_TAKEN_URL}`, formData);
@@ -98,14 +102,26 @@ export const addStudentSubjectTaken = async (formData: FormData) => {
     }
 };
 
-//Delete Student Subject
-export const deleteStudentSubjectTaken = async (formData: FormData) => {
+//Update Student Subject Taken
+export const updateStudentSubjectTaken = async (formData: FormData) => {
     try {        
-        const response = await apiClient.post(`${DELETE_STUDENT_SUBJECTS_TAKEN_URL}`, formData);
+        const response = await apiClient.post(`${UPDATE_STUDENT_SUBJECTS_TAKEN_URL}`, formData);
         return response.data; 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {        
-        throw new Error(`Error delete student subject: ${error}`);
+        throw new Error(`Error add student subject: ${error}`);
+    }
+};
+
+//deelete Student Skill
+export const deleteStudentSubjectTaken = async (studentSubjectId: number) => {
+    try {   
+        console.log("DELETE " + studentSubjectId);
+        const response = await apiClient.put(`${DELETE_STUDENT_SUBJECTS_TAKEN_URL}` + studentSubjectId);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error deleting student subject: ${error}`);
     }
 };
 
@@ -129,9 +145,9 @@ export async function fetchStudentSkills(
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function fetchStudentFutureCareers(
     userId: number | null
-): Promise<string[]> {
+): Promise<PredictedCareerModel[]> {
     try {
-        const response = await apiClient.get<string[]>(`${GET_STUDENT_FUTURE_CAREER_URL}`, {
+        const response = await apiClient.get<PredictedCareerModel[]>(`${GET_STUDENT_FUTURE_CAREER_URL}`, {
             params: {
                 userId: userId                
             }
@@ -139,6 +155,198 @@ export async function fetchStudentFutureCareers(
         return response.data;
     } catch (error) {
         console.error("Error careers prediction", error);
+        throw error; // Handle this in your component
+    }
+}
+
+//Add Student Skill
+export const addStudentSkill = async (formData: FormData) => {
+    try {        
+        const response = await apiClient.post(`${ADD_STUDENT_SKILLS_URL}`, formData);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error add student subject: ${error}`);
+    }
+};
+
+//deelete Student Skill
+export const deleteStudentSkill = async (studentSkillId: number) => {
+    try {   
+        console.log("DELETE " + studentSkillId);
+        const response = await apiClient.put(`${DELETE_STUDENT_SKILLS_URL}` + studentSkillId);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error deleting skill: ${error}`);
+    }
+};
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchStudentCertificates(
+    userId: number | null
+): Promise<StudentCertAndRecogModel[]> {
+    try {
+        const response = await apiClient.get<StudentCertAndRecogModel[]>(`${GET_STUDENT_CERTIFICATES_URL}`, {
+            params: {
+                userId: userId                
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching Student Certificates", error);
+        throw error; // Handle this in your component
+    }
+}
+
+//Add Student Certificate
+export const addStudentCertificate = async (formData: FormData) => {
+    try {        
+        const response = await apiClient.post(`${ADD_STUDENT_CERTIFICATE_URL}`, formData);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error adding Student Certificate: ${error}`);
+    }
+};
+
+//deelete Student Certificate
+export const deleteStudentCertificate = async (studentCertId: number) => {
+    try {   
+        console.log("DELETE " + studentCertId);
+        const response = await apiClient.put(`${DELETE_STUDENT_CERTIFICATE_URL}` + studentCertId);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error deleting Student Certificate: ${error}`);
+    }
+};
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchStudentRecognitions(
+    userId: number | null
+): Promise<StudentCertAndRecogModel[]> {
+    try {
+        const response = await apiClient.get<StudentCertAndRecogModel[]>(`${GET_STUDENT_RECOGNITIONS_URL}`, {
+            params: {
+                userId: userId                
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching Student Recognitions", error);
+        throw error; // Handle this in your component
+    }
+}
+
+//Add Student Recognition
+export const addStudentRecognition = async (formData: FormData) => {
+    try {        
+        const response = await apiClient.post(`${ADD_STUDENT_RECOGNITION_URL}`, formData);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error adding Student Recognition: ${error}`);
+    }
+};
+
+//deelete Student Recognition
+export const deleteStudentRecognition = async (studentCertId: number) => {
+    try {   
+        console.log("DELETE " + studentCertId);
+        const response = await apiClient.put(`${DELETE_STUDENT_RECOGNITION_URL}` + studentCertId);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error deleting Student Recognition: ${error}`);
+    }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchStudentSeminars(
+    userId: number | null
+): Promise<StudentSeminarModel[]> {
+    try {
+        const response = await apiClient.get<StudentSeminarModel[]>(`${GET_STUDENT_SEMINARS_URL}`, {
+            params: {
+                userId: userId                
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching Student Seminars", error);
+        throw error; // Handle this in your component
+    }
+}
+
+//Add Student Seminar
+export const addStudentSeminar = async (formData: FormData) => {
+    try {        
+        const response = await apiClient.post(`${ADD_STUDENT_SEMINAR_URL}`, formData);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error adding Student Seminar: ${error}`);
+    }
+};
+
+//Update Student Seminar
+export const updateStudentSeminar = async (formData: FormData) => {
+    try {        
+        const response = await apiClient.post(`${UPDATE_STUDENT_SEMINAR_URL}`, formData);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error adding Student Seminar: ${error}`);
+    }
+};
+
+//deelete Student Seminar
+export const deleteStudentSeminar = async (studentSeminarId: number) => {
+    try {   
+        console.log("DELETE " + studentSeminarId);
+        const response = await apiClient.put(`${DELETE_STUDENT_SEMINAR_URL}` + studentSeminarId);
+        return response.data; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {        
+        throw new Error(`Error deleting Student Seminar: ${error}`);
+    }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchSeminarsByStudentUserId(    
+    userId: number
+): Promise<StudentSeminarModel[]> {
+    try {        
+        const response = await apiClient.get<StudentSeminarModel[]>(`${GET_STUDENT_SCHOOL_SEMINARS_URL}`, {
+            params: {                
+                userId: userId
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching seminars using student user id:", error);
+        throw error; // Handle this in your component
+    }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchCourseProgressByStudentUserId(    
+    userId: number
+): Promise<StudentCourseWithSubjectsModel> {
+    try {        
+        const response = await apiClient.get<StudentCourseWithSubjectsModel>(`${GET_STUDENT_COURSE_PROGRESS_URL}`, {
+            params: {                
+                userId: userId
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching course progress using student user id:", error);
         throw error; // Handle this in your component
     }
 }

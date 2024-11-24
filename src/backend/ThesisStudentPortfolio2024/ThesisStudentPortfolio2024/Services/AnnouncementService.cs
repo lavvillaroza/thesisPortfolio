@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.ML;
 using ThesisStudentPortfolio2024.Models.Dtos;
 using ThesisStudentPortfolio2024.Models.Entities;
 using ThesisStudentPortfolio2024.Repositories;
@@ -283,6 +284,11 @@ namespace ThesisStudentPortfolio2024.Services
         }
         public async Task<bool> UpdateAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee) {
             return await _announcementRepository.UpdateAnnouncementAttendeeAsync(announcementAttendee);
+        }
+
+        public async Task<IEnumerable<Announcement>> GetSeminarsByAttendeesAsync(int userId)
+        {           
+            return await _announcementRepository.GetSeminarsByAttendeesAsync(userId);
         }
     }
 }

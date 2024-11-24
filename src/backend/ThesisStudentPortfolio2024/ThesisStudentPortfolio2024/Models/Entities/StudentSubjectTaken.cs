@@ -12,6 +12,8 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         public int UserId { get; set; }        
         [Required]
         public int SubjectId { get; set; }
+        [Required]
+        public int SubjectStatus { get; set; } = 0; //0 = On-Going 1 = Passed; 2 = failed;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;
     }

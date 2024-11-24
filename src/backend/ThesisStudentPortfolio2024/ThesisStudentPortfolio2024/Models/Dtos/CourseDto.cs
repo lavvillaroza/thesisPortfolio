@@ -7,17 +7,17 @@ namespace ThesisStudentPortfolio2024.Models.Dtos
         [Required]
         public int Id { get; set; }
         [Required]
-        public string? CourseName { get; set; }
+        public string CourseName { get; set; } = string.Empty;
         [Required]
-        public string? CourseCode { get; set; }
+        public string CourseCode { get; set; } = string.Empty;
         [Required]
         public int TotalUnitsRequired { get; set; }
         public IFormFile? CourseLogo { get; set; }
         public string? CourseLogoUrl { get; set; }
-        public string? CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string? LastModifiedBy { get; set; }
-        public DateTime LastModifiedDate { get; set; }
+        [Required]
+        public string CreatedBy { get; set; } = string.Empty;
+        [Required]
+        public string LastModifiedBy { get; set; } = string.Empty;
 
     }
 }

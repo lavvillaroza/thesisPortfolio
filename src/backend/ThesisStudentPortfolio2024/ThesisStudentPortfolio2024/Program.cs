@@ -42,6 +42,7 @@ builder.Services.AddScoped<IStudentDetailRepository, StudentDetailRepository>();
 builder.Services.AddScoped<IStudentSeminarRepository, StudentSeminarRepository>();
 builder.Services.AddScoped<IStudentSkillRepository, StudentSkillRepository>();
 builder.Services.AddScoped<IStudentSubjectTakenRepository, StudentSubjectTakenRepository>();
+builder.Services.AddScoped<IStudentCertifAndRecogRepository, StudentCertifAndRecogRepository>();
 
 // Scoped lifetime is often used for services
 builder.Services.AddScoped<UserService>();

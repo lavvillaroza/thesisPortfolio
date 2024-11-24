@@ -29,10 +29,8 @@ namespace ThesisStudentPortfolio2024.Controllers
                     CourseCode = course.CourseCode,
                     CourseLogo = null,
                     CourseLogoUrl = course.CourseLogo,
-                    CreatedBy = course.CreatedBy,
-                    CreatedDate = course.CreatedDate,
-                    LastModifiedBy = course.LastModifiedBy,
-                    LastModifiedDate = course.LastModifiedDate
+                    CreatedBy = course.CreatedBy,                    
+                    LastModifiedBy = course.LastModifiedBy,                    
                 };
                 courseDtos.Add(courseDto);
             }            

@@ -245,6 +245,42 @@
       "PackagePath": "staticwebassets\\Uploads\\StudentCoverPhotos\\cover3_bf7d58d4-5461-4c48-a2ec-b88b39a2bbba.jpg"
     },
     {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover1_10eb42fb-0e7e-4031-95c7-7a417f578ad6.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover1_10eb42fb-0e7e-4031-95c7-7a417f578ad6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover1_1c7013c8-59aa-4428-995c-0f7660c629fe.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover1_1c7013c8-59aa-4428-995c-0f7660c629fe.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover1_3ebb3b00-1f9e-415b-990a-6393415be58e.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover1_3ebb3b00-1f9e-415b-990a-6393415be58e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover1_7f1c25c6-08fd-425c-8790-6890456a6bc0.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover1_7f1c25c6-08fd-425c-8790-6890456a6bc0.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover1_9fbfd393-90f8-446f-9195-107e7bcc1ea6.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover1_9fbfd393-90f8-446f-9195-107e7bcc1ea6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover1_a6c452c8-3848-4409-995f-c46582a3177f.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover1_a6c452c8-3848-4409-995f-c46582a3177f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover1_c6a6f7fc-9592-4af7-9e90-30879eefe9bf.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover1_c6a6f7fc-9592-4af7-9e90-30879eefe9bf.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover2_99ea1a5a-2596-4906-9b41-e2eebd002d0f.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover2_99ea1a5a-2596-4906-9b41-e2eebd002d0f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\wwwroot\\Uploads\\StudentFiles\\cover3_6f05e4d0-bbd0-462b-9bdb-638a25ad02db.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StudentFiles\\cover3_6f05e4d0-bbd0-462b-9bdb-638a25ad02db.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ThesisStudentPortfolio2024.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

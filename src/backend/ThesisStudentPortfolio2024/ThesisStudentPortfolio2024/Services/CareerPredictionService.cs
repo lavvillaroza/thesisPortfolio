@@ -2,6 +2,7 @@
 using Microsoft.ML.Data;
 using System;
 using System.IO;
+using System.Linq;
 using ThesisStudentPortfolio2024.Models.ML;
 
 namespace ThesisStudentPortfolio2024.Services
@@ -15,7 +16,7 @@ namespace ThesisStudentPortfolio2024.Services
         public CareerPredictionService()
         {
             _mlContext = new MLContext();
-            _modelPath = Path.Combine(AppContext.BaseDirectory, "MachineLearningModel", "job_career_model.zip");
+            _modelPath = Path.Combine(AppContext.BaseDirectory, "MachineLearningModel", "careerModel.zip");
 
             // Load the model when the service is created
             LoadModel();
@@ -32,23 +33,37 @@ namespace ThesisStudentPortfolio2024.Services
             }
         }
 
-        public Task<List<JobCareerPrediction>> PredictCareers(List<string> skillsList)
+        public Task<List<CareerPrediction>> PredictCareers(List<string> skillsList)
         {
-            if (_model == null)
+            try
             {
-                throw new InvalidOperationException("The model is not loaded.");
+                if (_model == null)
+                {
+                    throw new InvalidOperationException("The model is not loaded.");
+                }
+                skillsList.Add("Blender, Maya, 3D modeling, texturing, rendering");
+
+                var predictionEngine = _mlContext.Model.CreatePredictionEngine<CareerData, CareerPrediction>(_model);
+
+                var predictions = new List<CareerPrediction>();
+
+                foreach (var skills in skillsList)
+                {
+                    var predictionResult = predictionEngine.Predict(new CareerData { Skills = skills });
+                    predictions.Add(new CareerPrediction { PredictedCareer = predictionResult.PredictedCareer });
+                }
+
+                var seenCareers = new HashSet<string>();
+                var distinctPredictions = predictions
+                    .Where(c => seenCareers.Add(c.PredictedCareer))
+                    .ToList();
+                
+                return Task.FromResult(distinctPredictions);
             }
-
-            var predictionEngine = _mlContext.Model.CreatePredictionEngine<JobCareerData, CareerPredictionResult>(_model);
-            var predictions = new List<JobCareerPrediction>();
-
-            foreach (var skills in skillsList)
-            {
-                var predictionResult = predictionEngine.Predict(new JobCareerData { Skills = skills });
-                predictions.Add(new JobCareerPrediction { Skills = skills, PredictedJobCareer = predictionResult.PredictedCareer });
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
             }
-
-            return Task.FromResult(predictions);
+            
         }
         private class CareerPredictionResult
         {

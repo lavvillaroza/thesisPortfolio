@@ -17,6 +17,14 @@ namespace ThesisStudentPortfolio2024.Controllers
             _subjectService = subjectService;
         }
         [Authorize]
+        [HttpGet("getsubjects/all")]
+        public async Task<IActionResult> GetSubjectsAllAsync()
+        {
+            var subjects = await _subjectService.GetSubjectsAllAsync();
+            return Ok(subjects);
+        }
+
+        [Authorize]
         [HttpGet("getsubjects")]
         public async Task<IActionResult> GetSubjectsAsync([FromQuery] PaginationParamsDto paginationParamsDto)
         {

@@ -14,6 +14,11 @@ namespace ThesisStudentPortfolio2024.Repositories
         {
             _context = context;
         }
+        async Task<List<StudentSubjectTaken>> IStudentSubjectTakenRepository.GetStudentSubjetsTakenByUser(int userId)
+        {
+            return await _context.StudentSubjectsTaken.Where(x => x.UserId == userId).ToListAsync();
+        }
+
         async Task<bool> IStudentSubjectTakenRepository.AddStudentSubjetTakenAsync(StudentSubjectTaken studentSubjectTaken)
         {
             bool ret = false;
@@ -30,14 +35,20 @@ namespace ThesisStudentPortfolio2024.Repositories
             return ret;
         }
 
-        async Task<bool> IStudentSubjectTakenRepository.DeleteStudentSubjetTakenAsync(StudentSubjectTaken studentSubjectTaken)
-        {
+        async Task<bool> IStudentSubjectTakenRepository.DeleteStudentSubjetTakenAsync(int id)
+        {            
             bool ret = false;
             try
             {
-                _context.StudentSubjectsTaken.Remove(studentSubjectTaken);
-                await _context.SaveChangesAsync();
-                ret = true;
+                var getStudentSubject = await _context.StudentSubjectsTaken.FindAsync(id);
+
+                if (getStudentSubject != null)
+                {
+                    _context.StudentSubjectsTaken.Remove(getStudentSubject);
+                    await _context.SaveChangesAsync();
+                }
+
+                ret =  true;
             }
             catch (Exception ex)
             {
@@ -46,9 +57,22 @@ namespace ThesisStudentPortfolio2024.Repositories
             return ret;
         }
 
-        async Task<List<StudentSubjectTaken>> IStudentSubjectTakenRepository.GetAllStudentSubjetTakenByUser(int userId)
+        async Task<bool> IStudentSubjectTakenRepository.UpdateStudentSubjetTakenAsync(StudentSubjectTaken studentSubjectTaken)
         {
-            return await _context.StudentSubjectsTaken.Where(x => x.UserId == userId).ToListAsync();
+            var existingSubjectTaken = await _context.StudentSubjectsTaken.FindAsync(studentSubjectTaken.Id);
+
+            if (existingSubjectTaken == null)
+            {                
+                return false;
+            }
+
+            // Update fields (you can add any other fields you want to update)
+            existingSubjectTaken.LastModifiedDate = studentSubjectTaken.LastModifiedDate;
+            existingSubjectTaken.SubjectStatus = studentSubjectTaken.SubjectStatus;
+            
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

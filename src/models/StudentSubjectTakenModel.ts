@@ -4,10 +4,10 @@ export interface StudentSubjectTakenModel {
     subjectId: number;
     subjectName: string;
     subjectDescription: string;
+    subjectStatus: number;
     prereq: string;
     lec: number;
     lab: number;
     units: number;
-    hrs: number;    
-    lastModifiedDate: string;      
+    hrs: number;        
   }

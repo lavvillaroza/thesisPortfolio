@@ -14,11 +14,12 @@ namespace ThesisStudentPortfolio2024.Models.Dtos
         public string SubjectName { get; set; } = string.Empty;
         [Required]
         public string SubjectDescription { get; set; } = string.Empty;
+        [Required]
+        public int SubjectStatus { get; set; } = 0; //0 = On-Going 1 = Passed; 2 = failed;
         public string Prereq { get; set; } = "NONE";
-        public short Lec { get; set; }
-        public short Lab { get; set; }
-        public short Units { get; set; }
-        public short Hrs { get; set; }        
-        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public int Lec { get; set; }
+        public int Lab { get; set; }
+        public int Units { get; set; }
+        public int Hrs { get; set; }                
     }
 }

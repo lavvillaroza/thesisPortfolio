@@ -1,12 +1,10 @@
 export interface StudentSeminarModel {
     id: number;
+    userId: number;
     title: string;
     facilitator: string;
-    dateAttendedFrom: string;
-    dateAttendedTo: string;
-    timeAttended: string;
+    dateAttended: Date;        
     reflection: string;
-    seminarType: number;
-    createdDate: string;
-    lastModifiedDate: string;    
+    seminarType: number;    
+    seminarId: number;    
   }

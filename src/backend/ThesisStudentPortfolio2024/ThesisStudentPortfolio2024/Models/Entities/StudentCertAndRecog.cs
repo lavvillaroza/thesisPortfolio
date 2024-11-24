@@ -9,13 +9,14 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Title { get; set; } = string.Empty;
-        [Required]
-        public string Description { get; set; } = string.Empty;
-        [Required]
-        public int CertRecogType {  get; set; } // 1 = Certificate; 2 = Recoginition
-        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
-        [Required]
         public int UserId { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;                
+        [Required]
+        public string Attachment { get; set; } = string.Empty;
+        [Required]
+        public int CertRecogType {  get; set; } // 1 = Certificate; 2 = Recoginition                
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
     }
 }

@@ -44,9 +44,7 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             // Update fields (you can add any other fields you want to update)            
             existingStudentSeminar.Title = studentSeminar.Title;            
-            existingStudentSeminar.DateAttended = studentSeminar.DateAttended;
-            existingStudentSeminar.TimeStart = studentSeminar.TimeStart;
-            existingStudentSeminar.TimeEnd = studentSeminar.TimeEnd;
+            existingStudentSeminar.DateAttended = studentSeminar.DateAttended;            
             existingStudentSeminar.Reflection = studentSeminar.Reflection;
             existingStudentSeminar.LastModifiedDate = DateTime.Now;
 
@@ -61,6 +59,26 @@ namespace ThesisStudentPortfolio2024.Repositories
             var result = await _context.StudentSeminars.Where(x => x.UserId == userId).ToListAsync();
             
             return result;
+        }
+
+        async Task<bool> IStudentSeminarRepository.DeleteStudentSeminarAsync(int seminarId)
+        {
+            bool ret = false;
+            try
+            {
+                var studentSeminaritem = await _context.StudentSeminars.FindAsync(seminarId);
+                if (studentSeminaritem != null)
+                {
+                    _context.StudentSeminars.Remove(studentSeminaritem);
+                    await _context.SaveChangesAsync();
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+            return ret;
         }
     }
 }

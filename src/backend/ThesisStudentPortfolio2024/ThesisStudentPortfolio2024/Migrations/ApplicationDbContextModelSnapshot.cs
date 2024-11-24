@@ -221,17 +221,20 @@ namespace ThesisStudentPortfolio2024.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Attachment")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("CertRecogType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -372,16 +375,11 @@ namespace ThesisStudentPortfolio2024.Migrations
                     b.Property<string>("Reflection")
                         .HasColumnType("longtext");
 
-                    b.Property<short>("SeminarType")
-                        .HasColumnType("smallint");
+                    b.Property<int>("SeminarId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TimeEnd")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("TimeStart")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("SeminarType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -436,6 +434,9 @@ namespace ThesisStudentPortfolio2024.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")

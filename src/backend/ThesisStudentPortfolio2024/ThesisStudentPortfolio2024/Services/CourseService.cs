@@ -30,8 +30,6 @@ namespace ThesisStudentPortfolio2024.Services
                 LastModifiedDate = DateTime.Now,                               
             };
             
-
-
             if (courseDTO.CourseLogo != null) {
                 // Ensure the Uploads directory exists
                 var contentPath = _webhostEnvironment.WebRootPath;

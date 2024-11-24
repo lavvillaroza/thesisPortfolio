@@ -53,6 +53,15 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
+        [HttpGet("seminars/attendee")]
+        public async Task<IActionResult> GetSeminarsByAttendeesAsync([FromQuery] int userId)
+        {
+            var pagedResult = await _announcementService.GetSeminarsByAttendeesAsync(userId);
+
+            return Ok(pagedResult);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddAnnouncementAsync([FromForm] AnnouncementDto announcementDTO)
         {

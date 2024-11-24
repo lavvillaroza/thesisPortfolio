@@ -33,14 +33,17 @@ namespace ThesisStudentPortfolio2024.Repositories
             }
             return ret;
         }
-        async Task<bool> IStudentSkillRepository.DeleteStudentSkillAsync(StudentSkill studentSkill)
+        async Task<bool> IStudentSkillRepository.DeleteStudentSkillAsync(int id)
         {
             bool ret = false;
             try
             {
-                _context.StudentSkills.Remove(studentSkill);
-                await _context.SaveChangesAsync();
-                ret = true;
+                var studentSkillitem = await _context.StudentSkills.FindAsync(id);
+                if (studentSkillitem != null) {
+                    _context.StudentSkills.Remove(studentSkillitem);
+                    await _context.SaveChangesAsync();
+                    ret = true;
+                }                
             }
             catch (Exception ex)
             {

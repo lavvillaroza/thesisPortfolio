@@ -3,7 +3,7 @@ import { Carousel } from 'flowbite';
 import type { CarouselItem, CarouselOptions, CarouselInterface } from 'flowbite';
 import { StudentInformationModel } from '../../../models/StudentInformationModel';
 import { BASE_URL } from '../../../api/apiConfig';
-import coverphotodefault from '../../../assets/coverPhotoDefault.jpg';
+import defaultCoverPhoto from '../../../assets/coverPhotoDefault.jpg';
 
 interface CoverPhotosCarouselProps {
     studentInformation: StudentInformationModel | null;
@@ -73,9 +73,9 @@ const CoverPhotosCarousel: React.FC<CoverPhotosCarouselProps> = ({ studentInform
 
     return (
         <div className="relative w-full">
-            {hasCoverPhotos ? (
+            {hasCoverPhotos ? (                               
                 <div id="carousel-example" ref={carouselRef} className="relative w-full">
-                    <div className="relative h-64 overflow-hidden rounded-lg sm:h-64 xl:h-80 2xl:h-96">
+                    <div className="relative h-[500px] overflow-hidden rounded-lg">
                         {/* Carousel Items */}
                         {coverPhotos.map((photo, index) => (
                             <div
@@ -155,8 +155,8 @@ const CoverPhotosCarousel: React.FC<CoverPhotosCarouselProps> = ({ studentInform
             ) : (
                 // Display the default image if no cover photos are available
                 <img
-                    src={coverphotodefault}
-                    className="w-full h-64 rounded-lg sm:h-64 xl:h-80 2xl:h-96 object-cover"
+                    src={defaultCoverPhoto}
+                    className="w-full h-64 rounded-lg sm:h-64 xl:h-80 2xl:h-96 object-fill"
                     alt="Default Cover Photo"
                 />
             )}

@@ -1,11 +1,9 @@
 // App.tsx
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Information from './components/student/Information';
 import Login from './components/auth/Login';
 import Skills from './components/student/Skills';
 import Announcement from './components/student/Announcement';
-import ProfileUpdateForm from './components/student/ProfileUpdateForm';
 import Certifications from './components/student/Certifications';
 import SubjectsTaken from './components/student/SubjectsTaken';
 import Seminars from './components/student/Seminars';
@@ -67,11 +65,7 @@ const App = () => {
               <Route path="/student/information" element={ 
                 <PrivateRoute> 
                   <Information />
-                </PrivateRoute>}/>
-              <Route path="/student/update" element={ 
-                <PrivateRoute> 
-                  <ProfileUpdateForm />
-                </PrivateRoute>}/>
+                </PrivateRoute>}/>              
               <Route path="/student/skills" element={<PrivateRoute> 
                 <Skills />
               </PrivateRoute>} />
@@ -88,6 +82,9 @@ const App = () => {
               <Route path="*" element={<NotFound />} />             
             </Routes>
         </AuthProvider>
+
+         {/* Not Protected Routes */}
+        {/* Portfolio Routes */}
     </Router>
     
   );

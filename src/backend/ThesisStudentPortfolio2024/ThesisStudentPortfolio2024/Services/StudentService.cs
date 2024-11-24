@@ -16,14 +16,16 @@ namespace ThesisStudentPortfolio2024.Services
         private readonly IStudentInformationRepository _studentInformationRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IWebHostEnvironment _webhostEnvironment;
-        private readonly ISubjectRepository _subjectRepository;        
+        private readonly ISubjectRepository _subjectRepository; 
+        private readonly IStudentCertifAndRecogRepository _studentCertifAndRecogRepository;
         public StudentService(IStudentDetailRepository studentDetailRepository, 
                                IStudentSeminarRepository studentSeminarRepository, 
                                IStudentSkillRepository studentSkillRepository, 
                                IStudentSubjectTakenRepository studentSubjectTakenRepository, 
                                IStudentInformationRepository studentInformationRepository, 
                                ICourseRepository courseRepository, IWebHostEnvironment webhostEnvironment, 
-                               ISubjectRepository subjectRepository)
+                               ISubjectRepository subjectRepository, 
+                               IStudentCertifAndRecogRepository studentCertifAndRecogRepository)
         {            
             _studentDetailRepository = studentDetailRepository;
             _studentSeminarRepository = studentSeminarRepository;
@@ -33,6 +35,7 @@ namespace ThesisStudentPortfolio2024.Services
             _courseRepository = courseRepository;
             _webhostEnvironment = webhostEnvironment;
             _subjectRepository = subjectRepository;
+            _studentCertifAndRecogRepository = studentCertifAndRecogRepository;
         }
 
         public async Task<StudentDetailDto> GetStudentDetailByUserIdAsync(int userId)
@@ -111,17 +114,63 @@ namespace ThesisStudentPortfolio2024.Services
         }
 
         //Seminar
-        public async Task<bool> AddStudentSeminarAsync(StudentSeminar studentSeminar)
+        public async Task<bool> AddStudentSeminarAsync(StudentSeminarDto studentSeminarDto)
         {
+            StudentSeminar studentSeminar = new StudentSeminar
+            {
+                Id = studentSeminarDto.Id,
+                UserId = studentSeminarDto.UserId,
+                Title = studentSeminarDto.Title,
+                DateAttended = studentSeminarDto.DateAttended,
+                Facilitator = studentSeminarDto.Facilitator,
+                Reflection = studentSeminarDto.Reflection,
+                SeminarType = studentSeminarDto.SeminarType,
+                CreatedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now
+            };
+
             return await _studentSeminarRepository.AddStudentSeminartAsync(studentSeminar);
         }
-        public async Task<bool> UpdateStudentSeminarAsync(StudentSeminar studentSeminar) {
+        public async Task<bool> UpdateStudentSeminarAsync(StudentSeminarDto studentSeminarDto) {
+            StudentSeminar studentSeminar = new StudentSeminar
+            {
+                Id = studentSeminarDto.Id,
+                UserId = studentSeminarDto.UserId,
+                Title = studentSeminarDto.Title,
+                DateAttended = studentSeminarDto.DateAttended,
+                Facilitator = studentSeminarDto.Facilitator,
+                Reflection = studentSeminarDto.Reflection,
+                SeminarType = studentSeminarDto.SeminarType,
+                LastModifiedDate = DateTime.Now
+            };
+
             return await _studentSeminarRepository.UpdateStudentSeminarAsync(studentSeminar);
         }
-        public async Task<ICollection<StudentSeminar>> GetStudentSeminarByUserIdAsync(int userId) {
-            return await _studentSeminarRepository.GetStudentSeminarByStudentIdAsync(userId);
-        }
 
+        public async Task<bool> DeleteStudentSeminarAsync(int semindarId)
+        {            
+            return await _studentSeminarRepository.DeleteStudentSeminarAsync(semindarId);
+        }
+        public async Task<IEnumerable<StudentSeminar>> GetStudentSeminarByUserIdAsync(int userId) {
+            var getStudentSeminars = await _studentSeminarRepository.GetStudentSeminarByStudentIdAsync(userId);
+            List<StudentSeminarDto> studentSeminarsDto = new List<StudentSeminarDto>();
+            foreach (var seminar in getStudentSeminars)
+            {
+                StudentSeminarDto studentSeminarDto = new StudentSeminarDto
+                {
+                    Id = seminar.Id,
+                    UserId = seminar.UserId,
+                    Title = seminar.Title,
+                    DateAttended = seminar.DateAttended,
+                    Facilitator = seminar.Facilitator,
+                    Reflection = seminar.Reflection,
+                    SeminarType = seminar.SeminarType,
+                    SeminarId = seminar.Id
+                };
+                studentSeminarsDto.Add(studentSeminarDto);
+            }
+            return getStudentSeminars;            
+        }
         //Skill
         public async Task<IEnumerable<StudentSkillDto>> GetStudentSkillsByUserIdAsync(int userId) {
             var getStudentSkills = await _studentSkillRepository.GetStudentSkillsByStudentIdAsync(userId);
@@ -150,22 +199,40 @@ namespace ThesisStudentPortfolio2024.Services
 
             return await _studentSkillRepository.AddStudentSkillAsync(studentSkill);
         }
-        public async Task<bool> DeleteStudentSkillAsync(StudentSkillDto studentSkillDto) {
-            StudentSkill studentSkill = new StudentSkill
-            {
-                Id = studentSkillDto.Id,
-                UserId = studentSkillDto.UserId,
-                SkillName = studentSkillDto.SkillName,
-                SkillRating = studentSkillDto.SkillRating,
-                CreatedDate = DateTime.Now
-            };
-            return await _studentSkillRepository.DeleteStudentSkillAsync(studentSkill);
+        public async Task<bool> DeleteStudentSkillAsync(int id) {            
+            return await _studentSkillRepository.DeleteStudentSkillAsync(id);
         }
 
         //Subject Taken
-        public async Task<PagedResultDto> GetAllStudentSubjetTakenByUser(PaginationParamsDto paginationParamsDto ,int userId)
+        public async Task<IEnumerable<StudentSubjectTakenDto>> GetStudentSubjectsTakenByUserId(int userId) {
+            List<StudentSubjectTaken> fetchSubjectsTaken = await _studentSubjectTakenRepository.GetStudentSubjetsTakenByUser(userId);
+            List<Subject> fetchSubjects = await _subjectRepository.GetSubjectsAsync();
+            List<StudentSubjectTakenDto> subjectsTakenDto = new List<StudentSubjectTakenDto>();
+            foreach (var subjectTaken in fetchSubjectsTaken)
+            {
+                var getSubject = fetchSubjects.Where(x => x.Id == subjectTaken.SubjectId).First();
+                StudentSubjectTakenDto studentSubjectTakenDto = new StudentSubjectTakenDto
+                {
+                    Id = subjectTaken.Id,
+                    SubjectId = subjectTaken.SubjectId,
+                    UserId = subjectTaken.UserId,
+                    SubjectName = getSubject.SubjectName,
+                    SubjectDescription = getSubject.SubjectDescription,
+                    SubjectStatus = subjectTaken.SubjectStatus,
+                    Prereq = getSubject.Prereq,
+                    Lec = getSubject.Lec,
+                    Lab = getSubject.Lab,
+                    Units = getSubject.Units,
+                    Hrs = getSubject.Hrs,
+                };
+                subjectsTakenDto.Add(studentSubjectTakenDto);
+            }
+
+            return subjectsTakenDto;
+        }
+        public async Task<PagedResultDto> GetStudentSubjetsTakenByUser(PaginationParamsDto paginationParamsDto ,int userId)
         {
-            List<StudentSubjectTaken> fetchSubjectsTaken = await _studentSubjectTakenRepository.GetAllStudentSubjetTakenByUser(userId);
+            List<StudentSubjectTaken> fetchSubjectsTaken = await _studentSubjectTakenRepository.GetStudentSubjetsTakenByUser(userId);
             List<Subject> fetchSubjects = await _subjectRepository.GetSubjectsAsync();
             PagedResultDto pagedResultDto = new PagedResultDto();
             pagedResultDto.TotalCount = fetchSubjectsTaken.Count();
@@ -186,6 +253,7 @@ namespace ThesisStudentPortfolio2024.Services
                     UserId = subjectTaken.UserId,
                     SubjectName = getSubject.SubjectName,
                     SubjectDescription = getSubject.SubjectDescription,
+                    SubjectStatus = subjectTaken.SubjectStatus,
                     Prereq = getSubject.Prereq,
                     Lec = getSubject.Lec,
                     Lab = getSubject.Lab,
@@ -200,23 +268,29 @@ namespace ThesisStudentPortfolio2024.Services
         }
         public async Task<bool> AddStudentSubjetTakenAsync(StudentSubjectTakenDto studentSubjectTakenDto) {
             StudentSubjectTaken studentSubjectTaken = new StudentSubjectTaken { 
-                SubjectId = studentSubjectTakenDto.SubjectId,
                 UserId = studentSubjectTakenDto.UserId,
+                SubjectId = studentSubjectTakenDto.SubjectId, 
+                SubjectStatus = studentSubjectTakenDto.SubjectStatus,
                 CreatedDate = DateTime.Now,
                 LastModifiedDate = DateTime.Now,            
             };
             return await _studentSubjectTakenRepository.AddStudentSubjetTakenAsync(studentSubjectTaken);
         }
-        public async Task<bool> DeleteStudentSubjetTakenAsync(StudentSubjectTakenDto studentSubjectTakenDto) {
+
+        public async Task<bool> UpdateStudentSubjetTakenAsync(StudentSubjectTakenDto studentSubjectTakenDto)
+        {
             StudentSubjectTaken studentSubjectTaken = new StudentSubjectTaken
             {
                 Id = studentSubjectTakenDto.Id,
-                SubjectId = studentSubjectTakenDto.SubjectId,
                 UserId = studentSubjectTakenDto.UserId,
-                CreatedDate = DateTime.Now,
+                SubjectId = studentSubjectTakenDto.SubjectId,
+                SubjectStatus = studentSubjectTakenDto.SubjectStatus,                
                 LastModifiedDate = DateTime.Now,
             };
-            return await _studentSubjectTakenRepository.DeleteStudentSubjetTakenAsync(studentSubjectTaken);
+            return await _studentSubjectTakenRepository.UpdateStudentSubjetTakenAsync(studentSubjectTaken);
+        }
+        public async Task<bool> DeleteStudentSubjetTakenAsync(int id) {            
+            return await _studentSubjectTakenRepository.DeleteStudentSubjetTakenAsync(id);
         }
 
         //Student Information
@@ -324,6 +398,254 @@ namespace ThesisStudentPortfolio2024.Services
             };            
 
             return studentInformationDto;
+        }
+
+        public async Task<IEnumerable<StudentCertAndRecog>> GetCertificatesAsync(int userId)
+        {
+            try
+            {
+                return await _studentCertifAndRecogRepository.GetCertificatesAsync(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<bool> AddCertificateAsync(StudentCertAndRecogDto studentCertAndRecogDto)
+        {
+            bool ret = false;
+            try
+            {
+                StudentCertAndRecog newStudentCertAndRecog = new StudentCertAndRecog
+                {
+                    UserId = studentCertAndRecogDto.UserId,
+                    Name = studentCertAndRecogDto.Name,
+                    CertRecogType = studentCertAndRecogDto.CertRecogType,
+                    LastModifiedDate = DateTime.Now,
+                };
+
+                // Ensure the Uploads directory exists
+                var contentPath = _webhostEnvironment.WebRootPath;
+                string uploadsFolderName = Path.Combine("Uploads", "StudentFiles");
+                string uploadsDirectory = Path.Combine(contentPath, uploadsFolderName);
+
+                // Check if the directory exists
+                if (!Directory.Exists(uploadsDirectory))
+                {
+                    // Create the directory if it doesn't exist
+                    Directory.CreateDirectory(uploadsDirectory);
+                }
+
+                if (studentCertAndRecogDto.AttachmentFile != null)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var fullFileName = Path.Combine(uploadsDirectory, newFileName);
+                    var attachedPath = Path.Combine(uploadsFolderName, newFileName);
+                    using (var stream = new FileStream(fullFileName, FileMode.Create))
+                    {
+                        await studentCertAndRecogDto.AttachmentFile.CopyToAsync(stream);
+                    }
+                    newStudentCertAndRecog.Attachment = attachedPath;
+                }
+
+                ret = await _studentCertifAndRecogRepository.AddCertificateAsync(newStudentCertAndRecog);
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<bool> UpdateCertificateAsync(StudentCertAndRecogDto studentCertAndRecogDto)
+        {
+            bool ret = false;
+            try
+            {
+                StudentCertAndRecog upStudentCertAndRecog = new StudentCertAndRecog
+                {
+                    Id = studentCertAndRecogDto.Id,
+                    UserId = studentCertAndRecogDto.UserId,
+                    Name = studentCertAndRecogDto.Name,
+                    CertRecogType = studentCertAndRecogDto.CertRecogType,
+                    LastModifiedDate = DateTime.Now,
+                };
+
+                // Ensure the Uploads directory exists
+                var contentPath = _webhostEnvironment.WebRootPath;
+                string uploadsFolderName = Path.Combine("Uploads", "StudentFiles");
+                string uploadsDirectory = Path.Combine(contentPath, uploadsFolderName);
+
+                // Check if the directory exists
+                if (!Directory.Exists(uploadsDirectory))
+                {
+                    // Create the directory if it doesn't exist
+                    Directory.CreateDirectory(uploadsDirectory);
+                }
+
+                if (studentCertAndRecogDto.AttachmentFile != null)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var fullFileName = Path.Combine(uploadsDirectory, newFileName);
+                    var attachedPath = Path.Combine(uploadsFolderName, newFileName);
+                    using (var stream = new FileStream(fullFileName, FileMode.Create))
+                    {
+                        await studentCertAndRecogDto.AttachmentFile.CopyToAsync(stream);
+                    }
+                    upStudentCertAndRecog.Attachment = attachedPath;
+                }
+
+                ret = await _studentCertifAndRecogRepository.UpdateCertificateAsync(upStudentCertAndRecog);
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<bool> DeleteCertificateAsync(int id)
+        {
+            bool ret = false;
+            try
+            {
+
+                ret = await _studentCertifAndRecogRepository.DeleteCertificateAsync(id);
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<StudentCertAndRecog>> GetRecognitionsAsync(int userId)
+        {
+            try
+            {
+                return await _studentCertifAndRecogRepository.GetRecognitionsAsync(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<bool> AddRecognitionAsync(StudentCertAndRecogDto studentCertAndRecogDto)
+        {
+            bool ret = false;
+            try
+            {
+                StudentCertAndRecog upStudentCertAndRecog = new StudentCertAndRecog
+                {
+                    Id = studentCertAndRecogDto.Id,
+                    UserId = studentCertAndRecogDto.UserId,
+                    Name = studentCertAndRecogDto.Name,
+                    CertRecogType = studentCertAndRecogDto.CertRecogType,
+                    LastModifiedDate = DateTime.Now,
+                };
+
+                // Ensure the Uploads directory exists
+                var contentPath = _webhostEnvironment.WebRootPath;
+                string uploadsFolderName = Path.Combine("Uploads", "StudentFiles");
+                string uploadsDirectory = Path.Combine(contentPath, uploadsFolderName);
+
+                // Check if the directory exists
+                if (!Directory.Exists(uploadsDirectory))
+                {
+                    // Create the directory if it doesn't exist
+                    Directory.CreateDirectory(uploadsDirectory);
+                }
+
+                if (studentCertAndRecogDto.AttachmentFile != null)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var fullFileName = Path.Combine(uploadsDirectory, newFileName);
+                    var attachedPath = Path.Combine(uploadsFolderName, newFileName);
+                    using (var stream = new FileStream(fullFileName, FileMode.Create))
+                    {
+                        await studentCertAndRecogDto.AttachmentFile.CopyToAsync(stream);
+                    }
+                    upStudentCertAndRecog.Attachment = attachedPath;
+                }
+
+                ret = await _studentCertifAndRecogRepository.AddRecognitionAsync(upStudentCertAndRecog);
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+        public async Task<bool> UpdateRecognitionAsync(StudentCertAndRecogDto studentCertAndRecogDto)
+        {
+            bool ret = false;
+            try
+            {
+                StudentCertAndRecog upStudentCertAndRecog = new StudentCertAndRecog
+                {
+                    Id = studentCertAndRecogDto.Id,
+                    UserId = studentCertAndRecogDto.UserId,
+                    Name = studentCertAndRecogDto.Name,
+                    CertRecogType = studentCertAndRecogDto.CertRecogType,
+                    LastModifiedDate = DateTime.Now,
+                };
+
+                // Ensure the Uploads directory exists
+                var contentPath = _webhostEnvironment.WebRootPath;
+                string uploadsFolderName = Path.Combine("Uploads", "StudentFiles");
+                string uploadsDirectory = Path.Combine(contentPath, uploadsFolderName);
+
+                // Check if the directory exists
+                if (!Directory.Exists(uploadsDirectory))
+                {
+                    // Create the directory if it doesn't exist
+                    Directory.CreateDirectory(uploadsDirectory);
+                }
+
+                if (studentCertAndRecogDto.AttachmentFile != null)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
+                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var fullFileName = Path.Combine(uploadsDirectory, newFileName);
+                    var attachedPath = Path.Combine(uploadsFolderName, newFileName);
+                    using (var stream = new FileStream(fullFileName, FileMode.Create))
+                    {
+                        await studentCertAndRecogDto.AttachmentFile.CopyToAsync(stream);
+                    }
+                    upStudentCertAndRecog.Attachment = attachedPath;
+                }
+
+                ret = await _studentCertifAndRecogRepository.UpdateRecognitionAsync(upStudentCertAndRecog);
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<bool> DeleteRecognitionAsync(int id)
+        {
+            bool ret = false;
+            try
+            {
+                ret = await _studentCertifAndRecogRepository.DeleteRecognitionAsync(id);
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

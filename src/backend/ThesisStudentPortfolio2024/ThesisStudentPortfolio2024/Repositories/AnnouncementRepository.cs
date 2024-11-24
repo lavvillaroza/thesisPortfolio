@@ -179,5 +179,17 @@ namespace ThesisStudentPortfolio2024.Repositories
             }
             return ret;
         }
+
+        async Task<IEnumerable<Announcement>> IAnnouncementRepository.GetSeminarsByAttendeesAsync(int userId)
+        {
+            var seminarsAttended = await _context.AnnouncementAttendees
+                                        .Where(aa => aa.StudentUserId == userId)
+                                        .Select(aa => aa.Id)
+                                        .ToListAsync();
+
+            var seminar = await _context.Announcements.Where(a => seminarsAttended.Contains(a.Id)).ToListAsync();
+
+            return seminar;
+        }
     }
 }

@@ -46,8 +46,6 @@ const iniStudentInformation: StudentInformationModel = {
   coverPhotoFourFile: null
 };
 
-
-
 const Information: React.FC = () => {
   const navigate = useNavigate();
   const [studentDetail, setStudentDetail] = useState<StudentDetailModel>(initialStudentDetail);
@@ -83,9 +81,9 @@ const Information: React.FC = () => {
     };
 
     fetchData();
-}, [navigate]);
+  }, [navigate]);
 
- const [isCopied, setIsCopied] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = async () => {
     try {
@@ -97,25 +95,25 @@ const Information: React.FC = () => {
       console.error("Failed to copy the URL:", error);
     }
   };
-  
-    const handleOpenResume = () => {
-        window.open(BASE_URL + encodeURI(studentDetail.attachedResume), '_blank'); // Opens in a new tab
-    };
-    
-    const getYearString = (year: number): string => {
-      switch (year) {
-        case 1:
-          return '1st Year';
-        case 2:
-          return '2nd Year';
-        case 3:
-          return '3rd Year';
-        case 4:
-          return '4th Year';
-        default:
-          return `${year}th Year`;
-      }
-    };
+
+  const handleOpenResume = () => {
+      window.open(BASE_URL + encodeURI(studentDetail.attachedResume), '_blank'); // Opens in a new tab
+  };
+
+  const getYearString = (year: number): string => {
+    switch (year) {
+      case 1:
+        return '1st Year';
+      case 2:
+        return '2nd Year';
+      case 3:
+        return '3rd Year';
+      case 4:
+        return '4th Year';
+      default:
+        return `${year}th Year`;
+    }
+  };
 
     return (
         <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
@@ -144,8 +142,10 @@ const Information: React.FC = () => {
                                                       <p className="text-gray-900 text-3xl dark:text-white">{studentDetail.studentName || 'N/A'}</p>                                      
                                                       <p className="text-gray-900 text-xl dark:text-white">{studentDetail.courseName || 'N/A'}</p>
                                                       <p className="text-gray-900 text-xl dark:text-white">{(studentDetail.studentId + ' - ' + getYearString(studentDetail.yearLevel)) || 'N/A'}</p>                                                  
-                                                    </div>
-                                                    <div className="mb-2">
+                                                    </div>                                                                                                 
+                                                </div>
+                                                <div>     
+                                                <div className="mb-2">
                                                       <button
                                                           onClick={handleOpenResume}
                                                           className="flex items-center gap-2 py-1 text-emerald-700 hover:text-red-500">
@@ -163,7 +163,7 @@ const Information: React.FC = () => {
                                                               id="website-url"
                                                               type="text"
                                                               aria-describedby="helper-text-explanation"
-                                                              className="bg-gray-50 border border-e-0 border-gray-300 text-gray-500 dark:text-gray-400 text-sm border-s-0 focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 "
+                                                              className="bg-gray-50 border border-e-0 border-gray-300 text-gray-500 text-sm border-s-0 focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 "
                                                               value="https://flowbite.com"
                                                               readOnly
                                                               disabled
@@ -191,10 +191,7 @@ const Information: React.FC = () => {
                                                             {isCopied ? "Copied!" : "Copy link"}
                                                           </div>
                                                         </div>                                                    
-                                                    </div>                                                
-                                                </div>
-                                                <div>     
-                                                    
+                                                    </div>   
                                                 </div>                                                                                        
                                           </div>                                                                           
                                       </div>
@@ -202,7 +199,7 @@ const Information: React.FC = () => {
                                         <label className="text-gray-900 text-left hover:text-green-700 text-2xl">About Me</label> 
                                         <button
                                           onClick={openModal}
-                                          className=" bg-emerald-600 hover:bg-yellow-300 text-white font-bold py-2 px-2 m-1 rounded-full focus:outline-none focus:shadow-outline ">
+                                          className="  hover:text-emerald-800 text-emerald-700 font-bold py-2 px-2 m-1 focus:outline-none focus:shadow-outline ">
                                           <FaPencilAlt/>
                                         </button>
                                       </div>  

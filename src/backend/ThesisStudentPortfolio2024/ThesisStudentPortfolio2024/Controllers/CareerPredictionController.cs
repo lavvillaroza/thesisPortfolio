@@ -18,7 +18,7 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [HttpPost("predict")]
-        public ActionResult<List<JobCareerPrediction>> Predict([FromBody] List<string> skillsList)
+        public ActionResult<List<CareerPrediction>> Predict([FromBody] List<string> skillsList)
         {
             var predictions = _predictionService.PredictCareers(skillsList);
             return Ok(predictions);

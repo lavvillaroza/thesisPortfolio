@@ -9,22 +9,19 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         [Key]
         public int Id { get; set; }
         [Required]
+        public int UserId { get; set; }
+        [Required]
         public string? Title { get; set; }
         [Required]
         public string? Facilitator { get; set; }
         [Required]
-        public DateTime DateAttended { get; set; }
-        [Required]
-        public string TimeStart { get; set; } = string.Empty;
-        [Required]
-        public string TimeEnd { get; set; } = string.Empty;
+        public DateTime DateAttended { get; set; }        
         public string? Reflection {  get; set; }
         [Required]
-        public short SeminarType { get; set; } //0 = From School, 1 = Others                                
+        public int SeminarType { get; set; } //0 = From School, 1 = Others
+        public int SeminarId { get; set; } = 0;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime LastModifiedDate { get; set; } = DateTime.MinValue;
-        [Required]
-        public int UserId { get; set; }        
+        public DateTime LastModifiedDate { get; set; } = DateTime.MinValue;        
 
     }
 }

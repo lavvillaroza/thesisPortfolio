@@ -2,7 +2,7 @@ import { PagedResultModel } from "../models/PagedResultModel";
 import { PaginationParamsModel } from "../models/PaginationParamsModel";
 import { SubjectModel } from "../models/SubjectModel";
 import apiClient from "./apiClient";
-import { ADD_SUBJECT_URL, GET_SUBJECTS_URL, SEARCH_SUBJECTS_URL } from "./apiConfig";
+import { ADD_SUBJECT_URL, GET_SUBJECTS_ALL_URL, GET_SUBJECTS_URL, SEARCH_SUBJECTS_URL } from "./apiConfig";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function fetchSubjects(
@@ -15,6 +15,18 @@ export async function fetchSubjects(
                 pageSize: paginationParams.pageSize                
             }
         });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching subjects:", error);
+        throw error; // Handle this in your component
+    }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function fetchSubjectsAll(    
+): Promise<SubjectModel[]> {
+    try {
+        const response = await apiClient.get<SubjectModel[]>(`${GET_SUBJECTS_ALL_URL}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching subjects:", error);

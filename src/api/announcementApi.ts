@@ -67,6 +67,7 @@ export async function fetchSeminars(
         throw error; // Handle this in your component
     }
 }
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function fetchSeminarAttendees(
     paginationParams: PaginationParamsModel,

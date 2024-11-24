@@ -18,10 +18,10 @@ namespace ThesisStudentPortfolio2024.Models.Dtos
         [Required]
         public int AnnouncementType { get; set; }        
         [Required]
-        public string? CreatedBy { get; set; } // New field for passing username
+        public string CreatedBy { get; set; } = string.Empty; // New field for passing username
         public DateTime CreatedDate { get; set; }
         [Required]
-        public string? LastModifiedBy { get; set; } // New field for passing username
+        public string LastModifiedBy { get; set; } = string.Empty; // New field for passing username
         public DateTime LastModifiedDate { get; set; }
         public List<IFormFile>? Images { get; set; } // Use IFormFile for image upload
         public List<AnnouncementDetailDto>? AnnouncementDetails { get; set; }

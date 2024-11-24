@@ -1,53 +1,112 @@
-import React, { useState } from 'react';
-import { FaDownload, FaPlusCircle } from 'react-icons/fa';
-import FileInput from '../common/FileInput';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FaEdit, FaFilePdf, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import NavHeader from './NavHeader';
-
-interface Item {
-  id: number;
-  text: string;
-  fileattached?: File;
-}
-
-const initialCertificates: Item[] = [
-  { id: 1, text: 'Certificate 1', fileattached: undefined },
-  { id: 2, text: 'Certificate 2', fileattached: undefined },
-];
-
-const initialAwards: Item[] = [
-  { id: 1, text: 'Award 1', fileattached: undefined },
-  { id: 2, text: 'Award 2', fileattached: undefined },
-];
+import { StudentCertAndRecogModel } from '../../models/StudentCertiAndRecogModel';
+import { useNavigate } from 'react-router-dom';
+import { deleteStudentCertificate, deleteStudentRecognition, fetchStudentCertificates, fetchStudentRecognitions } from '../../api/studentApi';
+import AddCertificateModal from './modal/CertificateModal';
+import AddRecognitionModal from './modal/RecognitionModal';
+import ConfirmationModal from '../common/ConfirmationModal';
+import CustomToast from '../common/CustomToast';
+import { BASE_URL } from '../../api/apiConfig';
 
 const Certifications: React.FC = () => {
-  const [itemsCert, setItemsCert] = useState<Item[]>(initialCertificates);
-  const [itemsAward, setItemsAward] = useState<Item[]>(initialAwards);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [studentCertificates, setStudentCertificates] = useState<StudentCertAndRecogModel[]>([]);
+  const [studentRecognitions, setStudentRecognitions] = useState<StudentCertAndRecogModel[]>([]);
+  const [userId, setUserId] = useState<number>(0);
   const [isModalOpenCert, setIsModalOpenCert] = useState(false);
-  const [isModalOpenAward, setIsModalOpenAward] = useState(false);
-  const [newItemText, setNewItemText] = useState('');
-  const [newItemFileAttached, setNewItemFileAttached] = useState<File | undefined>(undefined);
+  const [isModalOpenRecog, setIsModalOpenRecog] = useState(false);  
+  const [isEditModeCert, setIsEditModeCert] = useState(false);
+  const [isEditModeRecog, setIsEditModeRecog] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [selectedCert, setselectedCert] = useState<StudentCertAndRecogModel | null>(null);
+  const [selectedRecog, setselectedRecog] = useState<StudentCertAndRecogModel | null>(null);
+  const navigate = useNavigate();
+  
+  const toggleEditModeCert = () => setIsEditModeCert((prev) => !prev);
+  const toggleEditModeRecog = () => setIsEditModeRecog((prev) => !prev);  
 
   const openModalCert = () => setIsModalOpenCert(true);
-  const openModalAward = () => setIsModalOpenAward(true);
+  const openModalRecog = () => setIsModalOpenRecog(true);
   const closeModalCert = () => setIsModalOpenCert(false);
-  const closeModalAward = () => setIsModalOpenAward(false);
-    
-  const handleAddItemCert = () => {
-    if (newItemText.trim()) {
-      setItemsCert([...itemsCert, { id: Date.now(), text: newItemText, fileattached: newItemFileAttached }]);      
-      setNewItemText('');
-      setNewItemFileAttached(undefined);
-      closeModalCert();      
+  const closeModalRecog = () => setIsModalOpenRecog(false);
+  
+  const getUserDetails = useCallback(async () => {
+    const user = localStorage.getItem('userDetails');
+    if (user) {      
+      const userParse = JSON.parse(user);
+      setUserId(userParse.userid);
+    } else {
+      navigate('/');
+    }
+  }, [navigate]);
+
+  const fetchCertificates = useCallback(async () => {
+    try {
+      const certificates = await fetchStudentCertificates(userId);
+      setStudentCertificates(certificates);
+      console.log(certificates);
+    } catch (error) {
+      setToast({ message: '' + error, type: 'error' });      
+    }
+  }, [userId]);
+
+  const fetchRecognitions = useCallback(async () => {
+    try {
+      const recognitions = await fetchStudentRecognitions(userId);
+      setStudentRecognitions(recognitions);
+    } catch (error) {
+      setToast({ message: '' + error, type: 'error' });      
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    getUserDetails();
+  }, [getUserDetails]);
+
+  useEffect(() => {
+    if (userId > 0) {
+      fetchCertificates();
+      fetchRecognitions();
+    }
+  }, [userId, fetchCertificates, fetchRecognitions]);
+
+  const handleDeleteCert = async () => {
+    if (selectedCert) {
+      try {
+        await deleteStudentCertificate(selectedCert.id); // Call API to delete skill
+        setIsConfirmModalOpen(false);
+        setselectedCert(null);
+        fetchCertificates(); // Refresh skill list
+        setToast({ message: 'Name: ' + selectedCert.name +  ' deleted sucessfully', type: 'success' });
+      } catch (error) {
+        setToast({ message: 'Error deleting certificate: ' + error, type: 'error' });        
+      }
     }
   };
 
-  const handleAddItemAward = () => {
-    if (newItemText.trim()) {      
-      setItemsAward([...itemsAward, { id: Date.now(), text: newItemText, fileattached: newItemFileAttached }]);
-      setNewItemText('');
-      setNewItemFileAttached(undefined);      
-      closeModalAward();
+  const handleDeleteRecog = async () => {
+    if (selectedRecog) {
+      try {
+        await deleteStudentRecognition(selectedRecog.id); // Call API to delete skill
+        setIsConfirmModalOpen(false);
+        setselectedRecog(null);
+        fetchRecognitions(); // Refresh skill list
+        setToast({ message: 'Name: ' + selectedRecog.name +  ' deleted sucessfully', type: 'success' });
+      } catch (error) {
+        setToast({ message: 'Error deleting recognition: ' + error, type: 'error' });        
+      }
     }
+  };
+
+  const handleOpenCertOrRecog = (attachement: string) => {
+    window.open(BASE_URL + encodeURI(attachement), '_blank'); // Opens in a new tab
+  };
+
+  const confirmDeleteSkill = (deleteItem: StudentCertAndRecogModel) => {
+    setselectedCert(deleteItem);
+    setIsConfirmModalOpen(true);
   };
 
   return (
@@ -65,73 +124,81 @@ const Certifications: React.FC = () => {
                                 <label className="text-gray-700 text-left mx-2 text-2xl">CERTIFICATES</label>
                                 <button
                                   onClick={openModalCert}
-                                  className="hover:bg-white text-emerald-800 font-bold rounded-full focus:outline-none focus:shadow-outline ">
+                                  className="hover:text-emerald-800 text-emerald-700 font-lg text-xl  transition duration-150 ease-in-out">
                                   <FaPlusCircle />
+                                </button>
+                                <button
+                                  onClick={toggleEditModeCert}
+                                  className="ml-2 hover:text-emerald-800 text-emerald-700 font-lg text-xl  transition duration-150 ease-in-out">
+                                  <FaEdit />
                                 </button>
                               </div>
                               <div className="p-4 w-full m-auto h-[570px] bg-white drop-shadow-md rounded-lg overflow-auto">                                
                                 <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
-                                <div className="grid grid-cols-2 ">
-                                  <div className="grid grid-rows-6 grid-flow-col gap-4">
-                                    {initialCertificates.map(item => (
-                                      <div key={item.id} className="flex items-start">
-                                          <div className='flex items-center'>
-                                              <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">                                                    
-                                                  <span
-                                                    className="flex w-2.5 h-2.5 bg-emerald-600 '} rounded-full me-1.5 flex-shrink-0">                                                      
-                                                  </span>
-                                              <label className="text-blue-700">{item.text}</label> 
-                                              </span>  
-                                          </div>
-                                          {item.fileattached && (
-                                          <div className='flex items-center'>
-                                            <a
-                                              href={URL.createObjectURL(item.fileattached)}
-                                              download={item.fileattached.name}
-                                              className="text-blue-700 font-bold py-2 px-2 rounded-full focus:outline-none focus:shadow-outline">
-                                              <FaDownload />
-                                            </a>
-                                          </div>
-                                        )}                      
-                                      </div>        
-                                    ))}      
-                                  </div>
-                                </div>                                       
+                                  <div className="grid grid-cols-1 ">
+                                    {studentCertificates.map(item => (
+                                          <div key={item.id} className="py-2 flex items-start">
+                                            <span className="flex items-center text-sm font-medium text-blue-700 dark:text-white">
+                                              <span
+                                                className="flex w-2.5 h-2.5 bg-emerald-600 '} rounded-full me-1.5 flex-shrink-0">
+                                              </span>
+                                              {item.name}
+                                            </span>
+                                            <button
+                                                onClick={() =>handleOpenCertOrRecog(item.attachment)}
+                                                className="text-emerald-700 hover:text-emerald-800 mx-2">
+                                                <FaFilePdf size={20} /> {/* Resume icon */}                                            
+                                            </button>
+                                            {isEditModeCert && (
+                                              <button
+                                                onClick={() => confirmDeleteSkill(item)}
+                                                className="text-red-700 hover:text-red-800 mr-2">
+                                                <FaTrashAlt />
+                                              </button>
+                                            )}
+                                          </div>                                           
+                                        ))}      
+                                  </div>                                       
                               </div>
                             </div>
                             <div>
                               <div className="mb-4">
                                 <label className="text-gray-700 text-left mx-2 text-2xl">RECOGNITIONS</label>                                      
                                 <button
-                                  onClick={openModalAward}
-                                  className="hover:bg-white text-emerald-800 font-bold rounded-full focus:outline-none focus:shadow-outline ">
+                                  onClick={openModalRecog}
+                                  className="hover:text-emerald-800 text-emerald-700 font-lg text-xl  transition duration-150 ease-in-out">
                                   <FaPlusCircle />
+                                </button>
+                                <button
+                                  onClick={toggleEditModeRecog}
+                                  className="ml-2 hover:text-emerald-800 text-emerald-700 font-lg text-xl  transition duration-150 ease-in-out">
+                                  <FaEdit />
                                 </button>
                               </div>
                               <div className="p-4 w-full m-auto h-[570px] bg-white drop-shadow-md rounded-lg overflow-auto">
                                 <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
-                                <div className="grid grid-rows-6 grid-flow-col gap-4">
-                                    {initialAwards.map(item => (
-                                      <div key={item.id} className="flex items-start">
-                                          <div className='flex items-center'>
-                                              <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">                                                    
-                                                  <span
-                                                    className="flex w-2.5 h-2.5 bg-emerald-600 '} rounded-full me-1.5 flex-shrink-0">                                                      
-                                                  </span>
-                                              <label className="text-blue-700">{item.text}</label> 
-                                              </span>  
-                                          </div>
-                                          {item.fileattached && (
-                                          <div className='flex items-center'>
-                                            <a
-                                              href={URL.createObjectURL(item.fileattached)}
-                                              download={item.fileattached.name}
-                                              className="text-blue-700 font-bold py-2 px-2 rounded-full focus:outline-none focus:shadow-outline">
-                                              <FaDownload />
-                                            </a>
-                                          </div>
-                                        )}                      
-                                      </div>        
+                                <div className="grid grid-cols-1">
+                                    {studentRecognitions.map(item => (
+                                      <div key={item.id} className="py-2 flex items-start">
+                                      <span className="flex items-center text-sm font-medium text-blue-700 dark:text-white">
+                                        <span
+                                          className="flex w-2.5 h-2.5 bg-emerald-600 '} rounded-full me-1.5 flex-shrink-0">
+                                        </span>
+                                        {item.name}
+                                      </span>
+                                      <button
+                                          onClick={() =>handleOpenCertOrRecog(item.attachment)}
+                                          className="text-emerald-700 hover:text-emerald-800 mx-2">
+                                          <FaFilePdf size={20} /> {/* Resume icon */}                                            
+                                      </button>
+                                      {isEditModeRecog && (
+                                        <button
+                                          onClick={() => confirmDeleteSkill(item)}
+                                          className="text-red-700 hover:text-red-700 mr-2">
+                                          <FaTrashAlt />
+                                        </button>
+                                      )}
+                                    </div>        
                                     ))}      
                                   </div>
                               </div>
@@ -141,106 +208,51 @@ const Certifications: React.FC = () => {
                     </div>                            
                 </div>
             </main>                  
-              {/* Modal for Adding a New Certificate and Reward */}              
+              {/* Modal for Adding/Editing Skills */}
               {isModalOpenCert && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
-                  <div className="relative w-full max-w-2xl my-5 md:max-w-3xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
-                      {/* Modal header */}
-                      <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">                            
-                          <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add Certificate</h3>
-                          <button
-                              type="button"
-                              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                              onClick={closeModalCert}
-                          >
-                              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                              </svg>
-                              <span className="sr-only">Close modal</span>
-                          </button>
-                      </div>
-                      {/* Modal body */}
-                      <div className="flex flex-col p-4 space-x-4">
-                          <input
-                            type="text"
-                            value={newItemText}
-                            onChange={(e) => setNewItemText(e.target.value)}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Enter Certificate Name"
-                          />
-                          <div className="mt-4">
-                            <FileInput onFileSelect={(file: React.SetStateAction<File | undefined>) => setNewItemFileAttached(file)} />
-                          </div>     
-                          <div className="mt-4 flex justify-end">
-                            <button
-                              onClick={handleAddItemCert}
-                              className="mt-4 bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                              Save
-                            </button>
-                          </div>                                       
-                      </div>
-                      {/* Modal footer */}
-                      <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-                          <button 
-                              onClick={closeModalCert} 
-                              className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                          >
-                              Close
-                          </button>
-                      </div>
-                  </div>
-              </div>
-            )}
+                <AddCertificateModal
+                  userId={userId}
+                  isOpen={isModalOpenCert}
+                  onClose={closeModalCert}
+                  onCertAdded={fetchCertificates}
+                />
+              )}
+              {isModalOpenRecog && (
+                <AddRecognitionModal
+                  userId={userId}
+                  isOpen={isModalOpenRecog}
+                  onClose={closeModalRecog}
+                  onRecogAdded={fetchRecognitions}
+                />
+              )}
 
-              {isModalOpenAward && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
-                  <div className="relative w-full max-w-2xl my-5 md:max-w-3xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
-                      {/* Modal header */}
-                      <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">                            
-                          <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add Award</h3>
-                          <button
-                              type="button"
-                              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                              onClick={closeModalAward}
-                          >
-                              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                              </svg>
-                              <span className="sr-only">Close modal</span>
-                          </button>
-                      </div>
-                      {/* Modal body */}
-                      <div className="flex flex-col p-4 space-x-4">                            
-                            <input
-                              type="text"
-                              value={newItemText}
-                              onChange={(e) => setNewItemText(e.target.value)}
-                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                              placeholder="Enter Certificate Name"
-                            />
-                            <div className="mt-4">
-                              <FileInput onFileSelect={(file: React.SetStateAction<File | undefined>) => setNewItemFileAttached(file)} />
-                            </div>     
-                            <div className="mt-4 flex justify-end">
-                              <button
-                                onClick={handleAddItemAward}
-                                className="mt-4 bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Save
-                              </button>
-                            </div>                                    
-                      </div>
-                      {/* Modal footer */}
-                      <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-                          <button 
-                              onClick={closeModalAward} 
-                              className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                          >
-                              Close
-                          </button>
-                      </div>
-                  </div>
-              </div>
-            )}
+              {/* Confirmation Modal For Certificate*/}
+              {isConfirmModalOpen && selectedCert && (
+                <ConfirmationModal
+                  isOpen={isConfirmModalOpen}
+                  message={`Are you sure you want to delete the skill "${selectedCert.name}"?`}
+                  onClose={() => setIsConfirmModalOpen(false)}
+                  onConfirm={handleDeleteCert}
+                />
+              )}
+
+              {/* Confirmation Modal For Recognition*/}
+              {isConfirmModalOpen && selectedRecog && (
+                <ConfirmationModal
+                  isOpen={isConfirmModalOpen}
+                  message={`Are you sure you want to delete the skill "${selectedRecog.name}"?`}
+                  onClose={() => setIsConfirmModalOpen(false)}
+                  onConfirm={handleDeleteRecog}
+                />
+              )}
+
+              {toast && (
+                    <CustomToast
+                        message={toast.message}
+                        type={toast.type}
+                        onClose={() => setToast(null)}
+                    />
+                )}
         </div>
     </div>
   </div> 

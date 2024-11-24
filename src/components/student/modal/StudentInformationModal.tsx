@@ -99,13 +99,13 @@ const StudentInformationModal: React.FC<StudentInformationModalProps> = ({ userI
   return ReactDOM.createPortal(
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="relative bg-white p-8 rounded-lg shadow-lg w-[50%] md:w-[30%]">
-          <div className="flex items-center justify-between p-1 border-b rounded-t dark:border-gray-600">
-            <FaInfo className="w-6 h-6 text-gray-900 dark:text-white" />
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Update Information</h3>
+        <div className="relative bg-white p-8 rounded-lg shadow-lg w-[60%] md:w-[40%]">
+          <div className="flex items-center justify-between p-1 border-b rounded-t">
+            <FaInfo className="w-6 h-6 text-emerald-700 hover:text-emerald-800" />
+            <h3 className="text-xl font-medium text-gray-900">Update Information</h3>
             <button
               type="button"
-              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
               onClick={onClose}
             >
               <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -122,7 +122,7 @@ const StudentInformationModal: React.FC<StudentInformationModalProps> = ({ userI
                   name="aboutMe"
                   value={formData.aboutMe}
                   onChange={handleChange}
-                  className="max-h-48 overflow-y-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-4"
+                  className="min-h-48 max-h-48 overflow-y-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-4"
                   placeholder="Enter About Me"
                   rows={4}
                 />

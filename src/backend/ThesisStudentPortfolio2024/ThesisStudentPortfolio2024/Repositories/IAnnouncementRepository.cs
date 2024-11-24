@@ -10,6 +10,7 @@ namespace ThesisStudentPortfolio2024.Repositories
         Task<IEnumerable<Announcement>> GetSeminarsBySearchAsync(string search);
         Task<IEnumerable<AnnouncementAttendee>> GetSeminarAttendeesAsync(int announcementId);
         Task<IEnumerable<AnnouncementAttendee>> GetSeminarAttendeesAsync(int announcementId, int userId);
+        Task<IEnumerable<Announcement>> GetSeminarsByAttendeesAsync(int userId);
         Task<IEnumerable<AnnouncementDetail>> GetAnnouncementDetailsAsync(int announcementId);
         Task<bool> AddAnnouncementAsync(Announcement announcement, List<AnnouncementDetail> announcementDetails);
         Task<bool> UpdateAnnouncementAsync(Announcement announcement);

@@ -15,6 +15,10 @@ namespace ThesisStudentPortfolio2024.Services
             _subjectRepository = subjectRepository;
         }
 
+        public async Task<IEnumerable<Subject>> GetSubjectsAllAsync() {
+            IEnumerable<Subject> fetchSubjectsAll = await _subjectRepository.GetSubjectsAsync();
+            return fetchSubjectsAll;
+        }
         public async Task<PagedResultDto> GetSubjectsAsync(PaginationParamsDto paginationParamsDto) {
 
             List<Subject> fetchSubjects = await _subjectRepository.GetSubjectsAsync();

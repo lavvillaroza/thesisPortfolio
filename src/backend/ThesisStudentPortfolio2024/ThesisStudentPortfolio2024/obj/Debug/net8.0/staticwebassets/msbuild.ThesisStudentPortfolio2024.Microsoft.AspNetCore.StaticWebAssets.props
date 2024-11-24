@@ -976,5 +976,149 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentCoverPhotos\cover3_bf7d58d4-5461-4c48-a2ec-b88b39a2bbba.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_10eb42fb-0e7e-4031-95c7-7a417f578ad6.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover1_10eb42fb-0e7e-4031-95c7-7a417f578ad6.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_10eb42fb-0e7e-4031-95c7-7a417f578ad6.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_1c7013c8-59aa-4428-995c-0f7660c629fe.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover1_1c7013c8-59aa-4428-995c-0f7660c629fe.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_1c7013c8-59aa-4428-995c-0f7660c629fe.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_3ebb3b00-1f9e-415b-990a-6393415be58e.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover1_3ebb3b00-1f9e-415b-990a-6393415be58e.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_3ebb3b00-1f9e-415b-990a-6393415be58e.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_7f1c25c6-08fd-425c-8790-6890456a6bc0.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover1_7f1c25c6-08fd-425c-8790-6890456a6bc0.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_7f1c25c6-08fd-425c-8790-6890456a6bc0.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_9fbfd393-90f8-446f-9195-107e7bcc1ea6.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover1_9fbfd393-90f8-446f-9195-107e7bcc1ea6.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_9fbfd393-90f8-446f-9195-107e7bcc1ea6.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_a6c452c8-3848-4409-995f-c46582a3177f.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover1_a6c452c8-3848-4409-995f-c46582a3177f.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_a6c452c8-3848-4409-995f-c46582a3177f.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_c6a6f7fc-9592-4af7-9e90-30879eefe9bf.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover1_c6a6f7fc-9592-4af7-9e90-30879eefe9bf.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover1_c6a6f7fc-9592-4af7-9e90-30879eefe9bf.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover2_99ea1a5a-2596-4906-9b41-e2eebd002d0f.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover2_99ea1a5a-2596-4906-9b41-e2eebd002d0f.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover2_99ea1a5a-2596-4906-9b41-e2eebd002d0f.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover3_6f05e4d0-bbd0-462b-9bdb-638a25ad02db.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/StudentFiles/cover3_6f05e4d0-bbd0-462b-9bdb-638a25ad02db.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentFiles\cover3_6f05e4d0-bbd0-462b-9bdb-638a25ad02db.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
   </ItemGroup>
 </Project>

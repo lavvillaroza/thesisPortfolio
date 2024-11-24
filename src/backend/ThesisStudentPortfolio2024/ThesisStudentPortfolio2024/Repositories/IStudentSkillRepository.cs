@@ -6,6 +6,6 @@ namespace ThesisStudentPortfolio2024.Repositories
     {
         Task<List<StudentSkill>> GetStudentSkillsByStudentIdAsync(int userId);        
         Task<bool> AddStudentSkillAsync(StudentSkill studentSkill);
-        Task<bool> DeleteStudentSkillAsync(StudentSkill studentSkill);        
+        Task<bool> DeleteStudentSkillAsync(int  studentSkillId);        
     }
 }
