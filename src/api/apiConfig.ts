@@ -1,7 +1,7 @@
 // const/apiConfig.ts
 export const BASE_URL = 'https://localhost:5050/';
 export const API_BASE_URL = 'https://localhost:5050/api';
-
+export const REACT_BASE_URL = 'http://localhost:3000/';
 // Endpoint Announcement && Seminar
 export const ANNOUNCEMENTS_URL = `/Announcement/bydate`;
 export const SEMINARS_URL = `/Announcement/seminars/byyear`;
@@ -54,4 +54,17 @@ export const GET_STUDENT_COURSE_PROGRESS_URL = `/Student/courseprogress`;
 
 //Endpoints AI or Machine Learning Future Career Prediction based on skills
 export const GET_STUDENT_FUTURE_CAREER_URL = `/Student/futurecareers`;
+
+//Endpoints Portfolio GuestView
+export const P_GET_STUDENT_DETAIL_URL = `/Portfolio/detail`;
+export const P_GET_STUDENT_INFO_URL = `/Portfolio/information`;
+export const P_GET_STUDENT_SUBJECTS_TAKEN_URL = `/Portfolio/subjectstaken`;
+export const P_GET_STUDENT_SKILLS_URL = `/Portfolio/skills`;
+export const P_GET_STUDENT_CERTIFICATES_URL = `/Portfolio/certificates`;
+export const P_GET_STUDENT_RECOGNITIONS_URL = `/Portfolio/recognitions`;
+export const P_GET_STUDENT_SEMINARS_URL = `/Portfolio/seminars`;
+export const P_GET_STUDENT_COURSE_PROGRESS_URL = `/Portfolio/courseprogress`;
+
+//Endpoints AI or Machine Learning Future Career Prediction based on skills
+export const P_GET_STUDENT_FUTURE_CAREER_URL = `/Portfolio/futurecareers`;
 

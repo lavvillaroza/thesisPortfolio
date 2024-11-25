@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FaFilePdf, FaPencilAlt } from 'react-icons/fa';
+import { FaFilePdf } from 'react-icons/fa';
 import NavHeader from './NavHeader';
 import InfoCarousel from './carousel/CoverPhotosCarousel';
 import { StudentDetailModel } from '../../models/StudentDetailModel';
-import { useNavigate } from 'react-router-dom';
-import { fetchStudentDetail, fetchStudentInformation } from '../../api/studentApi';
+import { useParams } from 'react-router-dom';
+import { fetchStudentDetail, fetchStudentInformation } from '../../api/portfolioApi';
 import { BASE_URL, REACT_BASE_URL } from '../../api/apiConfig';
-import StudentInformationModal from './modal/StudentInformationModal';
 import { StudentInformationModel } from '../../models/StudentInformationModel';
-import { checkTokenAndLogout } from '../../utils/jwtUtil';
 
 
 const initialStudentDetail: StudentDetailModel = {
@@ -48,45 +46,31 @@ const iniStudentInformation: StudentInformationModel = {
 };
 
 const Information: React.FC = () => {
-  const navigate = useNavigate();
+  const { userId } = useParams<{ userId: string }>(); // Get `userId` from route parameters  
   const [studentDetail, setStudentDetail] = useState<StudentDetailModel>(initialStudentDetail);
   const [studentInfo, setStudentInfo] = useState<StudentInformationModel>(iniStudentInformation);
   const [loading, setLoading] = useState<boolean>(true);  
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
-  useEffect(() => {
-    const user = localStorage.getItem('userDetails');
+  useEffect(() => {    
     const fetchData = async () => {
         setLoading(true);
-        if (checkTokenAndLogout()) {
-          navigate("/");
-          return;
-        }          
         try {
-            if (user) {
-                const userParse = JSON.parse(user);
-                // Run both data fetching functions concurrently
-                const [studentDetailData, studentInfoData] = await Promise.all([
-                    fetchStudentDetail(userParse.userid),
-                    fetchStudentInformation(userParse.userid),
-                ]);
+            if (!userId) return;
+            const [studentDetailData, studentInfoData] = await Promise.all([
+              fetchStudentDetail(Number(userId)),
+              fetchStudentInformation(Number(userId)),
+            ]);
 
-                setStudentDetail(studentDetailData);
-                setStudentInfo(studentInfoData);
-            } else {
-                navigate("/");
-            }
+            setStudentDetail(studentDetailData);
+            setStudentInfo(studentInfoData);
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
             setLoading(false); // Ensure loading is set to false after both fetches
         }
     };
-
     fetchData();
-  }, [navigate]);
+  }, []);
 
   const [isCopied, setIsCopied] = useState(false);
 
@@ -142,28 +126,28 @@ const Information: React.FC = () => {
                                     <>
                                       <div className="mb-2"> 
                                           <div className="grid grid-cols-2 gap-4">                                              
-                                                <div>
-                                                    <div className="mb-2">
-                                                      <p className="text-gray-900 text-3xl dark:text-white">{studentDetail.studentName || 'N/A'}</p>                                      
-                                                      <p className="text-gray-900 text-xl dark:text-white">{studentDetail.courseName || 'N/A'}</p>
-                                                      <p className="text-gray-900 text-xl dark:text-white">{(studentDetail.studentId + ' - ' + getYearString(studentDetail.yearLevel)) || 'N/A'}</p>                                                  
-                                                    </div>                                                                                                 
-                                                </div>
-                                                <div>     
+                                            <div>
                                                 <div className="mb-2">
-                                                      <button
-                                                          onClick={handleOpenResume}
-                                                          className="flex items-center gap-2 py-1 text-emerald-700 hover:text-red-500">
-                                                          <FaFilePdf size={20} /> {/* Resume icon */}
-                                                          <span>My Resume</span>
-                                                      </button>
-                                                    </div>                                                
-                                                    <div className="w-full max-w-sm relative">
-                                                        <div className="flex items-center">
-                                                          <span className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg dark:bg-gray-600 dark:text-white dark:border-gray-600">
-                                                            PORTFOLIO URL
-                                                          </span>
-                                                          <div className="relative w-full">
+                                                  <p className="text-gray-900 text-3xl dark:text-white">{studentDetail.studentName || 'N/A'}</p>                                      
+                                                  <p className="text-gray-900 text-xl dark:text-white">{studentDetail.courseName || 'N/A'}</p>
+                                                  <p className="text-gray-900 text-xl dark:text-white">{(studentDetail.studentId + ' - ' + getYearString(studentDetail.yearLevel)) || 'N/A'}</p>                                                  
+                                                </div>                                                                                                 
+                                            </div>
+                                            <div className=""> 
+                                                <div className="mb-2">
+                                                  <button
+                                                      onClick={handleOpenResume}
+                                                      className="flex items-center gap-2 py-1 text-emerald-700 hover:text-red-500">
+                                                      <FaFilePdf size={20} /> {/* Resume icon */}
+                                                      <span>My Resume</span>
+                                                  </button>
+                                                </div>  
+                                                <div className="w-full max-w-sm relative">
+                                                    <div className="flex items-center">
+                                                        <span className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg dark:bg-gray-600 dark:text-white dark:border-gray-600">
+                                                          PORTFOLIO URL
+                                                        </span> 
+                                                        <div className="relative w-full">
                                                             <input
                                                               id="website-url"
                                                               type="text"
@@ -173,40 +157,34 @@ const Information: React.FC = () => {
                                                               readOnly
                                                               disabled
                                                             />
-                                                          </div>                                                              
-                                                          <button
-                                                            onClick={handleCopy}
-                                                            className="relative flex-shrink-0 z-30 inline-flex items-center py-3 px-4 text-sm font-medium text-center text-white bg-emerald-700 rounded-e-lg hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 border-emerald-700 hover:border-emerald-800"
-                                                            type="button">
-                                                            {isCopied ? (
-                                                              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5.917 5.724 10.5 15 1.5"/>
-                                                              </svg>
-                                                            ) : (
-                                                              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                                                <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
-                                                              </svg>
-                                                            )}
-                                                          </button>
-                                                          {/* Tooltip */}
-                                                          <div
-                                                            className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-3 py-2 text-sm font-medium text-white bg-emerald-900 rounded-lg shadow-md transition-opacity duration-300 ${isCopied ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-                                                            style={{ zIndex: 30 }}
-                                                            role="tooltip">
-                                                            {isCopied ? "Copied!" : "Copy link"}
-                                                          </div>
-                                                        </div>                                                    
-                                                    </div>   
-                                                </div>                                                                                        
+                                                          </div>                                                                                                                         
+                                                        <button
+                                                          onClick={handleCopy}
+                                                          className="relative flex-shrink-0 z-30 inline-flex items-center py-3 px-4 text-sm font-medium text-center text-white bg-emerald-700 rounded-e-lg hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 border-emerald-700 hover:border-emerald-800"
+                                                          type="button">
+                                                          {isCopied ? (
+                                                            <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                                                            </svg>
+                                                          ) : (
+                                                            <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                                              <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                                                            </svg>
+                                                          )}
+                                                        </button>                                                          
+                                                        <div
+                                                          className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-3 py-2 text-sm font-medium text-white bg-emerald-900 rounded-lg shadow-md transition-opacity duration-300 ${isCopied ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+                                                          style={{ zIndex: 30 }}
+                                                          role="tooltip">
+                                                          {isCopied ? "Copied!" : "Copy link"}
+                                                        </div>
+                                                    </div>                                                    
+                                                  </div>                                                                                                                                                              
+                                              </div>                                                                                        
                                           </div>                                                                           
                                       </div>
                                       <div className="mb-2">
-                                        <label className="text-gray-900 text-left hover:text-green-700 text-2xl">About Me</label> 
-                                        <button
-                                          onClick={openModal}
-                                          className="  hover:text-emerald-800 text-emerald-700 font-bold py-2 px-2 m-1 focus:outline-none focus:shadow-outline ">
-                                          <FaPencilAlt/>
-                                        </button>
+                                        <label className="text-gray-900 text-left hover:text-green-700 text-2xl">About Me</label>                                         
                                       </div>  
                                       <div className="grid grid-cols-2 gap-4">
                                         <div>
@@ -222,16 +200,7 @@ const Information: React.FC = () => {
                                 )}  
                             </div>                            
                         </div>
-                    </main>     
-                    {/* Modal for Updating Information */}              
-                    {isModalOpen && (
-                      <StudentInformationModal          
-                        userId={studentDetail.userId}
-                        isOpen={isModalOpen}
-                        onClose={closeModal}
-                        studentInformation={studentInfo}
-                      />
-                    )}                            
+                    </main>                                          
                 </div>
             </div>
       </div>        

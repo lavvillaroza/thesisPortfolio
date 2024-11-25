@@ -35,7 +35,7 @@ const Announcement: React.FC = () => {
     }, []);
 
     // Fetch announcements with pagination and optional date filter
-    const loadAnnouncements = async () => {
+    const fetchData = async () => {
         if (checkTokenAndLogout()) {
             navigate("/");
             return;
@@ -52,7 +52,7 @@ const Announcement: React.FC = () => {
     // Fetch announcements whenever pageNumber or selectedDate changes
     useEffect(() => {
         if (selectedDate) {
-            loadAnnouncements();
+            fetchData();
         }
     }, [selectedDate, pageNumber]);
 

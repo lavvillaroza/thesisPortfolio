@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
-import { fetchStudentSkills, deleteStudentSkill, fetchStudentFutureCareers, fetchCourseProgressByStudentUserId } from '../../api/studentApi'; // Import your API function
+import { fetchStudentSkills, fetchStudentFutureCareers, fetchCourseProgressByStudentUserId } from '../../api/portfolioApi'; // Import your API function
 import NavHeader from './NavHeader';
-import StudentSkillsModal from './modal/StudentSkillsModal';
-import ConfirmationModal from '../common/ConfirmationModal'; // Add the Confirmation Modal Component
-import { useNavigate } from 'react-router-dom';
 import { StudentSkillModel } from '../../models/StudentSkill';
-import CustomToast from '../common/CustomToast';
 import { PredictedCareerModel } from '../../models/PredictedCareerModel';
 import { StudentCourseWithSubjectsModel } from '../../models/StudentCourseWithSubjectsModel';
 import { Pie } from 'react-chartjs-2';
@@ -16,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { checkTokenAndLogout } from '../../utils/jwtUtil';
+import { useParams } from 'react-router-dom';
 
 // Register required components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -30,70 +25,28 @@ const initialStudentCourseProgress: StudentCourseWithSubjectsModel = {
 };
 
 const Skills: React.FC = () => {
+  const { userId } = useParams<{ userId: string }>(); // Get `userId` from route parameters  
   const [studentCourseProgress, setStudentCourseProgress] = useState<StudentCourseWithSubjectsModel>(initialStudentCourseProgress);
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [studentSkills, setStudentSkills] = useState<StudentSkillModel[]>([]);
-  const [futureCareers, setFutureCareers] = useState<PredictedCareerModel[]>([]);
-  const [userId, setUserId] = useState<number>(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [selectedSkill, setSelectedSkill] = useState<StudentSkillModel | null>(null);
-  const navigate = useNavigate();
+  const [futureCareers, setFutureCareers] = useState<PredictedCareerModel[]>([]);  
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const toggleEditMode = () => setIsEditMode((prev) => !prev);
-
-  const fetchData = async () => {        
-    const user = localStorage.getItem('userDetails');
-      if (checkTokenAndLogout()) {
-        navigate("/");
-        return;
-      }  
+  const fetchData = async () => {            
       try {
-          if (user) {
-              const userParse = JSON.parse(user);
-              // Run both data fetching functions concurrently
-              const [studentSkillsData, studentFutureCareersData, studentCourseProgData] = await Promise.all([
-                fetchStudentSkills(userParse.userid),
-                fetchStudentFutureCareers(userParse.userid),
-                fetchCourseProgressByStudentUserId(userParse.userid)
-            ]);                
-              setStudentSkills(studentSkillsData);
-              setFutureCareers(studentFutureCareersData);   
-              setStudentCourseProgress(studentCourseProgData);
-              setUserId(userParse.userid);
-
-              console.log(studentCourseProgData);
-          } else {
-              navigate("/");
-          }
+          if (!userId) return;          
+            // Run both data fetching functions concurrently
+            const [studentSkillsData, studentFutureCareersData, studentCourseProgData] = await Promise.all([
+              fetchStudentSkills(Number(userId)),
+              fetchStudentFutureCareers(Number(userId)),
+              fetchCourseProgressByStudentUserId(Number(userId))
+          ]);                
+          setStudentSkills(studentSkillsData);
+          setFutureCareers(studentFutureCareersData);   
+          setStudentCourseProgress(studentCourseProgData);              
       } catch (error) {
           console.error('Error fetching data:', error);
       }
   };
-
-  const confirmDeleteSkill = (skill: StudentSkillModel) => {
-    setSelectedSkill(skill);
-    setIsConfirmModalOpen(true);
-  };
-
-  const handleDeleteSkill = async () => {
-    if (selectedSkill) {
-      try {
-        await deleteStudentSkill(selectedSkill.id); // Call API to delete skill
-        setIsConfirmModalOpen(false);
-        setSelectedSkill(null);
-        fetchData(); // Refresh skill list
-        setToast({ message: 'Skill ' + selectedSkill.skillName +  ' deleted sucessfully', type: 'success' });
-      } catch (error) {
-        setToast({ message: 'Error deleting skills: ' + error, type: 'error' });        
-      }
-    }
-  };
-
+  
   useEffect(() => {        
     fetchData();    
   }, []);
@@ -113,10 +66,7 @@ const Skills: React.FC = () => {
       .filter((subject) => subject.subjectStatus === 0)
       .reduce((sum, subject) => sum + subject.units, 0);
   
-    const remainingUnits = studentCourseProgress.totalUnitsRequired - completedUnits - ongoingUnits;
-    console.log(studentCourseProgress.totalUnitsRequired);
-    console.log(completedUnits);
-    console.log(ongoingUnits);
+    const remainingUnits = studentCourseProgress.totalUnitsRequired - completedUnits - ongoingUnits;    
     return { completedUnits, ongoingUnits, remainingUnits };
   };
 
@@ -144,20 +94,10 @@ const Skills: React.FC = () => {
               <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded transition-all duration-200">
                 <div className="p-4">
                   <div className="grid grid-cols-2 gap-4">
-                    <div>
+                    <div> 
                       <div className="mb-4 flex items-center">
-                        <label className="text-gray-700 text-left mx-2 text-2xl">SKILLS</label>
-                        <button
-                          onClick={openModal}
-                          className="hover:text-emerald-800 text-emerald-700 font-lg text-xl  transition duration-150 ease-in-out">
-                          <FaPlusCircle />
-                        </button>
-                        <button
-                          onClick={toggleEditMode}
-                          className="ml-2 hover:text-emerald-800 text-emerald-700 font-lg text-xl  transition duration-150 ease-in-out">
-                          <FaEdit />
-                        </button>
-                      </div>
+                        <label className="text-gray-700 text-left mx-2 text-2xl">SKILLS</label>                        
+                      </div>                     
                       <div className="p-4 w-full m-auto h-[570px] bg-white drop-shadow-md rounded-lg overflow-auto">
                         <div className="flex justify-end">
                           <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
@@ -188,14 +128,7 @@ const Skills: React.FC = () => {
                                     } rounded-full me-1.5 flex-shrink-0`}
                                   ></span>
                                   {item.skillName}
-                                </span>
-                                {isEditMode && (
-                                  <button
-                                    onClick={() => confirmDeleteSkill(item)}
-                                    className="text-red-700 hover:text-red-700 mr-2">
-                                    <FaTrashAlt />
-                                  </button>
-                                )}
+                                </span>                                
                               </div>
                             ))}
                           </div>                            
@@ -242,32 +175,7 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-          </main>
-          {/* Modal for Adding/Editing Skills */}
-          {isModalOpen && (
-            <StudentSkillsModal
-              userId={userId}
-              isOpen={isModalOpen}
-              onClose={closeModal}
-              onSkillAdded={fetchData}
-            />
-          )}
-          {/* Confirmation Modal */}
-          {isConfirmModalOpen && selectedSkill && (
-            <ConfirmationModal
-              isOpen={isConfirmModalOpen}
-              message={`Are you sure you want to delete the skill "${selectedSkill.skillName}"?`}
-              onClose={() => setIsConfirmModalOpen(false)}
-              onConfirm={handleDeleteSkill}
-            />
-          )}
-          {toast && (
-                <CustomToast
-                    message={toast.message}
-                    type={toast.type}
-                    onClose={() => setToast(null)}
-                />
-            )}
+          </main>                              
         </div>
       </div>
     </div>

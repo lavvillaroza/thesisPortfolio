@@ -122,7 +122,6 @@ namespace ThesisStudentPortfolio2024.Controllers
             return Ok(studentFutureCareers);
         }
 
-
         [HttpGet("skills")]
         public async Task<IActionResult> GetStudentSkillsByUserIdAsync(int userId)
         {

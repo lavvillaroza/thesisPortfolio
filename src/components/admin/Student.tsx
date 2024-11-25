@@ -12,6 +12,7 @@ import { fetchCourses } from '../../api/courseApi';
 import studentIcon from '../../assets/studentIcon.png';
 import { CourseModel } from '../../models/CourseModel';
 import CustomToast from '../common/CustomToast';
+import { REACT_BASE_URL } from '../../api/apiConfig';
 
 const initialStudentDetail: StudentDetailModel = {
     id: 0,
@@ -189,6 +190,9 @@ const Student: React.FC = () => {
             return `${year}th Year`;
         }
       };
+    const handleOpenPortfolioUrl = (student: StudentDetailModel) => {        
+        window.open(REACT_BASE_URL + 'portfolio/' + student.userId.toString() + '/information', '_blank'); // Opens in a new tab
+    };
   return (
     <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
           <div className="flex-1 m-auto">
@@ -266,7 +270,11 @@ const Student: React.FC = () => {
                                                             <td className="px-6 py-4">{student.yearStart}</td>
                                                             <td className="px-6 py-4">{getYearString(student.yearLevel)}</td>
                                                             <td className="px-6 py-4">
-                                                                <a ref={student.portfolioURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-500 hover:underline">View Portfolio</a>
+                                                                <button 
+                                                                    onClick={() => handleOpenPortfolioUrl(student) } 
+                                                                    className="text-blue-600 dark:text-blue-500 hover:underline">
+                                                                    View Portfolio
+                                                                </button>
                                                             </td>                                                    
                                                         </tr>
                                                     ))

@@ -51,6 +51,34 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({ announc
             fetchSeminarAttendeesData();
         }
     }, [fetchSeminarAttendeesData, pageNumber, isOpen]);
+
+    const getYearString = (year: string): string => {
+        switch (year) {
+          case '1':
+            return '1st Year';
+          case '2':
+            return '2nd Year';
+          case '3':
+            return '3rd Year';
+          case '4':
+            return '4th Year';
+          default:
+            return `${year}th Year`;
+        }
+      };
+
+      const getStatusString = (status: number): string => {
+        switch (status) {
+          case 1:
+            return 'Registered';
+          case 2:
+            return 'Absent';
+          case 3:
+            return 'Attended';          
+          default:
+            return `N/A`;
+        }
+      };
     
     // Return null if modal is not open
     if (!isOpen) return null;
@@ -60,7 +88,7 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({ announc
             <div className="relative bg-white p-8 rounded-lg shadow-lg w-[90%] md:w-[50%]">
                 {/* Modal header */}
                 <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                    <FaUsersBetweenLines className="w-6 h-6 text-gray-900 dark:text-white"/>
+                    <FaUsersBetweenLines className="w-6 h-6 text-yellow-300"/>
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white">{announcement.title} Attendees</h3>
                     <button
                         type="button"
@@ -93,8 +121,17 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({ announc
                                             {attendee.studentName}
                                         </th>                                                                                                                
                                         <td className="px-6 py-4">{attendee.studentCourse}</td>
-                                        <td className="px-6 py-4">{attendee.studentYearLevel}</td>
-                                        <td className="px-6 py-4">{attendee.studentAttendanceStatus}</td>                                        
+                                        <td className="px-6 py-4">{getYearString(attendee.studentYearLevel)}</td>
+                                        <td className="px-6 py-4">                                            
+                                            <span 
+                                                className={` ${attendee.studentAttendanceStatus === 1
+                                                            ? 'bg-yellow-100 text-yellow-800'
+                                                            : attendee.studentAttendanceStatus === 3
+                                                            ? 'bg-emerald-100 text-emerald-800'
+                                                            : 'bg-red-100 text-red-800'} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full`}>
+                                                {getStatusString(attendee.studentAttendanceStatus)}
+                                            </span>                                                    
+                                        </td>
                                         <td className="px-6 py-4">
                                             <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-500 hover:underline">Update</a>                                            
                                         </td>                                                    

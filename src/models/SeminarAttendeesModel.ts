@@ -4,7 +4,7 @@ export interface SeminarAttendeesModel {
     studentName: string;
     studentCourse: string;
     studentYearLevel: string;
-    studentAttendanceStatus: string;
+    studentAttendanceStatus: number;
     createdDate: string;
     lastModifiedBy: string;
     lastModifiedDate: string;    

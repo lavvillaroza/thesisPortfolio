@@ -12,11 +12,13 @@ namespace ThesisStudentPortfolio2024.Services
         private readonly IAnnouncementRepository _announcementRepository;
         private readonly IWebHostEnvironment _webhostEnvironment;
         private readonly IStudentDetailRepository _studentDetailRepository;
-        public AnnouncementService(IAnnouncementRepository announcementRepository, IWebHostEnvironment webHostEnvironment, IStudentDetailRepository studentDetailRepository )
+        private readonly ICourseRepository _courseRepository;
+        public AnnouncementService(IAnnouncementRepository announcementRepository, IWebHostEnvironment webHostEnvironment, IStudentDetailRepository studentDetailRepository, ICourseRepository courseRepository )
         {
             _announcementRepository = announcementRepository;
             _webhostEnvironment = webHostEnvironment;
             _studentDetailRepository = studentDetailRepository;
+            _courseRepository = courseRepository;
         }  
 
         public async Task<bool> AddAnnouncementAsync(AnnouncementDto announcementDTO) {
@@ -225,6 +227,8 @@ namespace ThesisStudentPortfolio2024.Services
         public async Task<PagedResultDto> GetSeminarAttendeesAsync(PaginationParamsDto paginationParamsDto, int announcementId) {
             IEnumerable<AnnouncementAttendee> fetchAnnouncementsAttendees = await _announcementRepository.GetSeminarAttendeesAsync(announcementId);
             IEnumerable<StudentDetail> fetchStudentsDetail = await _studentDetailRepository.GetStudentsDetailAsync();
+            IEnumerable<Course> fetchCourses = await _courseRepository.GetCoursesAsync();
+
             PagedResultDto pagedResultDto = new PagedResultDto();
             pagedResultDto.TotalCount = fetchAnnouncementsAttendees.Count();
             pagedResultDto.PageNumber = paginationParamsDto.PageNumber;
@@ -246,7 +250,7 @@ namespace ThesisStudentPortfolio2024.Services
                                     LastModifiedDate = sa.attendeeStudent.LastModifiedDate,
                                     UserId = sa.attendeeStudent.StudentUserId,
                                     StudentName = userDetails.StudentName,
-                                    StudentCourse = userDetails.CourseId.ToString(),
+                                    StudentCourse = fetchCourses.Where(x => x.Id == userDetails.CourseId).Select(x => x.CourseCode).Single(),
                                     StudentYearLevel = userDetails.YearLevel.ToString(),
                                     StudentEmail = userDetails.SchoolEmail,
                                     StudentAttendanceStatus = sa.attendeeStudent.StudentAttendanceStatus

@@ -18,6 +18,11 @@ import Subject from './components/admin/Subject';
 import NotFound from './components/common/NotFound';
 import 'flowbite';
 import Course from './components/admin/Course';
+import InformationView from './components/portfolio/Information';
+import SkillsView from './components/portfolio/Skills';
+import CertificationsView from './components/portfolio/Certifications';
+import SubjectsTakenView from './components/portfolio/SubjectsTaken';
+import SeminarsView from './components/portfolio/Seminars';
 
 const App = () => {
   return (
@@ -26,6 +31,13 @@ const App = () => {
           <Routes>
               {/* Public Routes */}              
               <Route path="/" element={<Login />} />              
+
+              {/* Portfolio Routes */}
+              <Route path="/portfolio/:userId/information" element={<InformationView />} />
+              <Route path="/portfolio/:userId/skills" element={<SkillsView />} />
+              <Route path="/portfolio/:userId/certifications" element={<CertificationsView />} />
+              <Route path="/portfolio/:userId/subjectstaken" element={<SubjectsTakenView />} />
+              <Route path="/portfolio/:userId/seminars" element={<SeminarsView />} />
 
               {/* Protected Routes */}
               {/* Admin Routes */}
