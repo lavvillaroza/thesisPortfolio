@@ -107,8 +107,23 @@ namespace ThesisStudentPortfolio2024.Services
 
             return await _subjectRepository.AddSubjetAsync(subject);
         }
-        public async Task<bool> UpdateSubjetAsync(Subject subject) {
+        public async Task<bool> UpdateSubjetAsync(SubjectDto subjectDto) {
+
+            Subject subject = new Subject
+            {
+                Id = subjectDto.Id,
+                SubjectName = subjectDto.SubjectName,
+                SubjectDescription = subjectDto.SubjectDescription,
+                Prereq = subjectDto.Prereq,
+                Lec = subjectDto.Lec,
+                Lab = subjectDto.Lab,
+                Units = subjectDto.Units,
+                Hrs = subjectDto.Hrs,                
+                LastModifiedBy = subjectDto.LastModifiedBy,
+                LastModifiedDate = DateTime.Now,
+            };
             return await _subjectRepository.UpdateSubjetAsync(subject);
+
         }
         public async Task<bool> DeleteSubjetAsync(Subject subject) {
             return await _subjectRepository.DeleteSubjetAsync(subject);

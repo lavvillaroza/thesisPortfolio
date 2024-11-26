@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import SeminarOthersModal from './modal/SeminarOthersModal';
 import CustomToast from '../common/CustomToast';
 import ConfirmationModal from '../common/ConfirmationModal';
+import { checkTokenAndLogout } from '../../utils/jwtUtil';
 
 const initialStudentSeminar: StudentSeminarModel = {
     id: 0,
@@ -81,6 +82,10 @@ const Seminars: React.FC = () => {
       };
 
     const fetchSeminars = async () => {
+        if (checkTokenAndLogout()) {
+            navigate("/");
+            return;
+          }  
         try {
             const user = localStorage.getItem('userDetails');
             if (user) {

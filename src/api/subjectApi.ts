@@ -2,7 +2,7 @@ import { PagedResultModel } from "../models/PagedResultModel";
 import { PaginationParamsModel } from "../models/PaginationParamsModel";
 import { SubjectModel } from "../models/SubjectModel";
 import apiClient from "./apiClient";
-import { ADD_SUBJECT_URL, GET_SUBJECTS_ALL_URL, GET_SUBJECTS_URL, SEARCH_SUBJECTS_URL } from "./apiConfig";
+import { ADD_SUBJECT_URL, GET_SUBJECTS_ALL_URL, GET_SUBJECTS_URL, SEARCH_SUBJECTS_URL, UPDATE_SUBJECT_URL } from "./apiConfig";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function fetchSubjects(
@@ -60,5 +60,16 @@ export const addSubject = async (formData: FormData) => {
         return response.data; // Return the response data if needed
     } catch (error) {
         throw new Error(`Error adding subject: ${error}`);
+    }
+};
+
+// Add New Announcement
+export const updateSubject = async (subjectId: number, updatedData: SubjectModel) => {
+    try {
+        const response = await apiClient.put(`${UPDATE_SUBJECT_URL}${subjectId}`, updatedData);
+        console.log(`${UPDATE_SUBJECT_URL}${subjectId}`);
+        return response.data; // Return the response data if needed
+    } catch (error) {
+        throw new Error(`Error updating subject: ${error}`);
     }
 };

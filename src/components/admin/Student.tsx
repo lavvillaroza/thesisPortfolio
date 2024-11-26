@@ -98,10 +98,10 @@ const Student: React.FC = () => {
             closeModal();
             await fetchStudentsData('');
         } catch (error) {
-            setToastMessage('Error adding announcement.');
+            setToastMessage('Error adding student.');
             setToastType('error');
             setShowToast(true);
-            console.error('Error adding announcement:', error);
+            console.error('Error adding student:', error);
         } finally {
             // Hide toast after 8 seconds
             setTimeout(() => {

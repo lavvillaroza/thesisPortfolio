@@ -7,7 +7,6 @@ import { AnnouncementModel } from '../../models/AnnouncementModel';
 import { useNavigate } from 'react-router-dom';
 import { checkTokenAndLogout } from '../../utils/jwtUtil';
 import { fetchSearchSeminars, fetchSeminars } from '../../api/announcementApi';
-
 import YearSelectDropDown from '../common/YearSelectDropDown';
 import { FaFolder } from 'react-icons/fa';
 import SeminarAttendanceModal from './modal/SeminarAttendanceModal';
@@ -18,30 +17,28 @@ const Seminar: React.FC = () => {
     const [announcements, setAnnouncements] = useState<AnnouncementModel[]>([]);            
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [pageSize] = useState<number>(10);
-    const [totalPages, setTotalPages] = useState<number>(0);
-    const navigate = useNavigate();
+    const [totalPages, setTotalPages] = useState<number>(0);    
     const [selectedYear, setSelectedYear] = useState<number | undefined>(currentYear);
     const [searchValue, setSearchValue] = useState('');    
     const [selectedSeminar, setSelectedSeminar] = useState<AnnouncementModel | null>(null);
-
-    // // Truncate description to a specific length
-    // const truncateDescription = (description: string, maxLength: number) => {
-    //     return description.length > maxLength
-    //         ? `${description.substring(0, maxLength)}...`
-    //         : description;
-    // };
+    const [userId, setUserId] = useState();
+    const navigate = useNavigate();
 
     // Handle page changes for pagination
     const handlePrevPage = () => setPageNumber((prev) => Math.max(prev - 1, 1));
     const handleNextPage = () => setPageNumber((prev) => Math.min(prev + 1, totalPages));
 
     // Fetch seminars based on pagination, selected year, and search value
-    const fetchSeminarsData = useCallback(async (searchTerm: string, year: number | undefined) => {
-        console.log(year);
+    const fetchSeminarsData = useCallback(async (searchTerm: string, year: number | undefined) => {        
         if (checkTokenAndLogout()) {
             navigate("/");
             return;
-        }        
+        }
+        const user = localStorage.getItem('userDetails');        
+        if (user) {
+            const userParse = JSON.parse(user);   
+            setUserId(userParse.userid);         
+        } 
         try {
             let result;
             if (searchTerm) {
@@ -111,7 +108,7 @@ const Seminar: React.FC = () => {
                                                         id="searchValue"
                                                         name="searchValue"
                                                         className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" 
-                                                        placeholder="Search for student name"
+                                                        placeholder="Search for seminar"
                                                         value={searchValue}
                                                         onChange={handleSearchInputChange}
                                                         required />
@@ -188,8 +185,9 @@ const Seminar: React.FC = () => {
                     </main>
                 </div>            
             </div>
-            {selectedSeminar && (
+            {selectedSeminar &&  userId && (
                 <SeminarAttendanceModal
+                    userId={userId}
                     announcement={selectedSeminar}
                     isOpen={!!selectedSeminar}
                     onClose={closeModal}

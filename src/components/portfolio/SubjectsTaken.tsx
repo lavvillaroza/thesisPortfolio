@@ -30,7 +30,7 @@ const SubjectsTaken: React.FC = () => {
             setStudentSubjects(result.items);
             setTotalPages(result.totalPages);            
         } catch (error) {
-            console.error('Error fetching students data:', error);
+            console.error('Error fetching subjects data:', error);
         } 
     };
 

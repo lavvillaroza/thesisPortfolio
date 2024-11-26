@@ -246,14 +246,14 @@ namespace ThesisStudentPortfolio2024.Services
                                 (sa, userDetails) => new AnnouncementAttendeeDto
                                 {
                                     Id = sa.attendeeStudent.Id,
-                                    LastModifiedBy = sa.attendeeStudent.LastModifiedBy,
-                                    LastModifiedDate = sa.attendeeStudent.LastModifiedDate,
-                                    UserId = sa.attendeeStudent.StudentUserId,
+                                    StudentAttendanceStatus = sa.attendeeStudent.StudentAttendanceStatus,
+                                    StudentUserId = sa.attendeeStudent.StudentUserId,
+                                    AnnouncementId = sa.attendeeStudent.AnnouncementId,
+                                    LastModifiedBy = sa.attendeeStudent.LastModifiedBy,                                                                        
                                     StudentName = userDetails.StudentName,
                                     StudentCourse = fetchCourses.Where(x => x.Id == userDetails.CourseId).Select(x => x.CourseCode).Single(),
                                     StudentYearLevel = userDetails.YearLevel.ToString(),
-                                    StudentEmail = userDetails.SchoolEmail,
-                                    StudentAttendanceStatus = sa.attendeeStudent.StudentAttendanceStatus
+                                    StudentEmail = userDetails.SchoolEmail
                                 }
                             ).Skip(paginationParamsDto.Skip)
                             .Take(paginationParamsDto.PageSize).ToList();
@@ -286,7 +286,18 @@ namespace ThesisStudentPortfolio2024.Services
         public async Task<bool> AddAnnouncementDetailAsync(AnnouncementDetail announcementDetail) {
             return await _announcementRepository.AddAnnouncementDetailAsync(announcementDetail);
         }
-        public async Task<bool> UpdateAnnouncementAttendeeAsync(AnnouncementAttendee announcementAttendee) {
+        public async Task<bool> UpdateAnnouncementAttendeeAsync(AnnouncementAttendeeDto announcementAttendeeDto) {
+
+            AnnouncementAttendee announcementAttendee = new AnnouncementAttendee
+            {
+                Id = announcementAttendeeDto.Id,
+                StudentAttendanceStatus = announcementAttendeeDto.StudentAttendanceStatus,
+                StudentUserId = announcementAttendeeDto.StudentUserId,
+                AnnouncementId = announcementAttendeeDto.AnnouncementId,
+                LastModifiedBy = announcementAttendeeDto.LastModifiedBy,
+                LastModifiedDate = DateTime.Now
+            };
+
             return await _announcementRepository.UpdateAnnouncementAttendeeAsync(announcementAttendee);
         }
 

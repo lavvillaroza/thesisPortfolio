@@ -4,8 +4,7 @@ using ThesisStudentPortfolio2024.Models.Entities;
 namespace ThesisStudentPortfolio2024.Models.Dtos
 {
     public class SubjectDto
-    {
-        [Key]
+    {        
         public int Id { get; set; }
         [Required]
         public string SubjectName { get; set; } = string.Empty;

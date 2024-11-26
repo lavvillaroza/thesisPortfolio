@@ -159,7 +159,7 @@ const Course: React.FC = () => {
                                                 <div className="relative pt-2">
                                                     <button
                                                         onClick={openModal}
-                                                        className="bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out flex items-center justify-center">
+                                                        className="bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out flex items-center justify-center hover:scale-110">
                                                         <FaPlus className="w-3 h-3" />
                                                     </button>
                                                 </div>                                        

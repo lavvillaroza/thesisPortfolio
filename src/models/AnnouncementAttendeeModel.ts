@@ -1,9 +1,11 @@
-export interface SeminarAttendeesModel {
+export interface AnnouncementAttendeeModel {
     id: number;
+    studentAttendanceStatus: number;
     studentUserId: number;
+    announcementId: number;
     studentName: string;
     studentCourse: string;
     studentYearLevel: string;
-    studentAttendanceStatus: number;    
+    studentEmail: string;    
     lastModifiedBy: string;    
 }

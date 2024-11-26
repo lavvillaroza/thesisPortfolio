@@ -130,15 +130,30 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPut("updateattendee")]
-        public async Task<IActionResult> UpdateAnnouncementAttendeeAsync([FromBody] AnnouncementAttendee announcementAttendee)
+        [HttpPost("updateseminarattendee")]
+        public async Task<IActionResult> UpdateAnnouncementAttendeeAsync([FromForm] AnnouncementAttendeeDto announcementAttendeeDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }                        
+            try
+            {
+                // Attempt to update the subject
+                var updatedAnnouncemnet = await _announcementService.UpdateAnnouncementAttendeeAsync(announcementAttendeeDto);
+
+                // If no subject was updated, return a not found response
+                if (updatedAnnouncemnet == false)
+                {
+                    return NotFound($"Failed to update status.");
+                }
+
+                return Ok("Seminar Attendee Status updated successfully");
             }
-            var updatedAnnouncemnet = await _announcementService.UpdateAnnouncementAttendeeAsync(announcementAttendee);
-            return Ok("Success");
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred while adding the subject: {ex.Message}");
+            }
         }       
     }
 }

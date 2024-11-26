@@ -2,101 +2,52 @@ import React, { useCallback, useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
 import SideNavbar from './SideNavbar';
-import { FaPlus } from 'react-icons/fa';
+import { FaEdit, FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { checkTokenAndLogout } from '../../utils/jwtUtil';
 import { SubjectModel } from '../../models/SubjectModel';
-import { addSubject, fetchSearchSubjects, fetchSubjects } from '../../api/subjectApi';
-import { PiBook } from 'react-icons/pi';
-
-const initialSubject:SubjectModel = {
-    id: 0,
-    subjectName: '',
-    subjectDescription: '',
-    prereq: '',
-    lec: 0,
-    lab: 0,
-    units: 0,
-    hrs: 0,    
-    createdBy:  '',
-    createdDate:  '',
-    lastModifiedBy:  '',
-    lastModifiedDate:  ''
-}
+import { fetchSearchSubjects, fetchSubjects } from '../../api/subjectApi';
+import AddSubjectModal from './modal/AddSubjectModal';
+import EditSubjectModal from './modal/EditSubjectModal';
 
 const Subject: React.FC = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize] = useState<number>(10);
     const [subjectList, setSubjectList] = useState<SubjectModel[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newSubject, setNewSubject] = useState<SubjectModel>(initialSubject);
-                                              
+    const [userId, setUserId] = useState();
+    const [addModalOpen, setAddModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [selectedSubject, setSelectedSubject] = useState<SubjectModel | null>(null);                                              
     const [searchValue, setSearchValue] = useState('');
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+
+    const openModal = () => setAddModalOpen(true);    
     const navigate = useNavigate();
 
     const [showToast, setShowToast] = useState<boolean>(false); // For toast visibility
     const [toastMessage, setToastMessage] = useState<string>(''); // Toast message content
     const [toastType, setToastType] = useState<'success' | 'error'>('success'); // Toast type (success or error)    
 
-    const [dropdownOpenRowId, setDropdownOpenRowId] = useState<number | null>(null);
-
-
-    // Toggle dropdown visibility
-    const toggleDropdown = (id: number) => {
-        // Toggle the dropdown only for the current row
-        setDropdownOpenRowId(prevId => (prevId === id ? null : id));
+    const handleEditClick = (subject: SubjectModel) => {        
+        setSelectedSubject(subject);
+        setEditModalOpen(true);
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const user = localStorage.getItem('userDetails');        
-        if (user) {
-            const userParse = JSON.parse(user);
-            newSubject.createdBy = userParse.username;
-            newSubject.lastModifiedBy = userParse.username;            
-        } 
-        const formData = new FormData();
-        formData.append('subjectName', newSubject.subjectName);
-        formData.append('subjectDescription', newSubject.subjectDescription);
-        formData.append('prereq', newSubject.prereq);
-        formData.append('lec', newSubject.lec.toString());
-        formData.append('lab', newSubject.lab.toString());
-        formData.append('units', newSubject.units.toString());
-        formData.append('hrs', newSubject.hrs.toString());
-        formData.append('createdBy', newSubject.createdBy);
-        formData.append('lastModifiedBy', newSubject.createdBy);        
-        
-        try {
-            await addSubject(formData); // Call the new API function
-            setToastMessage('Student added successfully!');
-            setToastType('success');
-            setShowToast(true);
-    
-            // Reset the form
-            setNewSubject(initialSubject);
-            // Close the modal
-            closeModal();
-            await fetchSubjectsData('');
-        } catch (error) {
-            setToastMessage('Error adding announcement.');
-            setToastType('error');
-            setShowToast(true);
-            console.error('Error adding announcement:', error);
-        } finally {
-            // Hide toast after 8 seconds
-            setTimeout(() => {
-                setShowToast(false);
-            }, 8000);
+    const handleSave = (message: string, type: 'success' | 'error') => {
+        if (type === 'success') {
+            setToastMessage(message);
+            setToastType(type);            
+        } else {
+            console.log("Error:", message);
+            setToastMessage(message);
+            setToastType(type);      
         }
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setNewSubject(prevSubject => ({ ...prevSubject, [name]: value}));
+        setSelectedSubject(null);
+        fetchSubjectsData('');
+        setShowToast(true);
+        setTimeout(() => {
+            setShowToast(false);
+        }, 5000);
     };
 
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,11 +65,16 @@ const Subject: React.FC = () => {
     };
 
     // Function to fetch student data based on search value
-    const fetchSubjectsData = useCallback(async (searchTerm: string) => {
+    const fetchSubjectsData = useCallback(async (searchTerm: string) => {        
         if (checkTokenAndLogout()) {
             navigate("/");
             return;
-        }        
+        }
+        const user = localStorage.getItem('userDetails');        
+        if (user) {
+            const userParse = JSON.parse(user);   
+            setUserId(userParse.username);         
+        } 
         try {
             let result;
             if (searchTerm) {
@@ -129,11 +85,11 @@ const Subject: React.FC = () => {
             setSubjectList(result.items);
             setTotalPages(result.totalPages);
         } catch (error) {
-            console.error('Error fetching students data:', error);
+            console.error('Error fetching subject data:', error);
         } 
     }, [navigate, pageNumber, pageSize]);
 
-      // Trigger search whenever `searchValue` or `pageNumber` changes
+    // Trigger search whenever `searchValue` or `pageNumber` changes
     useEffect(() => {
         if (searchValue) {
             fetchSubjectsData(searchValue);
@@ -142,6 +98,7 @@ const Subject: React.FC = () => {
             fetchSubjectsData('');
         }
     }, [searchValue, pageNumber, fetchSubjectsData]);
+
       return (
         <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">  
             <div className="flex-1 m-auto">
@@ -170,7 +127,7 @@ const Subject: React.FC = () => {
                                                     id="searchValue"
                                                     name="searchValue"
                                                     className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                    placeholder="Search for student name"
+                                                    placeholder="Search for subject name"
                                                     value={searchValue}
                                                     onChange={handleSearchInputChange}
                                                     />                                
@@ -178,7 +135,7 @@ const Subject: React.FC = () => {
                                             <div className="relative py-3 pr-2">
                                                 <button
                                                     onClick={openModal}
-                                                    className="bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out flex items-center justify-center">
+                                                    className="bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out flex items-center justify-center hover:scale-110">
                                                     <FaPlus className="w-3 h-3" />
                                                 </button>   
                                             </div>                                
@@ -210,32 +167,11 @@ const Subject: React.FC = () => {
                                                                 <td className="px-4 py-2">{subject.units}</td>
                                                                 <td className="px-4 py-2">{subject.hrs}</td>                                                                
                                                                 <td className="px-4 py-2">
-                                                                    <div className="relative">
-                                                                        <button 
-                                                                            id={`dropdownMenuIconButton-${subject.id}`} 
-                                                                            onClick={() => toggleDropdown(subject.id)}                                            
-                                                                            className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                                                            type="button">
-                                                                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                                                                                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-                                                                            </svg>
-
-                                                                        </button>
-
-                                                                        {/* Dropdown menu */}
-                                                                        <div 
-                                                                            id={`dropdownDots-${subject.id}`} 
-                                                                            className={`${dropdownOpenRowId === subject.id  ? 'block' : 'hidden'} z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-22 dark:bg-gray-700 dark:divide-gray-600 absolute mt-2`}>
-                                                                            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
-                                                                                <li>
-                                                                                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Update</a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
-                                                                                </li>                                                                            
-                                                                            </ul>                                                                        
-                                                                        </div>
-                                                                    </div>                                                                    
+                                                                <button
+                                                                    onClick={() => handleEditClick(subject)}
+                                                                    className="ml-2 hover:text-emerald-800 text-emerald-700 font-lg text-xl  transition duration-150 ease-in-out">
+                                                                    <FaEdit />
+                                                                </button>                                               
                                                                 </td>                                                    
                                                             </tr>
                                                         ))
@@ -275,130 +211,25 @@ const Subject: React.FC = () => {
                       </div>
                   </main>
               </div>
-                {/* Add Subject Modal */}
-                {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
-                    <div className="relative w-full max-w-lg md:max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700 overflow-auto">
-                        {/* Modal header */}
-                        <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                            <PiBook  className="w-6 h-6 text-gray-900 dark:text-white"/>
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">ADD SUBJECT</h3>
-                            <button
-                                type="button"
-                                className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                onClick={closeModal}>
-                                <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
-                                <span className="sr-only">Close modal</span>
-                            </button>
-                        </div>
-                        {/* Modal body */}
-                        <form onSubmit={handleSubmit}>
-                            <div className="flex flex-col p-4 space-x-4">
-                                {/* Fillup Form Section */}                                
-                                <div className="grid gap-4 mb-6 md:grid-cols-2">
-                                    <div>
-                                        <label htmlFor="subjectName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject Name</label>
-                                        <input 
-                                            type="text" 
-                                            id="subjectName" 
-                                            name="subjectName"
-                                            value={newSubject.subjectName}
-                                            onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                            placeholder="Subject Name" 
-                                            required />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="subjectDescription" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject Description</label>
-                                        <input 
-                                            type="text" 
-                                            id="subjectDescription" 
-                                            name="subjectDescription"
-                                            value={newSubject.subjectDescription}
-                                            onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                            placeholder="Subject Description" 
-                                            required />
-                                    </div>    
-                                    <div className="col-span-2 grid gap-4 md:grid-cols-5">
-                                        <div>
-                                            <label htmlFor="prereq" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PreReq</label>
-                                            <input 
-                                                type="text" 
-                                                id="prereq" 
-                                                name="prereq"
-                                                value={newSubject.prereq}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="PreReq"  />
-                                        </div> 
-                                        <div>
-                                            <label htmlFor="lec" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lec</label>
-                                            <input 
-                                                type="number" 
-                                                id="lec" 
-                                                name="lec"
-                                                min="0"
-                                                value={newSubject.lec}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="lec"  />
-                                        </div>
-                                        <div>
-                                            <label htmlFor="lab" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lab</label>
-                                            <input 
-                                                type="number" 
-                                                id="lab" 
-                                                name="lab"
-                                                min="0"
-                                                value={newSubject.lab}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="Lab"  />
-                                        </div> 
-                                        <div>
-                                            <label htmlFor="units" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Units</label>
-                                            <input 
-                                                type="number" 
-                                                id="units" 
-                                                name="units"
-                                                min="0"
-                                                value={newSubject.units}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="units"  />
-                                        </div> 
-                                        <div>
-                                            <label htmlFor="hrs" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hours</label>
-                                            <input 
-                                                type="number" 
-                                                id="hrs" 
-                                                name="hrs"
-                                                min="0"
-                                                value={newSubject.hrs}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                                placeholder="Hours"  />
-                                        </div>      
-                                    </div>                                                                                                                                                                                          
-                                </div>                                                                                                                                                                            
-                            </div>
-                            {/* Modal footer */}
-                            <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                                <button 
-                                    onClick={closeModal} 
-                                    className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                    Close
-                                </button>
-                            </div>
-                        </form> 
-                    </div>
-                </div>
-                )}
-                    
+              {userId && (
+                <AddSubjectModal
+                    userId= {userId}
+                    isOpen={addModalOpen}                    
+                    onClose={() => setAddModalOpen(false)}
+                    onSave={handleSave}
+                />
+              )}
+
+             {selectedSubject && userId && (
+                <EditSubjectModal
+                    userId= {userId}
+                    subject={selectedSubject}
+                    isOpen={editModalOpen}                    
+                    onClose={() => setEditModalOpen(false)}
+                    onSave={handleSave}
+                />
+              )}
+
               {/* Toast notification */}
               {showToast && (
               <div

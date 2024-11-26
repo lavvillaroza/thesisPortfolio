@@ -2,6 +2,8 @@
 export const BASE_URL = 'https://localhost:5050/';
 export const API_BASE_URL = 'https://localhost:5050/api';
 export const REACT_BASE_URL = 'http://localhost:3000/';
+
+
 // Endpoint Announcement && Seminar
 export const ANNOUNCEMENTS_URL = `/Announcement/bydate`;
 export const SEMINARS_URL = `/Announcement/seminars/byyear`;
@@ -9,6 +11,7 @@ export const SEARCH_SEMINARS_URL = `/Announcement/seminars/bysearch`;
 export const SEMINAR_ATTENDEES_URL = `/Announcement/seminar/attendees`;
 export const ADD_ANNOUNCEMENT_URL = `/Announcement`;
 export const ADD_SEMINAR_ATTENDEE_URL = `/Announcement/addseminarattendee`;
+export const UPDATE_SEMINAR_ATTENDEE_URL = `/Announcement/updateseminarattendee`;
 
 // Endpoint Admin Priv
 export const GET_ADMINS_URL = `/Admin/getadmins`;
@@ -26,6 +29,7 @@ export const GET_SUBJECTS_URL = `/Subject/getsubjects`;
 export const GET_SUBJECTS_ALL_URL = `/Subject/getsubjects/all`;
 export const SEARCH_SUBJECTS_URL = `/Subject/searchsubjects`;
 export const ADD_SUBJECT_URL = `/Subject`;
+export const UPDATE_SUBJECT_URL = `/Subject/`;
 
 //Endpoints Student
 export const GET_STUDENT_DETAIL_URL = `/Student/detail`;

@@ -53,22 +53,57 @@ namespace ThesisStudentPortfolio2024.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var createdAnnouncemnet = await _subjectService.AddSubjetAsync(subjectDto);
 
-            return Ok("Success");
+            try
+            {
+                // Attempt to update the subject
+                var addSubject = await _subjectService.AddSubjetAsync(subjectDto);
+
+                // If no subject was updated, return a not found response
+                if (addSubject == false)
+                {
+                    return NotFound($"Failed to add subject.");
+                }
+
+                return Ok($"The subject '{subjectDto.SubjectName}' has been successfully added.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred while adding the subject: {ex.Message}");
+            }
+            
         }
 
         [Authorize]
-        [HttpPut]
-        public async Task<IActionResult> UpdateSubjetAsync([FromBody] Subject subject)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSubjetAsync(int id, [FromBody] SubjectDto subjectDto)
         {
+            if (id != subjectDto.Id)
+            {
+                return BadRequest($"Update failed: The Subject ID ('{id}') does not correspond to any available subject in the database. Please check and try again.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var updatedAnnouncemnet = await _subjectService.UpdateSubjetAsync(subject);
+            try
+            {
+                // Attempt to update the subject
+                var updatedSubject = await _subjectService.UpdateSubjetAsync(subjectDto);
 
-            return Ok("Success");
+                // If no subject was updated, return a not found response
+                if (updatedSubject == false)
+                {
+                    return NotFound($"Subject with ID '{id}' not found.");
+                }
+                
+                return Ok($"The subject '{subjectDto.SubjectName}' has been successfully updated.");
+            }
+            catch (Exception ex)
+            {                
+                return StatusCode(500, $"An unexpected error occurred while updating the subject: {ex.Message}");
+            }
         }
 
         [Authorize]
