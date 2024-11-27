@@ -11,7 +11,7 @@ export const SEARCH_SEMINARS_URL = `/Announcement/seminars/bysearch`;
 export const SEMINAR_ATTENDEES_URL = `/Announcement/seminar/attendees`;
 export const ADD_ANNOUNCEMENT_URL = `/Announcement`;
 export const ADD_SEMINAR_ATTENDEE_URL = `/Announcement/addseminarattendee`;
-export const UPDATE_SEMINAR_ATTENDEE_URL = `/Announcement/updateseminarattendee`;
+export const UPDATE_SEMINAR_ATTENDEE_URL = `/Announcement/seminar/updateseminarattendee/`;
 
 // Endpoint Admin Priv
 export const GET_ADMINS_URL = `/Admin/getadmins`;
@@ -20,6 +20,7 @@ export const GET_STUDENTS_URL = `/Admin/getstudents`;
 export const ADD_STUDENT_URL = `/Admin/addstudent`;
 export const UPDATE_ADMIN_URL = `/Admin/updateadmin`;
 export const SEARCH_STUDENT_URL = `/Admin/searchstudents`;
+export const CHANGE_ADMIN_PWD_URL = `/ChangePassword/change-admin-user-password/`
 
 // Endpoints Course
 export const COURSES_URL = `/Course`;
@@ -55,6 +56,7 @@ export const UPDATE_STUDENT_SEMINAR_URL = `/Student/seminar/update`;
 export const DELETE_STUDENT_SEMINAR_URL = `/Student/seminar/delete/`;
 export const GET_STUDENT_SCHOOL_SEMINARS_URL = `/Announcement/seminars/attendee`;
 export const GET_STUDENT_COURSE_PROGRESS_URL = `/Student/courseprogress`;
+export const CHANGE_STUDENT_PWD_URL = `/ChangePassword/change-student-user-password/`
 
 //Endpoints AI or Machine Learning Future Career Prediction based on skills
 export const GET_STUDENT_FUTURE_CAREER_URL = `/Student/futurecareers`;

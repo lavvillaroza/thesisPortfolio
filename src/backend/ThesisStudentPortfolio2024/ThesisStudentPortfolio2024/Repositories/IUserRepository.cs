@@ -6,17 +6,19 @@ namespace ThesisStudentPortfolio2024.Repositories
     public interface IUserRepository
     {
         //Admin Repository
-        Task<AdminUser?> GetAdminUserByIdAsync(int id);
-        Task<AdminUser?> GetAdminUserByUserNameAsync(string username);
+        Task<AdminUser> GetAdminUserByIdAsync(int id);
+        Task<AdminUser> GetAdminUserByUserNameAsync(string username);
         Task<bool> AddAdminUserAsync(AdminUser user);
         Task<bool> UpdateAdminUserAsync(AdminUser user);
-        Task<List<AdminUser>> GetAdminsAsync();        
+        Task<List<AdminUser>> GetAdminsAsync();
+        Task<bool> UpdateAdminUserPasswordAsync(ChangePasswordDto changePasswordDto);
 
         //Student Repository
-        Task<StudentUser?> GetStudentUserByIdAsync(int id);
-        Task<StudentUser?> GetStudentUserByUsernameAsync(string username);
+        Task<StudentUser> GetStudentUserByIdAsync(int id);
+        Task<StudentUser> GetStudentUserByUsernameAsync(string username);
         Task<bool> AddStudentUserAsync(StudentUser user, StudentDetail userDetail);
         Task<bool> UpdateStudentUserAsync(StudentDetail user);
+        Task<bool> UpdateStudentUserPasswordAsync(ChangePasswordDto changePasswordDto);
         Task<List<StudentDetail>> GetStudentsAsync();
         Task<List<StudentDetail>> GetStudentsBySearchAsync(string searchValue);
     }

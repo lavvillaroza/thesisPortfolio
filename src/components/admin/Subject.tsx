@@ -28,7 +28,7 @@ const Subject: React.FC = () => {
     const [toastMessage, setToastMessage] = useState<string>(''); // Toast message content
     const [toastType, setToastType] = useState<'success' | 'error'>('success'); // Toast type (success or error)    
 
-    const handleEditClick = (subject: SubjectModel) => {        
+    const handleEditClick = (subject: SubjectModel) => {              
         setSelectedSubject(subject);
         setEditModalOpen(true);
     };
@@ -107,18 +107,18 @@ const Subject: React.FC = () => {
                 <SideNavbar/>
                   <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                       <div className="h-[60px] p-4">
-                          <h5 className="mb-2 text-center text-2xl font-bold tracking-tight text-white dark:text-gray-900">SUBJECTS</h5>                                        
+                          <h5 className="mb-2 text-center text-2xl font-bold tracking-tight text-white">SUBJECTS</h5>                                        
                       </div> 
                       <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
                           <div className="flex-auto w-full md:w-72 bg-gray-100 p-3">
                               <div className="flex-1 mx-auto p-2 drop-shadow-lg ">                    
                                   <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                    <div className="pb-2 bg-white dark:bg-gray-900 h-[600px] md:h-full">
+                                    <div className="pb-2 bg-white h-[600px] md:h-full">
                                         <div className="w-full relative flex justify-between items-center">
                                             <label htmlFor="searchValue" className="sr-only">Search</label>
                                             <div className="relative py-3 pl-2">
                                                 <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-4 pointer-events-none">
-                                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                    <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                                     </svg>
                                                 </div>
@@ -126,7 +126,7 @@ const Subject: React.FC = () => {
                                                     type="text" 
                                                     id="searchValue"
                                                     name="searchValue"
-                                                    className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                    className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " 
                                                     placeholder="Search for subject name"
                                                     value={searchValue}
                                                     onChange={handleSearchInputChange}
@@ -142,8 +142,8 @@ const Subject: React.FC = () => {
                                         </div>                            
                                         <div className="relative w-full max-w-full">
                                             <div className="w-full h-[450px] px-2 md:h-full">
-                                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-200 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
-                                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-200 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
+                                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                                         <tr>                                                
                                                             <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Subject Name</th>
                                                             <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Subject Description</th>
@@ -158,7 +158,7 @@ const Subject: React.FC = () => {
                                                     <tbody>
                                                     {subjectList.length > 0 ? (
                                                         subjectList.map(subject => (
-                                                            <tr key={subject.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                            <tr key={subject.id} className="bg-white border-b hover:bg-gray-50">
                                                                 <td className="px-4 py-2">{subject.subjectName}</td>                                                                                                            
                                                                 <td className="px-4 py-2">{subject.subjectDescription}</td>
                                                                 <td className="px-4 py-2">{subject.prereq}</td>
@@ -176,7 +176,7 @@ const Subject: React.FC = () => {
                                                             </tr>
                                                         ))
                                                     ) : (
-                                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                        <tr className="bg-white border-b hover:bg-gray-50">
                                                             <td colSpan={7} className="text-center px-6 py-4">No data available.</td>
                                                         </tr>
                                                     )}
@@ -186,18 +186,18 @@ const Subject: React.FC = () => {
                                         </div>      
                                         {/* Pagination controls */}
                                         <div className="relative flex flex-col items-end mt-5 mr-5">
-                                            <span className="text-sm text-gray-700 dark:text-gray-400">
+                                            <span className="text-sm text-gray-700">
                                                 Page {pageNumber} of {totalPages}
                                             </span>
                                             <div className="inline-flex mt-2 xs:mt-0">
                                                 <button
-                                                    className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                                    className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
                                                     onClick={handlePrevPage}
                                                     disabled={pageNumber === 1}>
                                                     Prev
                                                 </button>
                                                 <button
-                                                    className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                                    className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
                                                     onClick={handleNextPage}
                                                     disabled={pageNumber === totalPages}>
                                                     Next
@@ -225,7 +225,10 @@ const Subject: React.FC = () => {
                     userId= {userId}
                     subject={selectedSubject}
                     isOpen={editModalOpen}                    
-                    onClose={() => setEditModalOpen(false)}
+                    onClose={() => {
+                        setEditModalOpen(false); 
+                        setSelectedSubject(null);
+                    }}
                     onSave={handleSave}
                 />
               )}
@@ -233,7 +236,7 @@ const Subject: React.FC = () => {
               {/* Toast notification */}
               {showToast && (
               <div
-                  className={`fixed bottom-5 right-5 z-50 flex items-center p-4 max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 ${
+                  className={`fixed bottom-5 right-5 z-50 flex items-center p-4 max-w-xs text-gray-500 bg-white rounded-lg shadow ${
                       toastType === 'success' ? 'border-green-600' : 'border-red-600'
                   }`}
                   role="alert">
@@ -273,7 +276,7 @@ const Subject: React.FC = () => {
                   <div className="ml-3 text-sm font-normal">{toastMessage}</div>
                   <button
                       onClick={() => setShowToast(false)}
-                      className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700"
+                      className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8"
                       aria-label="Close"
                   >
                       <span className="sr-only">Close</span>

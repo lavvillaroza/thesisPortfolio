@@ -100,15 +100,15 @@ const Skills: React.FC = () => {
                       </div>                     
                       <div className="p-4 w-full m-auto h-[570px] bg-white drop-shadow-md rounded-lg overflow-auto">
                         <div className="flex justify-end">
-                          <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                          <span className="flex items-center text-sm font-medium text-gray-900 me-3">
                             <span className="flex w-2.5 h-2.5 bg-yellow-300 rounded-full me-1.5 flex-shrink-0"></span>
                             Well
                           </span>
-                          <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                          <span className="flex items-center text-sm font-medium text-gray-900 me-3">
                             <span className="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span>
                             Better
                           </span>
-                          <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                          <span className="flex items-center text-sm font-medium text-gray-900 me-3">
                             <span className="flex w-2.5 h-2.5 bg-green-600 rounded-full me-1.5 flex-shrink-0"></span>
                             Best
                           </span>
@@ -117,7 +117,7 @@ const Skills: React.FC = () => {
                           <div className="grid grid-cols-2">
                             {studentSkills.map((item) => (
                               <div key={item.id} className="py-2 flex justify-between items-center">
-                                <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white">
+                                <span className="flex items-center text-sm font-medium text-gray-900">
                                   <span
                                     className={`flex w-2.5 h-2.5 ${
                                       item.skillRating === 0
@@ -142,7 +142,7 @@ const Skills: React.FC = () => {
                         <div className="grid grid-cols-2">
                           {futureCareers.map((item) => (
                               <div key={item.predictedCareer} className="py-2 flex justify-between items-center">
-                                <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white">
+                                <span className="flex items-center text-sm font-medium text-gray-900">
                                   <span
                                     className={`flex w-2.5 h-2.5 bg-green-600 rounded-full me-1.5 flex-shrink-0`}
                                   ></span>

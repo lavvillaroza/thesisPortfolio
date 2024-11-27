@@ -2,8 +2,9 @@ import { PagedResultModel } from '../models/PagedResultModel';
 import { PaginationParamsModel } from '../models/PaginationParamsModel';
 import apiClient from '../api/apiClient';
 import { StudentDetailModel } from '../models/StudentDetailModel';
-import { ADD_STUDENT_URL, GET_ADMIN_URL, GET_ADMINS_URL, GET_STUDENTS_URL, SEARCH_STUDENT_URL, UPDATE_ADMIN_URL } from './apiConfig';
+import { ADD_STUDENT_URL, CHANGE_ADMIN_PWD_URL, GET_ADMIN_URL, GET_ADMINS_URL, GET_STUDENTS_URL, SEARCH_STUDENT_URL, UPDATE_ADMIN_URL } from './apiConfig';
 import { AdminUserModel } from '../models/AdminUserModel';
+import { ChangeUserPasswordModel } from '../models/ChanceUserPasswordModel';
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -97,5 +98,15 @@ export const updateAdminUser = async (formData: FormData) => {
         return response.data; // Return the response data if needed
     } catch (error) {
         throw new Error(`Error updating admin profile: ${error}`);
+    }
+};
+
+// Update Admin Password
+export const updateAdminPassword = async (userId: number, updatedData: ChangeUserPasswordModel) => {
+    try {
+        const response = await apiClient.put(`${CHANGE_ADMIN_PWD_URL}${userId}`, updatedData);
+        return response.data; // Return the response data if needed
+    } catch (error) {
+        throw new Error(`Error updating admin password: ${error}`);
     }
 };

@@ -1,3 +1,4 @@
+import { ChangeUserPasswordModel } from "../models/ChanceUserPasswordModel";
 import { PagedResultModel } from "../models/PagedResultModel";
 import { PaginationParamsModel } from "../models/PaginationParamsModel";
 import { PredictedCareerModel } from "../models/PredictedCareerModel";
@@ -9,7 +10,7 @@ import { StudentSeminarModel } from "../models/StudentSeminarModel";
 import { StudentSkillModel } from "../models/StudentSkill";
 import { StudentSubjectTakenModel } from "../models/StudentSubjectTakenModel";
 import apiClient from "./apiClient";
-import { ADD_STUDENT_CERTIFICATE_URL, ADD_STUDENT_RECOGNITION_URL, ADD_STUDENT_SEMINAR_URL, ADD_STUDENT_SKILLS_URL, ADD_STUDENT_SUBJECTS_TAKEN_URL, ADDUP_STUDENT_INFO_URL, DELETE_STUDENT_CERTIFICATE_URL, DELETE_STUDENT_RECOGNITION_URL, DELETE_STUDENT_SEMINAR_URL, DELETE_STUDENT_SKILLS_URL, DELETE_STUDENT_SUBJECTS_TAKEN_URL, GET_STUDENT_CERTIFICATES_URL, GET_STUDENT_COURSE_PROGRESS_URL, GET_STUDENT_DETAIL_URL, GET_STUDENT_FUTURE_CAREER_URL, GET_STUDENT_INFO_URL, GET_STUDENT_RECOGNITIONS_URL, GET_STUDENT_SCHOOL_SEMINARS_URL, GET_STUDENT_SEMINARS_URL, GET_STUDENT_SKILLS_URL, GET_STUDENT_SUBJECTS_TAKEN_URL, UPDATE_STUDENT_DETAIL_URL, UPDATE_STUDENT_SEMINAR_URL, UPDATE_STUDENT_SUBJECTS_TAKEN_URL } from "./apiConfig";
+import { ADD_STUDENT_CERTIFICATE_URL, ADD_STUDENT_RECOGNITION_URL, ADD_STUDENT_SEMINAR_URL, ADD_STUDENT_SKILLS_URL, ADD_STUDENT_SUBJECTS_TAKEN_URL, ADDUP_STUDENT_INFO_URL, CHANGE_STUDENT_PWD_URL, DELETE_STUDENT_CERTIFICATE_URL, DELETE_STUDENT_RECOGNITION_URL, DELETE_STUDENT_SEMINAR_URL, DELETE_STUDENT_SKILLS_URL, DELETE_STUDENT_SUBJECTS_TAKEN_URL, GET_STUDENT_CERTIFICATES_URL, GET_STUDENT_COURSE_PROGRESS_URL, GET_STUDENT_DETAIL_URL, GET_STUDENT_FUTURE_CAREER_URL, GET_STUDENT_INFO_URL, GET_STUDENT_RECOGNITIONS_URL, GET_STUDENT_SCHOOL_SEMINARS_URL, GET_STUDENT_SEMINARS_URL, GET_STUDENT_SKILLS_URL, GET_STUDENT_SUBJECTS_TAKEN_URL, UPDATE_STUDENT_DETAIL_URL, UPDATE_STUDENT_SEMINAR_URL, UPDATE_STUDENT_SUBJECTS_TAKEN_URL } from "./apiConfig";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -350,3 +351,13 @@ export async function fetchCourseProgressByStudentUserId(
         throw error; // Handle this in your component
     }
 }
+
+// Update Admin Password
+export const updateStudentPassword = async (userId: number, updatedData: ChangeUserPasswordModel) => {
+    try {
+        const response = await apiClient.put(`${CHANGE_STUDENT_PWD_URL}${userId}`, updatedData);
+        return response.data; // Return the response data if needed
+    } catch (error) {
+        throw new Error(`Error updating student password: ${error}`);
+    }
+};

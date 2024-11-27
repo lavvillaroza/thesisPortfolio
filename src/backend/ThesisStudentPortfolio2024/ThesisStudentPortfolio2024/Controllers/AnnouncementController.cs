@@ -130,9 +130,14 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPost("updateseminarattendee")]
-        public async Task<IActionResult> UpdateAnnouncementAttendeeAsync([FromForm] AnnouncementAttendeeDto announcementAttendeeDto)
+        [HttpPut("seminar/updateseminarattendee/{id}")]
+        public async Task<IActionResult> UpdateAnnouncementAttendeeAsync(int id, [FromBody] AnnouncementAttendeeDto announcementAttendeeDto)
         {
+            if (id != announcementAttendeeDto.Id)
+            {
+                return BadRequest($"Update failed: The SeminarId ('{id}') does not correspond to any available subject in the database. Please check and try again.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -141,13 +146,11 @@ namespace ThesisStudentPortfolio2024.Controllers
             {
                 // Attempt to update the subject
                 var updatedAnnouncemnet = await _announcementService.UpdateAnnouncementAttendeeAsync(announcementAttendeeDto);
-
-                // If no subject was updated, return a not found response
+                // If no seminar was updated, return a not found response
                 if (updatedAnnouncemnet == false)
                 {
                     return NotFound($"Failed to update status.");
                 }
-
                 return Ok("Seminar Attendee Status updated successfully");
             }
             catch (Exception ex)

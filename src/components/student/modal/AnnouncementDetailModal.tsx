@@ -57,14 +57,14 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
             <button onClick={openModal} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800">Read More...</button>           
             {isModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
-                <div className="relative w-full max-w-2xl my-5 md:max-w-3xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative w-full max-w-2xl my-5 md:max-w-3xl max-h-full bg-white rounded-lg shadow">
                     {/* Modal header */}
-                    <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                        <RiMegaphoneFill className="w-6 h-6 text-gray-900 dark:text-white"/>
-                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">ANNOUNCEMENT</h3>
+                    <div className="flex items-center justify-between p-4 border-b rounded-t">
+                        <RiMegaphoneFill className="w-6 h-6 text-gray-900"/>
+                        <h3 className="text-xl font-medium text-gray-900">ANNOUNCEMENT</h3>
                         <button
                             type="button"
-                            className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                             onClick={closeModal}
                         >
                             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -77,7 +77,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                     <div className="flex flex-col p-4 space-x-4">
                         {/* Description Section */}
                         <div className="w-full px-4">
-                            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{announcement.title}</h2>
+                            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">{announcement.title}</h2>
                             <div className="h-full my-4">
                                 <div className="text-base font-normal text-gray-700">
                                     <p className="mb-4 text-justify">
@@ -131,7 +131,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                         </div>
                     </div>
                     {/* Modal footer */}
-                    <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
                         {announcement.announcementType == 1 && (
                             <button 
                                 onClick={handleSubmit} 

@@ -201,32 +201,32 @@ const Student: React.FC = () => {
             <SideNavbar />
             <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
               <div className="h-[60px] p-4">
-                <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">STUDENTS</h5>                                        
+                <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">STUDENTS</h5>                                        
               </div> 
               <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
                 <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto  rounded transition-all duration-200">
                   <div className="flex-1 mx-auto p-4 drop-shadow-lg ">                    
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
-                        <div className="pb-4 bg-white dark:bg-gray-900 h-[600px]">
+                        <div className="pb-4 bg-whiteh-[600px]">
                             <div className="w-full relative flex justify-between items-center">
-                                <label htmlFor="searchValue" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                <label htmlFor="searchValue" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
                                 <div className="relative ml-2 my-2 w-[400px]">
                                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                         </svg>
                                     </div>
                                     <input type="search" 
                                         id="searchValue"
                                         name="searchValue"
-                                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" 
+                                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500  " 
                                         placeholder="Search for student name"
                                         value={searchValue}
                                         onChange={handleSearchInputChange}
                                         required />
                                     <button 
                                         onClick={handleSearchButtonClick} 
-                                        className="text-white absolute end-2.5 bottom-2.5 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800 hover:scale-110">
+                                        className="text-white absolute end-2.5 bottom-2.5 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 ">
                                             Search
                                     </button>
                                 </div>                                
@@ -243,8 +243,8 @@ const Student: React.FC = () => {
                             </div>                            
                             <div className="relative w-full max-w-full overflow-x-auto">
                                 <div className="w-full h-[430px] px-2">
-                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-200">
-                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-200">
+                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                             <tr>                                                
                                                 <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student Name</th>
                                                 <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student ID</th>
@@ -257,8 +257,8 @@ const Student: React.FC = () => {
                                         <tbody>
                                             {studentList.length > 0 ? (
                                                     studentList.map(student => (
-                                                        <tr key={student.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <tr key={student.id} className="bg-white border-b">
+                                                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
                                                                 <img className="w-10 h-10 rounded-full border border-gray-500" src={studentIcon} alt="Jese image"/>
                                                                 <div className="ps-3">
                                                                     <div className="text-base font-semibold">{student.studentName}</div>
@@ -272,14 +272,14 @@ const Student: React.FC = () => {
                                                             <td className="px-6 py-4">
                                                                 <button 
                                                                     onClick={() => handleOpenPortfolioUrl(student) } 
-                                                                    className="text-blue-600 dark:text-blue-500 hover:underline">
+                                                                    className="text-blue-600  hover:underline">
                                                                     View Portfolio
                                                                 </button>
                                                             </td>                                                    
                                                         </tr>
                                                     ))
                                                 ) : (
-                                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                    <tr className="bg-white border-b hover:bg-gray-50 ">
                                                         <td colSpan={7} className="text-center px-6 py-4">No data available.</td>
                                                     </tr>
                                                 )}
@@ -289,18 +289,18 @@ const Student: React.FC = () => {
                             </div>      
                              {/* Pagination controls */}
                              <div className="relative flex flex-col items-end mt-5 mr-5">
-                                <span className="text-sm text-gray-700 dark:text-gray-400">
+                                <span className="text-sm text-gray-700">
                                     Page {pageNumber} of {totalPages}
                                 </span>
                                 <div className="inline-flex mt-2 xs:mt-0">
                                     <button
-                                        className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
                                         onClick={handlePrevPage}
                                         disabled={pageNumber === 1}>
                                         Prev
                                     </button>
                                     <button
-                                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
                                         onClick={handleNextPage}
                                         disabled={pageNumber === totalPages}>
                                         Next
@@ -318,14 +318,14 @@ const Student: React.FC = () => {
           {/* Add Student Modal */}
           {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
-                    <div className="relative w-full max-w-lg md:max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700 overflow-auto">
+                    <div className="relative w-full max-w-lg md:max-w-2xl max-h-full bg-white rounded-lg shadow overflow-auto">
                         {/* Modal header */}
-                        <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                            <PiStudent  className="w-6 h-6 text-gray-900 dark:text-white"/>
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">ADD STUDENT</h3>
+                        <div className="flex items-center justify-between p-4 border-b rounded-t ">
+                            <PiStudent  className="w-6 h-6 text-gray-900"/>
+                            <h3 className="text-xl font-medium text-gray-900">ADD STUDENT</h3>
                             <button
                                 type="button"
-                                className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center "
                                 onClick={closeModal}>
                                 <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -339,20 +339,20 @@ const Student: React.FC = () => {
                                 {/* Fillup Form Section */}                                
                                 <div className="grid gap-4 mb-6 md:grid-cols-2">
                                     <div>
-                                        <label htmlFor="studentId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student id</label>
+                                        <label htmlFor="studentId" className="block mb-2 text-sm font-medium text-gray-900">Student id</label>
                                         <input 
                                             type="text" 
                                             id="studentId" 
                                             name="studentId"
                                             value={newStudentDetail.studentId}
                                             onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
                                             placeholder="Student id" 
                                             required />
                                     </div>  
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div>
-                                            <label htmlFor="courseId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course</label>
+                                            <label htmlFor="courseId" className="block mb-2 text-sm font-medium text-gray-900">Course</label>
                                             <input 
                                                 hidden
                                                 type="text"
@@ -364,7 +364,7 @@ const Student: React.FC = () => {
                                                 value={selectedOption}                                                
                                                 onChange={handleSelectChange}
                                                 name="courseId"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                                 required>
                                                 <option selected>Course</option>
                                                 {courses.map((course) => (
@@ -373,72 +373,72 @@ const Student: React.FC = () => {
                                             </select>                                            
                                         </div> 
                                         <div>
-                                            <label htmlFor="section" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Section</label>
+                                            <label htmlFor="section" className="block mb-2 text-sm font-medium text-gray-900">Section</label>
                                             <input 
                                                 type="text" 
                                                 id="section" 
                                                 name="section"
                                                 value={newStudentDetail.section}
                                                 onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
                                                 placeholder="Section"  />
                                         </div>   
                                     </div>                                                                        
                                     <div>
-                                        <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Name</label>
+                                        <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
                                         <input 
                                             type="text" 
                                             id="studentName" 
                                             name="studentName"
                                             value={newStudentDetail.studentName}
                                             onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
                                             placeholder="Student Name" 
                                             required />
                                     </div>
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div>
-                                            <label htmlFor="yearStart" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Started</label>
+                                            <label htmlFor="yearStart" className="block mb-2 text-sm font-medium text-gray-900">Year Started</label>
                                             <input 
                                                 type="text" 
                                                 id="yearStart" 
                                                 name="yearStart"
                                                 value={newStudentDetail.yearStart}
                                                 onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
                                                 placeholder="Year Start" 
                                                 required />
                                         </div> 
                                         <div>
-                                            <label htmlFor="yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
+                                            <label htmlFor="yearLevel" className="block mb-2 text-sm font-medium text-gray-900">Year Level</label>
                                             <input 
                                                 type="number" 
                                                 id="yearLevel" 
                                                 name="yearLevel"
                                                 value={newStudentDetail.yearLevel}
                                                 onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
                                                 placeholder="Year Level"  
                                                 required/>
                                         </div>   
                                     </div>                                                                             
                                     <div className="mb-6">
-                                        <label htmlFor="school_email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">School email</label>
+                                        <label htmlFor="school_email" className="block mb-2 text-sm font-medium text-gray-900">School email</label>
                                         <input 
                                             type="email" 
                                             id="schoolEmail" 
                                             name="schoolEmail"
                                             value={newStudentDetail.schoolEmail}
                                             onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
                                             placeholder="juan.delacruz@school.com" 
                                             required />
                                     </div>                                
                                 </div>                                                                                                                                                                            
                             </div>
                             {/* Modal footer */}
-                            <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                            <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b ">
+                                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
                                 <button 
                                     onClick={closeModal} 
                                     className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">

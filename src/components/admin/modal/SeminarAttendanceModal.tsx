@@ -31,14 +31,10 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
      };     
 
     const handleSaveAttendee = async (updatedData: AnnouncementAttendeeModel) => {        
-        try {
-            const formData = new FormData();
-            formData.append('id', updatedData.id.toString());
-            formData.append('studentAttendanceStatus', updatedData.studentAttendanceStatus.toString());
-            formData.append('studentUserId', updatedData.studentUserId.toString());
-            formData.append('announcementId', updatedData.studentUserId.toString());
-            formData.append('lastModifiedBy', userId);
-            const result = await updateSeminarAttendee(formData);
+        try {                  
+            updatedData.lastModifiedBy = userId;
+            console.log(updatedData);
+            const result = await updateSeminarAttendee(updatedData.id, updatedData);
             setToastMessage(result);
             setToastType('success');
         } catch (error) {            
@@ -122,12 +118,12 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="relative bg-white p-8 rounded-lg shadow-lg w-[90%] sm:w-[80%] md:w-[70%] lg:w-[50%]">
                 {/* Modal header */}
-                <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <div className="flex items-center justify-between p-4 border-b rounded-t">
                     <FaUsersBetweenLines className="w-6 h-6 text-yellow-300"/>
-                    <h3 className="text-xl font-medium text-gray-900 dark:text-white">{announcement.title} Attendees</h3>
+                    <h3 className="text-xl font-medium text-gray-900">{announcement.title} Attendees</h3>
                     <button
                         type="button"
-                        className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                         onClick={onClose}
                     >
                         <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -138,8 +134,8 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
                 </div>                
                 {/* Modal body */}
                 <div className="flex flex-col p-4 space-x-4 w-full h-[430px] px-2 overflow-x-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-200">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500  border-gray-200">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                             <tr>                                                
                                 <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student Name</th>                                
                                 <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Course</th>
@@ -151,8 +147,8 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
                         <tbody>
                             {seminarAttendees.length > 0 ? (
                                 seminarAttendees.map(attendee => (
-                                    <tr key={attendee.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                    <tr key={attendee.id} className="bg-white border-b  hover:bg-gray-50 ">
+                                        <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
                                             {attendee.studentName}
                                         </th>                                                                                                                
                                         <td className="px-6 py-4">{attendee.studentCourse}</td>
@@ -177,7 +173,7 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
                                     </tr>
                                 ))
                             ) : (
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr className="bg-white border-b  hover:bg-gray-50 ">
                                     <td colSpan={5} className="text-center px-6 py-4">No data available.</td>
                                 </tr>
                             )}
@@ -185,18 +181,18 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
                     </table>  
                     {/* Pagination controls */}
                     <div className="flex flex-col items-end mt-5 mr-5">
-                        <span className="text-sm text-gray-700 dark:text-gray-400 mr-5">
+                        <span className="text-sm text-gray-700  mr-5">
                             Page {pageNumber} of {totalPages}
                         </span>
                         <div className="inline-flex mt-2 xs:mt-0">
                             <button
-                                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
                                 onClick={handlePrevPage}
                                 disabled={pageNumber === 1}>
                                 Prev
                             </button>
                             <button
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
                                 onClick={handleNextPage}
                                 disabled={pageNumber === totalPages}>
                                 Next
@@ -205,7 +201,7 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
                     </div>    
                 </div>                
                 {/* Modal footer */}
-                <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b ">
                     <button 
                         onClick={onClose} 
                         className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
@@ -224,7 +220,7 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
             {/* Toast notification */}
             {showToast && (
               <div
-                  className={`fixed bottom-5 right-5 z-50 flex items-center p-4 max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 ${
+                  className={`fixed bottom-5 right-5 z-50 flex items-center p-4 max-w-xs text-gray-500 bg-white rounded-lg shadow  ${
                       toastType === 'success' ? 'border-green-600' : 'border-red-600'
                   }`}
                   role="alert">
@@ -264,7 +260,7 @@ const SeminarAttendanceModal: React.FC<SeminarAttendanceModalProps> = ({userId, 
                   <div className="ml-3 text-sm font-normal">{toastMessage}</div>
                   <button
                       onClick={() => setShowToast(false)}
-                      className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700"
+                      className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 "
                       aria-label="Close"
                   >
                       <span className="sr-only">Close</span>

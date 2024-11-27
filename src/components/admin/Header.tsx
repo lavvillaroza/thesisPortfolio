@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import profileSvg from '../../assets/adminIcon.png';
 import { FaUser, FaLock, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import UserProfileModal from './modal/UserProfileModal';
-
+import ChangePasswordModal from './modal/ChangePasswordModal';
+import { checkTokenAndLogout } from '../../utils/jwtUtil';
+import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to handle modal visibility
+  const [isChangePasswordModalOpen, setIsChangePasswordModaOpen] = useState(false); // State to handle modal visibility
+  const [userId, setUserId] = useState<number>(0);
+
+  const navigate = useNavigate();
+  
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const { logout } = useAuth();
@@ -19,7 +26,38 @@ const Header: React.FC = () => {
     setDropdownOpen(false); // Close dropdown when opening modal
   };
 
+  const openChangePasswordModal = () => {
+    console.log(userId);
+    setIsChangePasswordModaOpen(true); 
+    setDropdownOpen(false);   
+  };
+
+  const loadUser = async () => {
+    try {          
+        if (checkTokenAndLogout()) {
+          navigate("/");
+          return;
+        }
+        const user = localStorage.getItem('userDetails');        
+        if (user) {
+            const userParse = JSON.parse(user);   
+            setUserId(userParse.userid);              
+        } 
+        else {
+          navigate("/");
+        }
+    } catch (error) {
+        console.error('Error fetching course data:', error);
+    }
+};
+
+useEffect(() => {
+    loadUser();
+  }, []);
+
+
   const closeModal = () => setIsModalOpen(false);
+  const closeChangePasswordModal = () => setIsChangePasswordModaOpen(false);
 
   return (
     <header className="font-roboto">
@@ -65,13 +103,13 @@ const Header: React.FC = () => {
                         </button>
                       </li>
                       <li>
-                        <a
-                          href="/profile/update-password"
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+                      <button
+                          onClick={openChangePasswordModal} // Open the modal on click
+                          className="flex items-center w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
                         >
                           <FaLock className="mr-3 h-3 w-3 text-gray-400" aria-hidden="true" />
                           Change Password
-                        </a>
+                        </button>                        
                       </li>
                     </ul>
                     <div className="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
@@ -96,6 +134,15 @@ const Header: React.FC = () => {
           isOpen={isModalOpen}
           onClose={closeModal}
         />
+      )}
+
+      {/* Render the ChangePassword */}
+      {isChangePasswordModalOpen && (
+        <ChangePasswordModal  
+          userId={userId}
+          isOpen={isChangePasswordModalOpen}
+          onClose={closeChangePasswordModal}
+          />
       )}
     </header>
   );

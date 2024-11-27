@@ -147,5 +147,31 @@ namespace ThesisStudentPortfolio2024.Repositories
                                 .ToListAsync();
             return students;
         }
+
+        async Task<bool> IUserRepository.UpdateAdminUserPasswordAsync(ChangePasswordDto changePasswordDto)
+        {
+            var admin = await _context.AdminUsers
+                                .Where(x => x.UserId == changePasswordDto.UserId).FirstOrDefaultAsync();
+            if (admin == null)
+                return false;
+
+            admin.Password = changePasswordDto.NewPassword;
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        async Task<bool> IUserRepository.UpdateStudentUserPasswordAsync(ChangePasswordDto changePasswordDto)
+        {
+            var student = await _context.StudentUsers
+                                .Where(x => x.UserId == changePasswordDto.UserId).FirstOrDefaultAsync();
+            if (student == null)
+                return false;
+
+            student.Password = changePasswordDto.NewPassword;
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

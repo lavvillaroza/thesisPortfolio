@@ -37,7 +37,7 @@ const Seminar: React.FC = () => {
         const user = localStorage.getItem('userDetails');        
         if (user) {
             const userParse = JSON.parse(user);   
-            setUserId(userParse.userid);         
+            setUserId(userParse.username);         
         } 
         try {
             let result;
@@ -89,7 +89,7 @@ const Seminar: React.FC = () => {
                     <SideNavbar/>
                     <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                         <div className="h-[60px] p-4">
-                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900 hover:scale-75">SCHOOL SEMINARS</h5>                            
+                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white  hover:scale-75">SCHOOL SEMINARS</h5>                            
                         </div> 
                         <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
                             <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
@@ -97,24 +97,24 @@ const Seminar: React.FC = () => {
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
                                         <div className="pb-2 bg-white h-[600px]">
                                             <div className="w-full relative flex justify-between items-center">
-                                                <label htmlFor="searchValue" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                                <label htmlFor="searchValue" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
                                                 <div className="relative ml-2 my-2 w-[400px]">
                                                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                        <svg className="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                                         </svg>
                                                     </div>
                                                     <input type="search" 
                                                         id="searchValue"
                                                         name="searchValue"
-                                                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" 
+                                                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 " 
                                                         placeholder="Search for seminar"
                                                         value={searchValue}
                                                         onChange={handleSearchInputChange}
                                                         required />
                                                     <button 
                                                         onClick={handleSearchButtonClick} 
-                                                        className="text-white absolute end-2.5 bottom-2.5 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800 hover:scale-110">
+                                                        className="text-white absolute end-2.5 bottom-2.5 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 hover:scale-110">
                                                             Search
                                                     </button>
                                                 </div>                                
@@ -137,7 +137,7 @@ const Seminar: React.FC = () => {
                                                             className="w-full mx-auto my-5 p-6 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition duration-150 ease-in-out">                                                            
                                                             <div className="flex flex-col items-center justify-center text-center">
                                                                 <FaFolder className="h-36 w-36 text-yellow-300 hover:text-yellow-400" aria-hidden="true" /> 
-                                                                <p className="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">
+                                                                <p className="mb-2 text-sm font-bold tracking-tight text-gray-900">
                                                                     {announcement.title}
                                                                 </p>
                                                             </div>                                                            
@@ -154,18 +154,18 @@ const Seminar: React.FC = () => {
                                             </div>     
                                             {/* Pagination controls */}
                                             <div className="flex flex-col items-end mt-5 mr-5">
-                                                <span className="text-sm text-gray-700 dark:text-gray-400 mr-5">
+                                                <span className="text-sm text-gray-700 mr-5">
                                                     Page {pageNumber} of {totalPages}
                                                 </span>
                                                 <div className="inline-flex mt-2 xs:mt-0">
                                                     <button
-                                                        className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                                        className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
                                                         onClick={handlePrevPage}
                                                         disabled={pageNumber === 1}>
                                                         Prev
                                                     </button>
                                                     <button
-                                                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
                                                         onClick={handleNextPage}
                                                         disabled={pageNumber === totalPages}>
                                                         Next

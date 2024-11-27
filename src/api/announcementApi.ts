@@ -121,9 +121,9 @@ export const addSeminarAttendee = async (
 };
 
 // Update Seminar Attendee
-export const updateSeminarAttendee = async (formData: FormData) => {
+export const updateSeminarAttendee = async (seminarId: number, updatedData: AnnouncementAttendeeModel) => {
     try {
-        const response = await apiClient.post(`${UPDATE_SEMINAR_ATTENDEE_URL}`, formData);
+        const response = await apiClient.put(`${UPDATE_SEMINAR_ATTENDEE_URL}${seminarId}`, updatedData);
         return response.data; // Return the response data if needed
     } catch (error) {
         throw new Error(`Error updating seminar attendance: ${error}`);

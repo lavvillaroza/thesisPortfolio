@@ -53,8 +53,8 @@ const CoverPhotosCarousel: React.FC<CoverPhotosCarouselProps> = ({ studentInform
             defaultPosition: 0,
             interval: 3000,
             indicators: {
-                activeClasses: 'bg-white dark:bg-gray-800',
-                inactiveClasses: 'bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800',
+                activeClasses: 'bg-white',
+                inactiveClasses: 'bg-white/50 hover:bg-white',
                 items: indicatorsRef.current.map((el, index) => ({ position: index, el })),
             },
         };

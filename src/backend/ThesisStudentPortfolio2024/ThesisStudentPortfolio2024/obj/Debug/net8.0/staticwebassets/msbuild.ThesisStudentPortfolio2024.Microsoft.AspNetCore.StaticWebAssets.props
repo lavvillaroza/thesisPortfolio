@@ -896,6 +896,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CoursesFiles\courseIcon_7709868d-3b02-4ea1-90a9-574ccebf106f.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CoursesFiles\cover1_5215b502-43f7-445c-82d8-ec71556cd8f8.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>ThesisStudentPortfolio2024</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ThesisStudentPortfolio2024</BasePath>
+      <RelativePath>Uploads/CoursesFiles/cover1_5215b502-43f7-445c-82d8-ec71556cd8f8.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CoursesFiles\cover1_5215b502-43f7-445c-82d8-ec71556cd8f8.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentCoverPhotos\cover1_5d49198b-bcb6-413c-b59c-880abfdb9ae3.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>ThesisStudentPortfolio2024</SourceId>

@@ -55,7 +55,7 @@ const Certifications: React.FC = () => {
                                   <div className="grid grid-cols-1 ">
                                     {studentCertificates.map(item => (
                                           <div key={item.id} className="py-2 flex items-start">
-                                            <span className="flex items-center text-sm font-medium text-blue-700 dark:text-white">
+                                            <span className="flex items-center text-sm font-medium text-blue-700">
                                               <span
                                                 className="flex w-2.5 h-2.5 bg-emerald-600 '} rounded-full me-1.5 flex-shrink-0">
                                               </span>
@@ -80,7 +80,7 @@ const Certifications: React.FC = () => {
                                 <div className="grid grid-cols-1">
                                     {studentRecognitions.map(item => (
                                       <div key={item.id} className="py-2 flex items-start">
-                                      <span className="flex items-center text-sm font-medium text-blue-700 dark:text-white">
+                                      <span className="flex items-center text-sm font-medium text-blue-700">
                                         <span
                                           className="flex w-2.5 h-2.5 bg-emerald-600 '} rounded-full me-1.5 flex-shrink-0">
                                         </span>

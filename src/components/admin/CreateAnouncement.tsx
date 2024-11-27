@@ -154,14 +154,14 @@ const CreateAnouncement: React.FC = () => {
                     <SideNavbar/>
                     <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                         <div className="h-[60px] p-4">
-                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">NEW ANNOUNCEMENT</h5>                        
+                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">NEW ANNOUNCEMENT</h5>                        
                         </div>                         
                         <form onSubmit={handleSubmit}>
                             <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
                                 <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
                                     <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-1 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
                                         <div className="flex justify-between">
-                                            <label htmlFor="title" className="block mb-2 text-lg font-bold text-gray-900 dark:text-white">Subject/Title</label>                                                                                        
+                                            <label htmlFor="title" className="block mb-2 text-lg font-bold text-gray-900">Subject/Title</label>                                                                                        
                                         </div>
                                         <div>
                                             <input 
@@ -169,7 +169,7 @@ const CreateAnouncement: React.FC = () => {
                                                 id="title" 
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" 
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" 
                                                 placeholder="Subject/Title" 
                                                 required />
                                         </div>
@@ -198,25 +198,25 @@ const CreateAnouncement: React.FC = () => {
                                                 <span className="ml-2">Seminar</span>
                                             </label>
                                         </div>
-                                        <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800 mb-5">
-                                                <label htmlFor="message" className="block mb-2 text-md font-bold text-gray-900 dark:text-white">Description</label>
+                                        <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50">
+                                            <div className="px-4 py-2 bg-white rounded-t-lg  mb-5">
+                                                <label htmlFor="message" className="block mb-2 text-md font-bold text-gray-900">Description</label>
                                                 <textarea 
                                                     id="comment" 
                                                     rows={14} 
                                                     value={description}
                                                     onChange={(e) => setDescription(e.target.value)}
-                                                    className="w-full max-h-52 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" 
+                                                    className="w-full max-h-52 text-sm text-gray-900 bg-white border-0  focus:ring-0" 
                                                     placeholder="Write a description..." 
                                                     required>
                                                 </textarea>
                                             </div>                                            
-                                            <div className="flex items-center justify-between px-3 py-2 mt-4 border-t dark:border-gray-600">
+                                            <div className="flex items-center justify-between px-3 py-2 mt-4 border-t">
                                                 <div className="grid grid-cols-2 gap-2 m-4">
                                                     {/* Left aligned Save and Clear buttons */}
                                                     <button
                                                         type="submit"
-                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:ring-blue-200 dark:focus:ring-emerald-900"
+                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:ring-blue-200 "
                                                     >
                                                         Send
                                                     </button>
@@ -232,7 +232,7 @@ const CreateAnouncement: React.FC = () => {
                                                             setStartTime('09:00'); // Reset start time
                                                             setEndTime('18:00');   // Reset end time
                                                         }}
-                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900">
+                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-200 ">
                                                         Clear
                                                     </button>
                                                 </div>                                                                                        
@@ -260,7 +260,7 @@ const CreateAnouncement: React.FC = () => {
                                                             )}
                                                     <input className="hidden" type="file" id="image" accept="image/*" multiple onChange={handleImageChange}></input>                                          
                                                     <button type="button" 
-                                                        className="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                                        className="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                                         onClick={() => document.getElementById('image')?.click()}>
                                                         <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                                             <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 8.5 6a1 1 0 0 1 .895.553l2.605 5.21 1.605-2.407a1 1 0 0 1 1.664.028l2.5 3.998a1 1 0 0 1-.293 1.099Z"/>
@@ -284,30 +284,30 @@ const CreateAnouncement: React.FC = () => {
                                             name="date"/>                                        
                                         <div className="p-5 w-full max-w-xs h-full m-auto">                                        
                                             <div className="mb-5">
-                                                <label htmlFor="start-time" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select start-time:</label>
+                                                <label htmlFor="start-time" className="block mb-2 text-sm font-medium text-gray-900">Select start-time:</label>
                                                 <div className="flex">
                                                     <input type="time" 
                                                         id="start-time"  
                                                         value={startTime}
                                                         onChange={(e) => setStartTime(e.target.value)}
-                                                        className="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                        className="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-sm border-gray-300 p-2.5 " 
                                                         required/>
-                                                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md ">
+                                                        <svg className="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                                             <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clipRule="evenodd"/>
                                                         </svg>
                                                     </span>
                                                 </div>                                               
                                             </div>
                                             <div className="mb-5">
-                                                <label htmlFor="end-time" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select end-time:</label>
+                                                <label htmlFor="end-time" className="block mb-2 text-sm font-medium text-gray-900">Select end-time:</label>
                                                 <div className="flex">
-                                                    <input type="time" id="end-time" className="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"                                                         
+                                                    <input type="time" id="end-time" className="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-sm border-gray-300 p-2.5"                                                         
                                                         value={endTime}
                                                         onChange={(e) => setEndTime(e.target.value)} 
                                                         required/>
-                                                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md ">
+                                                        <svg className="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                                             <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clipRule="evenodd"/>
                                                         </svg>
                                                     </span>

@@ -1,6 +1,5 @@
 export interface ChangeUserPasswordModel {    
     userId: number;
     currentPassword: string;
-    newPassword: string;
-    userType: number;           
+    newPassword: string;        
   }

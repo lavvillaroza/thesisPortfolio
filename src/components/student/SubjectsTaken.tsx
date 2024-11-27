@@ -115,7 +115,7 @@ const SubjectsTaken: React.FC = () => {
                         <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded transition-all duration-200">
                           <div className="p-4">                                          
                             <div className="p-4 w-12/12 m-auto mx-2 my-2 h-[620px] bg-white drop-shadow-md rounded-lg overflow-auto">
-                              <div className="pb-2 bg-white dark:bg-gray-900 h-[600px] md:h-full">
+                              <div className="pb-2 bg-white h-[600px] md:h-full">
                                   <div className="w-full relative flex justify-between items-center">                                      
                                       <div className="relative py-3 pr-2">
                                           <button
@@ -127,8 +127,8 @@ const SubjectsTaken: React.FC = () => {
                                   </div>                            
                                   <div className="relative w-full max-w-full">
                                       <div className="w-full h-[450px] px-2 md:h-full">
-                                          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-200 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
-                                              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                          <table className="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-200 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
+                                              <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                                   <tr>                                                
                                                       <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Subject Name</th>
                                                       <th scope="col" className="px-4 py-2 border-b border-gray-200 bg-gray-100">Subject Description</th>
@@ -178,7 +178,7 @@ const SubjectsTaken: React.FC = () => {
                                                       </tr>
                                                   ))
                                               ) : (
-                                                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                  <tr className="bg-white border-b">
                                                       <td colSpan={7} className="text-center px-6 py-4">No data available.</td>
                                                   </tr>
                                               )}
@@ -188,18 +188,18 @@ const SubjectsTaken: React.FC = () => {
                                   </div>      
                                   {/* Pagination controls */}
                                   <div className="relative flex flex-col items-end my-5 mr-2 pb-5">
-                                      <span className="text-sm text-gray-700 dark:text-gray-400">
+                                      <span className="text-sm text-gray-700">
                                           Page {pageNumber} of {totalPages}
                                       </span>
                                       <div className="inline-flex mt-2 xs:mt-0">                                        
                                         <button
-                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
                                             onClick={handlePrevPage}
                                             disabled={pageNumber === 1}>
                                             Prev
                                         </button>
                                           <button
-                                              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
                                               onClick={handleNextPage}
                                               disabled={pageNumber === totalPages}>
                                               Next

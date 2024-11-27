@@ -131,18 +131,18 @@ const Course: React.FC = () => {
                     <SideNavbar />
                     <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                         <div className="h-[60px] p-4">
-                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">COURSES</h5>
+                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">COURSES</h5>
                         </div>
                         <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
                             <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
                                 <div className="flex-1 mx-auto p-2 drop-shadow-lg "> 
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
-                                        <div className="pb-2 bg-white dark:bg-gray-900 h-[600px]">
+                                        <div className="pb-2 bg-white h-[630px] sm:h-[630px] md:h-[630px] ">
                                             <label htmlFor="table-search" className="sr-only">Search</label>                                    
                                             <div className="w-full relative p-4 mt-1 flex justify-between items-center">
                                                 <div className="relative pt-2">
                                                     <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                        <svg className="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                                         </svg>
                                                     </div>
@@ -150,7 +150,7 @@ const Course: React.FC = () => {
                                                         type="text" 
                                                         id="searchValue"
                                                         name="searchValue"
-                                                        className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                        className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " 
                                                         placeholder="Search for student name"
                                                         value={searchTerm}
                                                         onChange={handleSearch}
@@ -164,28 +164,30 @@ const Course: React.FC = () => {
                                                     </button>
                                                 </div>                                        
                                             </div>
-                                            <div className="w-full relative max-w-full overflow-x-auto">
+                                            <div className="w-full relative max-w-full">
                                                 {courseList.length === 0 ? (
                                                     <p className="text-center justify-center italic m-auto">No available course found!</p>
                                                 ) : (
-                                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full m-auto ">                                                        
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
                                                         {filteredCourses.map((course) => (
                                                             <div key={course.id} className="ml-4 w-full hover:scale-95">
-                                                                <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                                <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100">
                                                                     <div>
                                                                         <img
                                                                             className="object-fill w-32 h-32 rounded-t-lg md:h-32 md:w-32 md:rounded-none md:rounded-s-lg"
-                                                                            src= {BASE_URL + encodeURI(course.courseLogoUrl)}
-                                                                            alt="Course logo" />
+                                                                            src={BASE_URL + encodeURI(course.courseLogoUrl)}
+                                                                            alt="Course logo"
+                                                                        />
                                                                     </div>
                                                                     <div className="flex flex-col justify-between p-4 leading-normal w-full">
-                                                                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{course.courseCode}</h5>
-                                                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{course.courseName}</p>
+                                                                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                                                                            {course.courseCode}
+                                                                        </h5>
+                                                                        <p className="mb-3 font-normal text-gray-700 ">{course.courseName}</p>
                                                                     </div>
                                                                 </div>
-                                                            </div>                                                            
+                                                            </div>
                                                         ))}
-                                                        
                                                     </div>
                                                 )}
                                             </div>
@@ -201,14 +203,14 @@ const Course: React.FC = () => {
                 {/* Add Course Modal */}
                 {isModalOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
-                        <div className="relative w-full max-w-lg md:max-w-xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700 overflow-auto">
+                        <div className="relative w-full max-w-lg md:max-w-xl max-h-full bg-white rounded-lg shadow  overflow-auto">
                             {/* Modal header */}
-                            <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                                <FaUserPlus className="w-6 h-6 text-gray-900 dark:text-white" />
-                                <h3 className="text-xl font-medium text-gray-900 dark:text-white">ADD COURSE</h3>
+                            <div className="flex items-center justify-between p-4 border-b rounded-t ">
+                                <FaUserPlus className="w-6 h-6 text-gray-900 " />
+                                <h3 className="text-xl font-medium text-gray-900 ">ADD COURSE</h3>
                                 <button
                                     type="button"
-                                    className="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                    className="text-gray-400 hover:text-gray-900 "
                                     onClick={closeModal}
                                 >
                                     <svg
@@ -233,61 +235,61 @@ const Course: React.FC = () => {
                             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                                 <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                                     <div>
-                                        <label htmlFor="course_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course Name</label>
+                                        <label htmlFor="course_name" className="block mb-2 text-sm font-medium text-gray-900 ">Course Name</label>
                                         <input
                                             type="text"
                                             id="course_name"
                                             name="courseName"
                                             value={newCourse.courseName}
                                             onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                             placeholder="Course Name"
                                             required
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="course_code" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course Code</label>
+                                        <label htmlFor="course_code" className="block mb-2 text-sm font-medium text-gray-900 ">Course Code</label>
                                         <input
                                             type="text"
                                             id="course_code"
                                             name="courseCode"
                                             value={newCourse.courseCode}
                                             onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                             placeholder="Course Code"
                                             required
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="total_units" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Units</label>
+                                        <label htmlFor="total_units" className="block mb-2 text-sm font-medium text-gray-900 ">Total Units</label>
                                         <input
                                             type="number"
                                             id="total_units"
                                             name="totalUnits"
                                             value={newCourse.totalUnits}
                                             onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                             placeholder="Total Units"
                                             required
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="course_logo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course Logo</label>
+                                        <label htmlFor="course_logo" className="block mb-2 text-sm font-medium text-gray-900 ">Course Logo</label>
                                         <input
                                             type="file"
                                             id="course_logo"
                                             name="courseLogo"
                                             accept="image/*" // Restrict to image files
                                             onChange={handleFileChange} // Call file change handler
-                                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none  "
                                             required
                                         />
-                                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG or JPG.</p>
+                                        <p className="mt-1 text-sm text-gray-500 " id="file_input_help">PNG or JPG.</p>
 
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:outline-none focus:ring-4 focus:ring-blue-300"
                                     >
                                         Submit
                                     </button>

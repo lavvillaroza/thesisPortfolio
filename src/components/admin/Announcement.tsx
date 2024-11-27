@@ -97,7 +97,7 @@ const Announcement: React.FC = () => {
                     <SideNavbar />
                     <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
                         <div className="h-[60px] p-4">
-                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white dark:text-gray-900">WELCOME</h5>
+                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">WELCOME</h5>
                         </div>
                         <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
                             <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded transition-all duration-200">
@@ -111,11 +111,11 @@ const Announcement: React.FC = () => {
                                         announcements.map((announcement) => (
                                             <div
                                                 key={announcement.id}
-                                                className="w-11/12 mx-auto my-5 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-150 ease-in-out">
-                                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                                className="w-11/12 mx-auto my-5 p-6 bg-white border border-gray-200 rounded-lg shadow   hover:shadow-lg transition duration-150 ease-in-out">
+                                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
                                                     {announcement.title}
                                                 </h5>
-                                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                                <p className="mb-3 font-normal text-gray-700">
                                                     {truncateDescription(announcement.description, 120)}
                                                 </p>
                                                 <div className="relative p-4">
@@ -129,19 +129,19 @@ const Announcement: React.FC = () => {
                                 </div>     
                                     {/* Pagination controls */}
                                     <div className="flex flex-col items-end mt-5">
-                                    <span className="text-sm text-gray-700 dark:text-gray-400 mr-5">
+                                    <span className="text-sm text-gray-700 mr-5">
                                         Page {pageNumber} of {totalPages}
                                     </span>
                                     <div className="inline-flex mt-2 xs:mt-0">
                                         <button
-                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
                                             onClick={handlePrevPage}
                                             disabled={pageNumber === 1}
                                         >
                                             Prev
                                         </button>
                                         <button
-                                            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
                                             onClick={handleNextPage}
                                             disabled={pageNumber === totalPages}
                                         >

@@ -80,6 +80,18 @@ namespace ThesisStudentPortfolio2024.Services
             return adminUserDto;
         }
 
+        public async Task<string> GetCurrentPasswordByAdminUserIdAsync(int id)
+        {
+            var adminUser = await _userRepository.GetAdminUserByIdAsync(id);            
+            return adminUser.Password;
+        }
+
+        public async Task<string> GetCurrentPasswordByStudentUserIdAsync(int id)
+        {
+            var studentUser = await _userRepository.GetStudentUserByIdAsync(id);
+            return studentUser.Password;
+        }
+
         public async Task<PagedResultDto> GetAdminUsersAsync(PaginationParamsDto paginationParamsDto)
         {
             List<AdminUser> fetchAdmins = await _userRepository.GetAdminsAsync();
@@ -228,11 +240,34 @@ namespace ThesisStudentPortfolio2024.Services
             return await _userRepository.UpdateAdminUserAsync(adminUser);
         }
 
+        public async Task<bool> UpdateAdminUserPasswordAsync(AdminUserProfileDto adminUserProfileDto)
+        {
+            AdminUser adminUser = new AdminUser
+            {
+                UserId = adminUserProfileDto.UserId,
+                Name = adminUserProfileDto.Name,
+                Position = adminUserProfileDto.Position,
+                SchoolEmail = adminUserProfileDto.SchoolEmail,
+                LastModifiedBy = adminUserProfileDto.LastModifiedBy,
+                LastModifiedDate = DateTime.Now,
+
+            };
+            return await _userRepository.UpdateAdminUserAsync(adminUser);
+        }
+
         public async Task<bool> UpdateStudentUserAsync(StudentDetail user)
         {
             return await _userRepository.UpdateStudentUserAsync(user); 
         }
+        public async Task<bool> UpdateAdminUserPasswordAsync(ChangePasswordDto changePasswordDto) {            
+            var ret = await _userRepository.UpdateAdminUserPasswordAsync(changePasswordDto);
+            return ret;            
+        }
 
-        
+        public async Task<bool> UpdateStudentUserPasswordAsync(ChangePasswordDto changePasswordDto)
+        {            
+            var ret = await _userRepository.UpdateStudentUserPasswordAsync(changePasswordDto);
+            return ret;
+        }
     }
 }

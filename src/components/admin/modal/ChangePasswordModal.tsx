@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { checkTokenAndLogout } from '../../../utils/jwtUtil';
-import { AdminUserModel } from '../../../models/AdminUserModel';
-import { fetchAdminUser, updateAdminUser } from '../../../api/adminApi';
-import { FaUserEdit } from 'react-icons/fa';
+import { FaLockOpen } from 'react-icons/fa';
 import CustomToast from '../../common/CustomToast';
+import { ChangeUserPasswordModel } from '../../../models/ChanceUserPasswordModel';
+import { updateAdminPassword } from '../../../api/adminApi';
 
 interface ChangePasswordModalProps {
     userId: number;
@@ -13,100 +13,84 @@ interface ChangePasswordModalProps {
     onClose: () => void;
 }
 
-const initialAdminUser: AdminUserModel = {
-    userId: 0,
-    name: '',
-    position: '',
-    userName: '',
-    schoolEmail: '',
-    version: 0,
-    createdBy: '',
-    createdDate: '',
-    lastModifiedBy: '',
-    lastModifiedDate: ''
-};
-
 const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ userId, isOpen, onClose }) => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<AdminUserModel>(initialAdminUser);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [changePasswordData, setChangePasswordData] = useState<ChangeUserPasswordModel>({
+        userId: userId,
+        currentPassword: '',
+        newPassword: '',
+    });
+    const [repeatNewPassword, setRepeatNewPassword] = useState('');
     const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+    // Password visibility states
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showRepeatNewPassword, setShowRepeatNewPassword] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
 
-    useEffect(() => {
-        if (!isOpen || !userId) return; // Only fetch data if modal is open and userId is valid
-        const getAdminUserData = async () => {
-            setLoading(true);
-            try {
-                const user = localStorage.getItem('userDetails');
-                if (user) {
-                    const userParse = JSON.parse(user);
-                    const userData = await fetchAdminUser(userParse.userid);
-                    setFormData(userData);    
-                } else {
-                    navigate("/");
-                }                    
-            } catch (error) {
-                console.error('Error fetching admin user data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        getAdminUserData();
-    }, [isOpen, navigate, userId]);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (formData) {
-            try {
-                if (checkTokenAndLogout()) {
-                    navigate("/");
-                    return;
-                }
-                const user = localStorage.getItem('userDetails');
-                if (user) {
-                    const userParse = JSON.parse(user);
-                    const fromFormData = new FormData();                
-                    fromFormData.append('userId', formData.userId.toString());
-                    fromFormData.append('name', formData.name);
-                    fromFormData.append('position', formData.position);                
-                    fromFormData.append('schoolEmail', formData.schoolEmail);                
-                    fromFormData.append('lastModifiedBy', userParse.userid);                
-                    await updateAdminUser(fromFormData);                
-                    setToast({ message: 'Admin user updated successfully', type: 'success' });
-                     // Delay the modal closing slightly to allow the toast to display
-                    setTimeout(() => {
-                        onClose();
-                    }, 3000); // Adjust the delay as needed                    
-                } else {
-                    navigate("/");
-                }                                                                    
-            } catch (error) {
-                console.error('Error updating admin user:', error);
-                setToast({ message: 'Failed to update admin user', type: 'error' });
-            }
+        // Handle "repeat new password" separately
+        if (name === 'repeatNewPassword') {
+            setRepeatNewPassword(value);
+        } else {
+            setChangePasswordData(prev => ({
+                ...prev,
+                [name]: value,
+            }));
         }
     };
 
+    const handleSave = async () => {    
+        if (changePasswordData.currentPassword == null) {
+            setToast({ message: 'Please enter current password!', type: 'error' });
+            return;
+        }
+        if (changePasswordData.newPassword == null) {
+            setToast({ message: 'Please enter new password!', type: 'error' });
+            return;
+        }
+        if (repeatNewPassword == null) {
+            setToast({ message: 'Please enter repeat new password!', type: 'error' });
+            return;
+        }
+        // Validation: Ensure new password matches repeat password
+        if (changePasswordData.newPassword !== repeatNewPassword) {
+            setToast({ message: 'Passwords do not match', type: 'error' });
+            return;
+        }            
+        console.log(changePasswordData);
+        try {
+            if (checkTokenAndLogout()) {
+                navigate('/');
+                return;
+            }
+            const result = await updateAdminPassword(userId, changePasswordData);
+            // Handle success
+            setToast({ message: result.message, type: 'success' });
+            setTimeout(() => {
+                onClose();
+            }, 3000); // Adjust delay as needed
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            // Display error message
+            const errorMessage = error.response?.data?.message || 'An error occurred while updating the password';
+            setToast({ message: errorMessage, type: 'error' });
+        }
+    };
+    
     if (!isOpen) return null;
-
     return ReactDOM.createPortal(
         <>
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                 <div className="relative bg-white p-8 rounded-lg shadow-lg w-[50%] md:w-[30%]">
-                    <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                        <FaUserEdit className="w-6 h-6 text-gray-900 dark:text-white" />
-                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">My Profile</h3>
+                    <div className="flex items-center justify-between p-4 border-b rounded-t ">
+                        <FaLockOpen className="w-6 h-6 text-yellow-300 " />
+                        <h3 className="text-xl font-medium text-gray-900 ">Change My Password</h3>
                         <button
                             type="button"
-                            className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center "
                             onClick={onClose}
                         >
                             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -115,61 +99,105 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ userId, isOpe
                             <span className="sr-only">Close modal</span>
                         </button>
                     </div>
-                    {loading ? (
-                        <div>Loading...</div>
-                    ) : (
-                        <form onSubmit={handleSubmit}>
-                            <div className="flex flex-col p-4 space-x-4">
-                                <div className="grid gap-4 mb-6 md:grid-cols-1">
-                                    <div>
-                                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <div className="flex flex-col p-4 space-x-4">
+                        <div className="grid gap-4 mb-6 md:grid-cols-1">                                                            
+                            <div>
+                                <div className="relative">
+                                    <label
+                                        htmlFor="currentPassword"
+                                        className="block mb-2 text-sm font-medium text-gray-900"
+                                    >
+                                        Current Password
+                                    </label>
+                                    <div className="relative">
                                         <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
+                                            id="currentPassword"
+                                            name="currentPassword"
+                                            type={showCurrentPassword ? 'text' : 'password'}
+                                            value={changePasswordData.currentPassword}
                                             onChange={handleChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md"                                            
+                                            placeholder="Enter current password"
                                             required
                                         />
+                                        <button
+                                            type="button"
+                                            className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-600"
+                                            onClick={() => setShowCurrentPassword((prev) => !prev)}
+                                        >
+                                            {showCurrentPassword ? 'Hide' : 'Show'}
+                                        </button>
                                     </div>
-                                    <div>
-                                        <label htmlFor="position" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
+                                </div>
+
+                                {/* New Password */}
+                                <div className="relative mt-4">
+                                    <label
+                                        htmlFor="newPassword"
+                                        className="block mb-2 text-sm font-medium text-gray-900">
+                                        New Password
+                                    </label>
+                                    <div className="relative">
                                         <input
-                                            type="text"
-                                            id="position"
-                                            name="position"
-                                            value={formData.position}
+                                            id="newPassword"
+                                            name="newPassword"
+                                            type={showNewPassword ? 'text' : 'password'}
+                                            value={changePasswordData.newPassword}
                                             onChange={handleChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md"                                            
+                                            placeholder="Enter new password"
                                             required
                                         />
+                                        <button
+                                            type="button"
+                                            className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-600"
+                                            onClick={() => setShowNewPassword((prev) => !prev)}>
+                                            {showNewPassword ? 'Hide' : 'Show'}
+                                        </button>
                                     </div>
-                                    <div>
-                                        <label htmlFor="schoolEmail" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                </div>
+
+                                {/* Repeat New Password */}
+                                <div className="relative mt-4">
+                                    <label
+                                        htmlFor="repeatNewPassword"
+                                        className="block mb-2 text-sm font-medium text-gray-900"
+                                    >
+                                        Repeat New Password
+                                    </label>
+                                    <div className="relative">
                                         <input
-                                            id="email"
-                                            name="schoolEmail"
-                                            type="email"
-                                            value={formData.schoolEmail}
+                                            id="repeatNewPassword"
+                                            name="repeatNewPassword"
+                                            type={showRepeatNewPassword ? 'text' : 'password'}
+                                            value={repeatNewPassword}
                                             onChange={handleChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            required
-                                        />
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md"                                            
+                                            placeholder="Repeat new password"
+                                            required/>
+                                        <button
+                                            type="button"
+                                            className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-600"
+                                            onClick={() => setShowRepeatNewPassword((prev) => !prev)}>
+                                            {showRepeatNewPassword ? 'Hide' : 'Show'}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                                <button
-                                    onClick={onClose}
-                                    className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                >
-                                    Close
-                                </button>
-                            </div>
-                        </form>
-                    )}
+                        </div>
+                    </div>
+                    {/* Modal footer */}
+                    <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b ">
+                        <button 
+                            onClick={handleSave} 
+                            className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                            Submit</button>
+                        <button 
+                            onClick={onClose} 
+                            className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
             {toast && (

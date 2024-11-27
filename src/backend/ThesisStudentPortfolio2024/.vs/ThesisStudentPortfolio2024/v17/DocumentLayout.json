@@ -3,120 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\changepasswordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\changepasswordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\changepassworddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\changepassworddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\entities\\adminuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\entities\\adminuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\adminuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\adminuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\announcementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\announcementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\services\\subjectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\services\\subjectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\repositories\\subjectrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\repositories\\subjectrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\subjectdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\subjectdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\services\\announcementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\services\\announcementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\announcementattendeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\announcementattendeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\entities\\announcementattendee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\entities\\announcementattendee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\entities\\announcement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\entities\\announcement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\coursewithsubjectsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\coursewithsubjectsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\studentsubjecttakendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\studentsubjecttakendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\entities\\studentdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\entities\\studentdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\entities\\studentinformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\entities\\studentinformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\repositories\\studentsubjecttakenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\repositories\\studentsubjecttakenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\services\\careerpredictionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\services\\careerpredictionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\entities\\studentsubjecttaken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\entities\\studentsubjecttaken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\repositories\\studentskillrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\repositories\\studentskillrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\repositories\\istudentsubjecttakenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\repositories\\istudentsubjecttakenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\controllers\\careerpredictioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\controllers\\careerpredictioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\ml\\careerprediction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\ml\\careerprediction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\dtos\\studentseminardto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\dtos\\studentseminardto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\models\\ml\\careerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\models\\ml\\careerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|c:\\users\\yobbgsm\\desktop\\react project\\2024-react-thesis-studentportfolio\\src\\backend\\thesisstudentportfolio2024\\thesisstudentportfolio2024\\migrations\\20241124060253_updatesubjecttakencolumnsubjectstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{451BC05A-7504-40BD-8701-3AEA0037E9B3}|ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024.csproj|solutionrelative:thesisstudentportfolio2024\\migrations\\20241124060253_updatesubjecttakencolumnsubjectstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -126,366 +50,137 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SubjectDto.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\SubjectDto.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\SubjectDto.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\SubjectDto.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\SubjectDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:54:07.285Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AnnouncementAttendee.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\AnnouncementAttendee.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Entities\\AnnouncementAttendee.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\AnnouncementAttendee.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Entities\\AnnouncementAttendee.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T13:18:43.373Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "AnnouncementAttendeeDto.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\AnnouncementAttendeeDto.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\AnnouncementAttendeeDto.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\AnnouncementAttendeeDto.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\AnnouncementAttendeeDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAFAAAA",
+              "Title": "AdminUserDto.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\AdminUserDto.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\AdminUserDto.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\AdminUserDto.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\AdminUserDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T04:18:24.154Z",
+              "WhenOpened": "2024-11-27T14:46:23.362Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SubjectController.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAIwEgAAAANAAAA",
+              "Title": "ChangePasswordDto.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\ChangePasswordDto.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\ChangePasswordDto.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\ChangePasswordDto.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\ChangePasswordDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAMAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T07:27:05.107Z",
+              "WhenOpened": "2024-11-27T14:26:29.423Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "PortfolioController.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\PortfolioController.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\PortfolioController.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\PortfolioController.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\PortfolioController.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAswFEAAAAsAAAA",
+              "DocumentIndex": 4,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Repositories\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\IUserRepository.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Repositories\\IUserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAkAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T13:26:42.915Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AnnouncementController.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
-              "ViewState": "AQIAAIoAAAAAAAAAAAAkwJoAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T10:25:47.17Z",
+              "WhenOpened": "2024-11-27T14:21:28.991Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SubjectService.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\SubjectService.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Services\\SubjectService.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\SubjectService.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Services\\SubjectService.cs",
-              "ViewState": "AQIAAFUAAAAAAAAAAADwv14AAAAgAAAA",
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Repositories\\UserRepository.cs",
+              "ViewState": "AQIAAJcAAAAAAAAAAAAUwKwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:55:44.384Z",
+              "WhenOpened": "2024-11-27T14:21:22.614Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "SubjectRepository.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\SubjectRepository.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Repositories\\SubjectRepository.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\SubjectRepository.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Repositories\\SubjectRepository.cs",
-              "ViewState": "AQIAADUAAAAAAAAAAAAIwAAAAAAAAAAA",
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\UserService.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Services\\UserService.cs",
+              "ViewState": "AQIAAEYAAAAAAAAAAADwv1oAAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:56:30.372Z",
+              "WhenOpened": "2024-11-27T14:19:53.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\AdminController.cs",
+              "ViewState": "AQIAAEoAAAAAAAAAAAAIwGgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T14:19:37.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChangePasswordController.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\ChangePasswordController.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\ChangePasswordController.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\ChangePasswordController.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\ChangePasswordController.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAgwCYAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T14:11:32.584Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "AnnouncementService.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\AnnouncementService.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Services\\AnnouncementService.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\AnnouncementService.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Services\\AnnouncementService.cs",
-              "ViewState": "AQIAABQBAAAAAAAAAAAswCIBAAAMAAAA",
+              "Title": "AdminUser.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\AdminUser.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Entities\\AdminUser.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\AdminUser.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Entities\\AdminUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T04:18:59.769Z",
+              "WhenOpened": "2024-11-27T14:46:42.428Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "StudentController.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\StudentController.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\StudentController.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\StudentController.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\StudentController.cs",
-              "ViewState": "AQIAAEEAAAAAAAAAAAAIwEcAAAAMAAAA",
+              "Title": "SubjectController.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\SubjectController.cs",
+              "ViewState": "AQIAAE4AAAAAAAAAAAA4wGkAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T10:25:51.539Z",
+              "WhenOpened": "2024-11-27T12:45:13.421Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Announcement.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\Announcement.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Entities\\Announcement.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\Announcement.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Entities\\Announcement.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "AnnouncementController.cs",
+              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
+              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
+              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
+              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\AnnouncementController.cs",
+              "ViewState": "AQIAAH4AAAAAAAAAAAAkwIcAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T04:42:17.626Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CourseWithSubjectsDto.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\CourseWithSubjectsDto.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\CourseWithSubjectsDto.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\CourseWithSubjectsDto.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\CourseWithSubjectsDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T11:15:13.521Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "StudentSubjectTakenRepository.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\StudentSubjectTakenRepository.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Repositories\\StudentSubjectTakenRepository.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\StudentSubjectTakenRepository.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Repositories\\StudentSubjectTakenRepository.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAIwBoAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T06:04:11.594Z",
+              "WhenOpened": "2024-11-23T10:25:47.17Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "CourseDto.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\CourseDto.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\CourseDto.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\CourseDto.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\CourseDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T11:15:20.587Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CourseService.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\CourseService.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Services\\CourseService.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\CourseService.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Services\\CourseService.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T11:19:37.74Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "StudentSubjectTaken.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\StudentSubjectTaken.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Entities\\StudentSubjectTaken.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\StudentSubjectTaken.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Entities\\StudentSubjectTaken.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAYAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T05:55:33.271Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "StudentService.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\StudentService.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Services\\StudentService.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\StudentService.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Services\\StudentService.cs",
-              "ViewState": "AQIAAMUAAAAAAAAAAAAswM4AAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T10:29:48.919Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "StudentSubjectTakenDto.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSubjectTakenDto.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSubjectTakenDto.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSubjectTakenDto.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSubjectTakenDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T05:56:40.805Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\CourseController.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\CourseController.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\CourseController.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\CourseController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T11:04:16.444Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "StudentInformation.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\StudentInformation.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Entities\\StudentInformation.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\StudentInformation.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Entities\\StudentInformation.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T11:04:23.61Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "StudentDetail.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\StudentDetail.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Entities\\StudentDetail.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Entities\\StudentDetail.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Entities\\StudentDetail.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAgwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T11:04:32.094Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "20241124060253_UpdateSubjectTakenColumnSubjectStatus.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Migrations\\20241124060253_UpdateSubjectTakenColumnSubjectStatus.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Migrations\\20241124060253_UpdateSubjectTakenColumnSubjectStatus.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Migrations\\20241124060253_UpdateSubjectTakenColumnSubjectStatus.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Migrations\\20241124060253_UpdateSubjectTakenColumnSubjectStatus.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T06:02:53.882Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "CareerPredictionService.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\CareerPredictionService.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Services\\CareerPredictionService.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Services\\CareerPredictionService.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Services\\CareerPredictionService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAswBIAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T15:15:27.777Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "IStudentSubjectTakenRepository.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\IStudentSubjectTakenRepository.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Repositories\\IStudentSubjectTakenRepository.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\IStudentSubjectTakenRepository.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Repositories\\IStudentSubjectTakenRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T06:04:18.267Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "StudentSkillRepository.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\StudentSkillRepository.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Repositories\\StudentSkillRepository.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Repositories\\StudentSkillRepository.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Repositories\\StudentSkillRepository.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAowAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T06:06:44.057Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "CareerPrediction.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\ML\\CareerPrediction.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\ML\\CareerPrediction.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\ML\\CareerPrediction.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\ML\\CareerPrediction.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAcAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T15:15:17.085Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "CareerPredictionController.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\CareerPredictionController.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Controllers\\CareerPredictionController.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Controllers\\CareerPredictionController.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Controllers\\CareerPredictionController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T15:44:08.019Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "StudentSeminarDto.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSeminarDto.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSeminarDto.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSeminarDto.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\Dtos\\StudentSeminarDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T19:55:32.456Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "CareerData.cs",
-              "DocumentMoniker": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\ML\\CareerData.cs",
-              "RelativeDocumentMoniker": "ThesisStudentPortfolio2024\\Models\\ML\\CareerData.cs",
-              "ToolTip": "C:\\Users\\yobbgsm\\Desktop\\React Project\\2024-react-thesis-studentportfolio\\src\\backend\\ThesisStudentPortfolio2024\\ThesisStudentPortfolio2024\\Models\\ML\\CareerData.cs",
-              "RelativeToolTip": "ThesisStudentPortfolio2024\\Models\\ML\\CareerData.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-23T15:15:02.387Z"
             }
           ]
         }
