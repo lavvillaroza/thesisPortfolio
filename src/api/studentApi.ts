@@ -32,9 +32,9 @@ export async function fetchStudentDetail(
 }
 
 // Update Student Detail
-export const updateStudentDetail = async (formData: FormData) => {
+export const updateStudentDetail = async (userId: number, formData: FormData) => {
     try {        
-        const response = await apiClient.post(`${UPDATE_STUDENT_DETAIL_URL}`, formData);
+        const response = await apiClient.put(`${UPDATE_STUDENT_DETAIL_URL}${userId}`, formData);
         return response.data; 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {        

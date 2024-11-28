@@ -65,8 +65,6 @@ const Skills: React.FC = () => {
               setFutureCareers(studentFutureCareersData);   
               setStudentCourseProgress(studentCourseProgData);
               setUserId(userParse.userid);
-
-              console.log(studentCourseProgData);
           } else {
               navigate("/");
           }
@@ -101,9 +99,7 @@ const Skills: React.FC = () => {
   const computeCourseProgress = () => {
     if (!studentCourseProgress || !studentCourseProgress.subjectsTaken) {
       return { completedUnits: 0, ongoingUnits: 0, remainingUnits: 0 };
-    }
-
-    console.log(studentCourseProgress.subjectsTaken);
+    }    
   
     const completedUnits = studentCourseProgress.subjectsTaken
       .filter((subject) => subject.subjectStatus === 1)
@@ -113,10 +109,7 @@ const Skills: React.FC = () => {
       .filter((subject) => subject.subjectStatus === 0)
       .reduce((sum, subject) => sum + subject.units, 0);
   
-    const remainingUnits = studentCourseProgress.totalUnitsRequired - completedUnits - ongoingUnits;
-    console.log(studentCourseProgress.totalUnitsRequired);
-    console.log(completedUnits);
-    console.log(ongoingUnits);
+    const remainingUnits = studentCourseProgress.totalUnitsRequired - completedUnits - ongoingUnits;    
     return { completedUnits, ongoingUnits, remainingUnits };
   };
 
@@ -160,15 +153,15 @@ const Skills: React.FC = () => {
                       </div>
                       <div className="p-4 w-full m-auto h-[570px] bg-white drop-shadow-md rounded-lg overflow-auto">
                         <div className="flex justify-end">
-                          <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                          <span className="flex items-center text-sm font-medium text-gray-900 me-3">
                             <span className="flex w-2.5 h-2.5 bg-yellow-300 rounded-full me-1.5 flex-shrink-0"></span>
                             Well
                           </span>
-                          <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                          <span className="flex items-center text-sm font-medium text-gray-900 me-3">
                             <span className="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span>
                             Better
                           </span>
-                          <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                          <span className="flex items-center text-sm font-medium text-gray-900 me-3">
                             <span className="flex w-2.5 h-2.5 bg-green-600 rounded-full me-1.5 flex-shrink-0"></span>
                             Best
                           </span>
@@ -177,7 +170,7 @@ const Skills: React.FC = () => {
                           <div className="grid grid-cols-2">
                             {studentSkills.map((item) => (
                               <div key={item.id} className="py-2 flex justify-between items-center">
-                                <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white">
+                                <span className="flex items-center text-sm font-medium text-gray-900">
                                   <span
                                     className={`flex w-2.5 h-2.5 ${
                                       item.skillRating === 0
@@ -209,7 +202,7 @@ const Skills: React.FC = () => {
                         <div className="grid grid-cols-2">
                           {futureCareers.map((item) => (
                               <div key={item.predictedCareer} className="py-2 flex justify-between items-center">
-                                <span className="flex items-center text-sm font-medium text-gray-900 dark:text-white">
+                                <span className="flex items-center text-sm font-medium text-gray-900">
                                   <span
                                     className={`flex w-2.5 h-2.5 bg-green-600 rounded-full me-1.5 flex-shrink-0`}
                                   ></span>

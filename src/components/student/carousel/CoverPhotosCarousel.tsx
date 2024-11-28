@@ -43,31 +43,43 @@ const CoverPhotosCarousel: React.FC<CoverPhotosCarouselProps> = ({ studentInform
 
     useEffect(() => {        
         if (!hasCoverPhotos || !carouselRef.current) return;
-
-        const items: CarouselItem[] = coverPhotos.map((_, index) => ({
-            position: index,
-            el: document.getElementById(`carousel-item-${index}`)
-        })).filter((item) => item.el !== null) as CarouselItem[];
-
+    
+        // Generate items array for the carousel
+        const items: CarouselItem[] = coverPhotos
+            .map((_, index) => ({
+                position: index,
+                el: document.getElementById(`carousel-item-${index}`),
+            }))
+            .filter((item) => item.el !== null) as CarouselItem[];
+    
+        // Ensure indicatorsRef only contains valid elements
+        const validIndicators = indicatorsRef.current.filter((el): el is HTMLButtonElement => el !== null);
+    
         const options: CarouselOptions = {
             defaultPosition: 0,
             interval: 3000,
             indicators: {
                 activeClasses: 'bg-white',
-                inactiveClasses: 'bg-white/50 hover:bg-white ',
-                items: indicatorsRef.current.map((el, index) => ({ position: index, el })),
+                inactiveClasses: 'bg-white/50 hover:bg-white',
+                items: validIndicators.map((el, index) => ({ position: index, el })),
             },
         };
-
+    
+        // Initialize the carousel
         const carousel: CarouselInterface = new Carousel(carouselRef.current, items, options);
         carousel.cycle();
-
-        prevButtonRef.current?.addEventListener('click', () => carousel.prev());
-        nextButtonRef.current?.addEventListener('click', () => carousel.next());
-
+    
+        // Attach event listeners for navigation
+        const handlePrev = () => carousel.prev();
+        const handleNext = () => carousel.next();
+        
+        prevButtonRef.current?.addEventListener('click', handlePrev);
+        nextButtonRef.current?.addEventListener('click', handleNext);
+    
         return () => {
-            prevButtonRef.current?.removeEventListener('click', () => carousel.prev());
-            nextButtonRef.current?.removeEventListener('click', () => carousel.next());
+            // Cleanup event listeners
+            prevButtonRef.current?.removeEventListener('click', handlePrev);
+            nextButtonRef.current?.removeEventListener('click', handleNext);
         };
     }, [coverPhotos, hasCoverPhotos]);
 

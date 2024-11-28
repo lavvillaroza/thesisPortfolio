@@ -34,7 +34,7 @@ export const UPDATE_SUBJECT_URL = `/Subject/`;
 
 //Endpoints Student
 export const GET_STUDENT_DETAIL_URL = `/Student/detail`;
-export const UPDATE_STUDENT_DETAIL_URL = `/Student/detail/update`;
+export const UPDATE_STUDENT_DETAIL_URL = `/Student/detail/`;
 export const GET_STUDENT_INFO_URL = `/Student/information`;
 export const ADDUP_STUDENT_INFO_URL = `/Student/information/addorupdate`;
 export const GET_STUDENT_SUBJECTS_TAKEN_URL = `/Student/subjectstaken`;

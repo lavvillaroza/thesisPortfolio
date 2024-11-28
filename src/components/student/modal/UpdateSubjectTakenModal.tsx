@@ -63,12 +63,12 @@ const UpdateSubjectTakenModal: React.FC<SubjectTakenModalProps> = ({
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="relative bg-white p-8 rounded-lg shadow-lg w-[50%] md:w-[40%]">
-          <div className="flex items-center justify-between p-1 border-b rounded-t dark:border-gray-600">
+          <div className="flex items-center justify-between p-1 border-b rounded-t">
             <FaBookOpen className="w-6 h-6 text-yellow-300" />
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Update Subject Status</h3>
+            <h3 className="text-xl font-medium text-gray-900">Update Subject Status</h3>
             <button
               type="button"
-              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
               onClick={onClose}
             >
               <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -80,7 +80,7 @@ const UpdateSubjectTakenModal: React.FC<SubjectTakenModalProps> = ({
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col p-4 space-y-4">
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject Name</label>
+                <label className="block mb-2 text-sm font-medium text-gray-900">Subject Name</label>
                 <input
                   type="text"
                   value={updatedStudentSubjectData.subjectName}
@@ -89,7 +89,7 @@ const UpdateSubjectTakenModal: React.FC<SubjectTakenModalProps> = ({
                 />
               </div>
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject Description</label>
+                <label className="block mb-2 text-sm font-medium text-gray-900">Subject Description</label>
                 <input
                   type="text"
                   value={updatedStudentSubjectData.subjectDescription}
@@ -131,7 +131,7 @@ const UpdateSubjectTakenModal: React.FC<SubjectTakenModalProps> = ({
               </div>
             </div>
            {/* Modal footer */}
-           <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+           <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
                 <button type="submit" className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
                 <button 
                     onClick={onClose} 

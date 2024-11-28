@@ -3,7 +3,7 @@ import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
 import SideNavbar from './SideNavbar';
 import { CourseModel } from '../../models/CourseModel';
-import { FaPlus, FaUserPlus } from 'react-icons/fa';
+import { FaAtom,  FaPlus} from 'react-icons/fa';
 import { addCourse, fetchCourses } from '../../api/courseApi';
 import { checkTokenAndLogout } from '../../utils/jwtUtil';
 import { useNavigate } from 'react-router-dom';
@@ -206,7 +206,7 @@ const Course: React.FC = () => {
                         <div className="relative w-full max-w-lg md:max-w-xl max-h-full bg-white rounded-lg shadow  overflow-auto">
                             {/* Modal header */}
                             <div className="flex items-center justify-between p-4 border-b rounded-t ">
-                                <FaUserPlus className="w-6 h-6 text-gray-900 " />
+                                <FaAtom className="w-6 h-6 text-yellow-300 " />
                                 <h3 className="text-xl font-medium text-gray-900 ">ADD COURSE</h3>
                                 <button
                                     type="button"
@@ -289,7 +289,7 @@ const Course: React.FC = () => {
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:outline-none focus:ring-4 focus:ring-blue-300"
+                                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
                                     >
                                         Submit
                                     </button>

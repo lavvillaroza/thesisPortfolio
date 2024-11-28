@@ -232,7 +232,7 @@ const CreateAnouncement: React.FC = () => {
                                                             setStartTime('09:00'); // Reset start time
                                                             setEndTime('18:00');   // Reset end time
                                                         }}
-                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-200 ">
+                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 ">
                                                         Clear
                                                     </button>
                                                 </div>                                                                                        

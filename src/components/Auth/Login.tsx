@@ -156,7 +156,6 @@ const Login: React.FC = () => {
                       </svg>
                     )}
                   </button>
-
               </div>
             </div>
 

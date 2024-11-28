@@ -28,7 +28,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                     <div className="relative w-full max-w-2xl my-5 md:max-w-3xl max-h-full bg-white rounded-lg shadow">
                         {/* Modal header */}
                         <div className="flex items-center justify-between p-4 border-b rounded-t ">
-                            <RiMegaphoneFill className="w-6 h-6 text-gray-900 "/>
+                            <RiMegaphoneFill className="w-6 h-6 text-yellow-300 "/>
                             <h3 className="text-xl font-medium text-gray-900 ">ANNOUNCEMENT</h3>
                             <button
                                 type="button"

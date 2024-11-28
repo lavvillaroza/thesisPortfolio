@@ -22,11 +22,10 @@ namespace ThesisStudentPortfolio2024.Models.Dtos
         public int? YearEnd { get; set; }
         [Required]
         public string SchoolEmail { get; set; } = string.Empty;
-        public string PersonalEmail { get; set; } = string.Empty;
+        public string? PersonalEmail { get; set; } = string.Empty;
         public string PortfoliuURL { get; set; } = string.Empty;
         public string AttachedResume { get; set; } = string.Empty;
-        public IFormFile? AttachedResumeFile { get; set; }
-        [Required]
+        public IFormFile? AttachedResumeFile { get; set; }        
         public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; }
         [Required]

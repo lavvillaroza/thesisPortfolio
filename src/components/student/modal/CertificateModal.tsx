@@ -69,12 +69,12 @@ const CertificateModal: React.FC<StudentCertModalProps> = ({ userId, isOpen, onC
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="relative bg-white p-8 rounded-lg shadow-lg w-[50%] md:w-[25%]">
-          <div className="flex items-center justify-between p-1 border-b rounded-t dark:border-gray-600">
+          <div className="flex items-center justify-between p-1 border-b rounded-t">
             <FaCertificate className="w-6 h-6 text-yellow-300" />
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add Your Certificate</h3>
+            <h3 className="text-xl font-medium text-gray-900">Add Your Certificate</h3>
             <button
               type="button"
-              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
               onClick={onClose}
             >
               <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

@@ -44,18 +44,21 @@ namespace ThesisStudentPortfolio2024.Controllers
         }
 
         [Authorize]
-        [HttpPost("detail/update")]
-        public async Task<IActionResult> UpdateStudentDetailAsync([FromForm] StudentDetailDto studentDetailDto)
+        [HttpPut("detail/{userId}")]
+        public async Task<IActionResult> UpdateStudentDetailAsync(int userId, [FromForm] StudentDetailDto studentDetailDto)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                
+                var result = await _studentService.UpdateStudentDetailAsync(studentDetailDto);
+                if (result)
+                    return Ok("Success");
+                else
+                    return BadRequest("Failed");
             }
-            var result = await _studentService.UpdateStudentDetailAsync(studentDetailDto);
-            if (result)
-                return Ok("Success");
-            else
-                return BadRequest("Failed");
+            catch (Exception err) {
+                return BadRequest(err);
+            }
         }
 
         [HttpGet("seminars")]

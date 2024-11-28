@@ -95,12 +95,12 @@ const SeminarOthersModal: React.FC<SeminarOthersModalProps> = ({ userId, isOpen,
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="relative bg-white p-8 rounded-lg shadow-lg w-[50%] md:w-[40%]">
-          <div className="flex items-center justify-between p-1 border-b rounded-t dark:border-gray-600">
+          <div className="flex items-center justify-between p-1 border-b rounded-t">
             <FaUserFriends className="w-6 h-6 text-yellow-300" />
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add Others Seminar</h3>
+            <h3 className="text-xl font-medium text-gray-900">Add Others Seminar</h3>
             <button
               type="button"
-              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
               onClick={onClose}>
               <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -112,7 +112,7 @@ const SeminarOthersModal: React.FC<SeminarOthersModalProps> = ({ userId, isOpen,
             <div className="flex flex-col p-4 space-x-4">
               <div className="flex gap-4 mb-6 md:flex-col">                
                 <div>
-                  <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
                     Title
                   </label>
                   <input
@@ -128,7 +128,7 @@ const SeminarOthersModal: React.FC<SeminarOthersModalProps> = ({ userId, isOpen,
                   <input type="hidden" id="seminarId" name="seminarId" value={newStudentSeminarData.seminarId} />
                 </div>
                 <div>
-                  <label htmlFor="facilitator" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label htmlFor="facilitator" className="block mb-2 text-sm font-medium text-gray-900">
                     Facilitator
                   </label>
                   <input
@@ -143,14 +143,14 @@ const SeminarOthersModal: React.FC<SeminarOthersModalProps> = ({ userId, isOpen,
                   />
                 </div>
                 <div>
-                  <label htmlFor="dateAttended" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label htmlFor="dateAttended" className="block mb-2 text-sm font-medium text-gray-900">
                     Date Attended
                   </label>
                   <div className="relative max-w-sm">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                       <svg
                         aria-hidden="true"
-                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                        className="w-5 h-5 text-gray-500"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -171,7 +171,7 @@ const SeminarOthersModal: React.FC<SeminarOthersModalProps> = ({ userId, isOpen,
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="reflection" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label htmlFor="reflection" className="block mb-2 text-sm font-medium text-gray-900">
                     Reflection
                   </label>
                   <textarea
