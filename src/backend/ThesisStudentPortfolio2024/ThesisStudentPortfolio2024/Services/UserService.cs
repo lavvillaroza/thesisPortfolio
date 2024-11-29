@@ -147,26 +147,27 @@ namespace ThesisStudentPortfolio2024.Services
             foreach (StudentDetail studentDetail in students)
             {
                 var getCourseCode = fetchCourses.Where(x => x.Id == studentDetail.CourseId).FirstOrDefault();
-
-                StudentDetailDto studentDetailDto = new StudentDetailDto
-                {
-                    Id = studentDetail.Id,
-                    StudentId = studentDetail.StudentId,
-                    StudentName = studentDetail.StudentName,
-                    CourseId = studentDetail.CourseId,
-                    CourseName = getCourseCode.CourseCode,
-                    YearLevel = studentDetail.YearLevel,
-                    Section = studentDetail.Section,
-                    YearStart = studentDetail.YearStart,
-                    YearEnd = studentDetail.YearEnd,
-                    SchoolEmail = studentDetail.SchoolEmail,
-                    PersonalEmail = studentDetail.PersonalEmail,
-                    AttachedResume = studentDetail.AttachedResume,                    
-                    LastModifiedBy = studentDetail.LastModifiedBy,
-                    LastModifiedDate = studentDetail.LastModifiedDate,
-                    UserId = studentDetail.UserId,
-                };
-                studentsDetailDto.Add(studentDetailDto);
+                if (getCourseCode != null) {
+                    StudentDetailDto studentDetailDto = new StudentDetailDto
+                    {
+                        Id = studentDetail.Id,
+                        StudentId = studentDetail.StudentId,
+                        StudentName = studentDetail.StudentName,
+                        CourseId = studentDetail.CourseId,
+                        CourseName = getCourseCode.CourseCode,
+                        YearLevel = studentDetail.YearLevel,
+                        Section = studentDetail.Section,
+                        YearStart = studentDetail.YearStart,
+                        YearEnd = studentDetail.YearEnd,
+                        SchoolEmail = studentDetail.SchoolEmail,
+                        PersonalEmail = studentDetail.PersonalEmail,
+                        AttachedResume = studentDetail.AttachedResume,
+                        LastModifiedBy = studentDetail.LastModifiedBy,
+                        LastModifiedDate = studentDetail.LastModifiedDate,
+                        UserId = studentDetail.UserId,
+                    };
+                    studentsDetailDto.Add(studentDetailDto);
+                }                
             }
             pagedResultDto.Items = studentsDetailDto.Cast<object>().ToList();
             return pagedResultDto;

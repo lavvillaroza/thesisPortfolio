@@ -55,7 +55,7 @@ namespace ThesisStudentPortfolio2024.Services
                 {
                     var fileName = Path.GetFileNameWithoutExtension(image.FileName);
                     var extension = Path.GetExtension(image.FileName);
-                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                     var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                     var attachedPath = Path.Combine(uploadsFolderName, newFileName);
 

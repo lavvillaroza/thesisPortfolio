@@ -281,6 +281,7 @@ C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\ba
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\appsettings.json
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\ThesisStudentPortfolio2024.staticwebassets.runtime.json
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\ThesisStudentPortfolio2024.exe
+C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\MachineLearningModel\careerModel.zip
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\ThesisStudentPortfolio2024.deps.json
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\ThesisStudentPortfolio2024.runtimeconfig.json
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\ThesisStudentPortfolio2024.dll
@@ -578,4 +579,3 @@ C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\ba
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\obj\Debug\net8.0\ThesisStudentPortfolio2024.pdb
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\obj\Debug\net8.0\ThesisStudentPortfolio2024.genruntimeconfig.cache
 C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\obj\Debug\net8.0\ref\ThesisStudentPortfolio2024.dll
-C:\Users\yobbgsm\Desktop\React Project\2024-react-thesis-studentportfolio\src\backend\ThesisStudentPortfolio2024\ThesisStudentPortfolio2024\bin\Debug\net8.0\MachineLearningModel\careerModel.zip

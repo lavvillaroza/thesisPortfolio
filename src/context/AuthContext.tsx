@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { API_BASE_URL } from '../api/apiConfig';
 
 
 interface UserDetails {
@@ -15,7 +16,6 @@ interface AuthContextType {
     logout: () => void;
 }
 
-const API_URL = "https://localhost:5050/api/Auth"; // Adjust the URL as needed
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     }, []);
     const login = async (loginData: UserDetails) => {
-        const response = await axios.post(`${API_URL}/login`, loginData);
+        const response = await axios.post(`${API_BASE_URL}/Auth/login`, loginData);
         const { token, userDetails } = response.data;
 
         if (!token || !userDetails) {

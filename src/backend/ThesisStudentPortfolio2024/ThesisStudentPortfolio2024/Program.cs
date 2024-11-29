@@ -11,6 +11,12 @@ using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var environment = builder.Environment.EnvironmentName;
+
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
 
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
@@ -82,6 +88,8 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.Urls.Add("http://0.0.0.0:5000");
+
 // Enable serving static files
 app.UseStaticFiles();
 
@@ -96,10 +104,10 @@ app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials()
-    .WithOrigins("https://localhost:5050")
+    .WithOrigins("http://0.0.0.0:5000", "http://localhost:5000")
     .SetIsOriginAllowed(origin => true));
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

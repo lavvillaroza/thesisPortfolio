@@ -43,7 +43,7 @@ const SeminarSchoolModal: React.FC<SeminarSchoolModalProps> = ({ userId, isOpen,
   
     if ($datepickerEl) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const datepicker = new Datepicker($datepickerEl, {
+      new Datepicker($datepickerEl, {
         autohide: true,
         format: 'mm/dd/yyyy',
         orientation: 'bottom',

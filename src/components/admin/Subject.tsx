@@ -18,7 +18,7 @@ const Subject: React.FC = () => {
     const [userId, setUserId] = useState();
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
-    const [selectedSubject, setSelectedSubject] = useState<SubjectModel | null>(null);                                              
+    const [selectedSubject, setSelectedSubject] = useState<SubjectModel | null>(null);
     const [searchValue, setSearchValue] = useState('');
 
     const openModal = () => setAddModalOpen(true);    

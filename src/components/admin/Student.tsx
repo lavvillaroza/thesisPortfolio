@@ -3,56 +3,28 @@ import 'react-calendar/dist/Calendar.css';
 import Header from './Header';
 import SideNavbar from './SideNavbar';
 import { StudentDetailModel } from '../../models/StudentDetailModel';
-import { PiStudent } from "react-icons/pi";
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { checkTokenAndLogout } from '../../utils/jwtUtil';
-import { addStudent, fetchSearchStudents, fetchStudents } from '../../api/adminApi';
-import { fetchCourses } from '../../api/courseApi';
+import { fetchSearchStudents, fetchStudents } from '../../api/adminApi';
 import studentIcon from '../../assets/studentIcon.png';
-import { CourseModel } from '../../models/CourseModel';
 import CustomToast from '../common/CustomToast';
 import { REACT_BASE_URL } from '../../api/apiConfig';
-
-const initialStudentDetail: StudentDetailModel = {
-    id: 0,
-    userId: 0,
-    studentId: '',
-    studentName: '',                                                  
-    courseId: 0,
-    courseName: '',
-    yearLevel: 0,                                                  
-    yearStart: 0,
-    yearEnd: null,
-    section: '',
-    schoolEmail: '',
-    personalEmail: '',
-    portfolioURL: '',
-    attachedResume: '',
-    attachedResumeFile: null,
-    createdBy: '',
-    createdDate: null,
-    lastModifiedBy: '',
-    lastModifiedDate: null
-};
+import AddStudentModal from './modal/AddStudentModal';
 
 const Student: React.FC = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize] = useState<number>(10);
-    const [studentList, setStudentList] = useState<StudentDetailModel[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newStudentDetail, setNewStudentDetail] = useState<StudentDetailModel>(initialStudentDetail);
-                                              
-    const [searchValue, setSearchValue] = useState('');    
-    const closeModal = () => setIsModalOpen(false);
+    const [studentList, setStudentList] = useState<StudentDetailModel[]>([]);    
+    const [userId, setUserId] = useState();
+    const [addModalOpen, setAddModalOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState('');        
     const navigate = useNavigate();
 
     const [showToast, setShowToast] = useState<boolean>(false); // For toast visibility
     const [toastMessage, setToastMessage] = useState<string>(''); // Toast message content
-    const [toastType, setToastType] = useState<'success' | 'error'>('success'); // Toast type (success or error)    
-    const [courses, setCourses] = useState<CourseModel[]>([]);
-    const [selectedOption, setSelectedOption] = useState<string>('');
+    const [toastType, setToastType] = useState<'success' | 'error'>('success'); // Toast type (success or error)        
 
     const [isClicked, setIsClicked] = useState(false);
 
@@ -60,67 +32,24 @@ const Student: React.FC = () => {
         setIsClicked(true);
         // Additional logic to open modal
         setTimeout(() => setIsClicked(false), 200); // Reset rotation after animation
-        setIsModalOpen(true);
-    };
-
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    
-        const user = localStorage.getItem('userDetails');        
-        if (user) {
-            const userParse = JSON.parse(user);
-            newStudentDetail.createdBy = userParse.username;
-            newStudentDetail.lastModifiedBy = userParse.username;            
-        } 
-        const formData = new FormData();
-        formData.append('studentId', newStudentDetail.studentId);
-        formData.append('studentName', newStudentDetail.studentName);
-        formData.append('courseId', newStudentDetail.courseId.toString());
-        formData.append('yearLevel', newStudentDetail.yearLevel.toString());
-        formData.append('yearStart', newStudentDetail.yearStart.toString());
-        formData.append('yearEnded', '');
-        formData.append('section', newStudentDetail.section);
-        formData.append('schoolEmail', newStudentDetail.schoolEmail);
-        formData.append('personalEmail', '');
-        formData.append('portfolioURL', '');
-        formData.append('createdBy', newStudentDetail.createdBy);
-        formData.append('lastModifiedBy', newStudentDetail.lastModifiedBy);
-        
-        try {
-            await addStudent(formData); // Call the new API function
-            setToastMessage('Student added successfully!');
-            setToastType('success');
-            setShowToast(true);
-            // Reset the form
-            setNewStudentDetail(initialStudentDetail);
-             // Close the modal
-            closeModal();
-            await fetchStudentsData('');
-        } catch (error) {
-            setToastMessage('Error adding student.');
-            setToastType('error');
-            setShowToast(true);
-            console.error('Error adding student:', error);
-        } finally {
-            // Hide toast after 8 seconds
-            setTimeout(() => {
-                setShowToast(false);
-            }, 8000);
-        }
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setNewStudentDetail(prevStudent => ({ ...prevStudent, [name]: value}));
-    };
-
-    // Handler for the onChange event
-    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {        
-        const { name, value } = e.target;
-        setSelectedOption(value); // Update selected option state
-        setNewStudentDetail(prevStudent => ({ ...prevStudent, [name]: value}));
+        setAddModalOpen(true);
     };    
+
+    const handleSave = (message: string, type: 'success' | 'error') => {
+        if (type === 'success') {
+            setToastMessage(message);
+            setToastType(type);            
+        } else {
+            console.log("Error:", message);
+            setToastMessage(message);
+            setToastType(type);      
+        }        
+        fetchStudentsData('');
+        setShowToast(true);
+        setTimeout(() => {
+            setShowToast(false);
+        }, 5000);
+    };
 
     const handleSearchButtonClick = () => {
         fetchStudentsData(searchValue);
@@ -144,6 +73,12 @@ const Student: React.FC = () => {
             navigate("/");
             return;
         }        
+        const user = localStorage.getItem('userDetails');        
+        if (user) {
+            const userParse = JSON.parse(user);   
+            setUserId(userParse.username);         
+        } 
+
         try {
             let result;
             if (searchTerm) {
@@ -163,18 +98,6 @@ const Student: React.FC = () => {
     useEffect(() => {
         fetchStudentsData(''); // Call with empty string initially
     }, [fetchStudentsData, pageNumber]); // Add fetchStudentsData as a dependency
-    
-    useEffect(() => {
-        const fetchCoursesData = async () => {
-            try {
-                const result = await fetchCourses();
-                setCourses(result);
-            } catch (error) {
-                console.error('Error fetching courses data:', error);
-            }
-        };    
-        fetchCoursesData();
-    }, []); // Empty dependency array
     
     const getYearString = (year: number): string => {
         switch (year) {
@@ -314,142 +237,14 @@ const Student: React.FC = () => {
               </div>
             </main>
           </div>
-
-          {/* Add Student Modal */}
-          {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">
-                    <div className="relative w-full max-w-lg md:max-w-2xl max-h-full bg-white rounded-lg shadow overflow-auto">
-                        {/* Modal header */}
-                        <div className="flex items-center justify-between p-4 border-b rounded-t ">
-                            <PiStudent  className="w-6 h-6 text-gray-900"/>
-                            <h3 className="text-xl font-medium text-gray-900">ADD STUDENT</h3>
-                            <button
-                                type="button"
-                                className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center "
-                                onClick={closeModal}>
-                                <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
-                                <span className="sr-only">Close modal</span>
-                            </button>
-                        </div>
-                        {/* Modal body */}
-                        <form onSubmit={handleSubmit}>
-                            <div className="flex flex-col p-4 space-x-4">
-                                {/* Fillup Form Section */}                                
-                                <div className="grid gap-4 mb-6 md:grid-cols-2">
-                                    <div>
-                                        <label htmlFor="studentId" className="block mb-2 text-sm font-medium text-gray-900">Student id</label>
-                                        <input 
-                                            type="text" 
-                                            id="studentId" 
-                                            name="studentId"
-                                            value={newStudentDetail.studentId}
-                                            onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
-                                            placeholder="Student id" 
-                                            required />
-                                    </div>  
-                                    <div className="grid gap-4 md:grid-cols-2">
-                                        <div>
-                                            <label htmlFor="courseId" className="block mb-2 text-sm font-medium text-gray-900">Course</label>
-                                            <input 
-                                                hidden
-                                                type="text"
-                                                id="courseId"
-                                                name="courseId"
-                                                value={newStudentDetail.courseId}>
-                                            </input>
-                                            <select                                                 
-                                                value={selectedOption}                                                
-                                                onChange={handleSelectChange}
-                                                name="courseId"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                                                required>
-                                                <option selected>Course</option>
-                                                {courses.map((course) => (
-                                                        <option key={course.id} value={course.id}>{course.courseCode}</option>                                                        
-                                                ))}                                                
-                                            </select>                                            
-                                        </div> 
-                                        <div>
-                                            <label htmlFor="section" className="block mb-2 text-sm font-medium text-gray-900">Section</label>
-                                            <input 
-                                                type="text" 
-                                                id="section" 
-                                                name="section"
-                                                value={newStudentDetail.section}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
-                                                placeholder="Section"  />
-                                        </div>   
-                                    </div>                                                                        
-                                    <div>
-                                        <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
-                                        <input 
-                                            type="text" 
-                                            id="studentName" 
-                                            name="studentName"
-                                            value={newStudentDetail.studentName}
-                                            onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
-                                            placeholder="Student Name" 
-                                            required />
-                                    </div>
-                                    <div className="grid gap-4 md:grid-cols-2">
-                                        <div>
-                                            <label htmlFor="yearStart" className="block mb-2 text-sm font-medium text-gray-900">Year Started</label>
-                                            <input 
-                                                type="text" 
-                                                id="yearStart" 
-                                                name="yearStart"
-                                                value={newStudentDetail.yearStart}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
-                                                placeholder="Year Start" 
-                                                required />
-                                        </div> 
-                                        <div>
-                                            <label htmlFor="yearLevel" className="block mb-2 text-sm font-medium text-gray-900">Year Level</label>
-                                            <input 
-                                                type="number" 
-                                                id="yearLevel" 
-                                                name="yearLevel"
-                                                value={newStudentDetail.yearLevel}
-                                                onChange={handleInputChange}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
-                                                placeholder="Year Level"  
-                                                required/>
-                                        </div>   
-                                    </div>                                                                             
-                                    <div className="mb-6">
-                                        <label htmlFor="school_email" className="block mb-2 text-sm font-medium text-gray-900">School email</label>
-                                        <input 
-                                            type="email" 
-                                            id="schoolEmail" 
-                                            name="schoolEmail"
-                                            value={newStudentDetail.schoolEmail}
-                                            onChange={handleInputChange}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
-                                            placeholder="juan.delacruz@school.com" 
-                                            required />
-                                    </div>                                
-                                </div>                                                                                                                                                                            
-                            </div>
-                            {/* Modal footer */}
-                            <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b ">
-                                <button type="submit" className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
-                                <button 
-                                    onClick={closeModal} 
-                                    className="text-white bg-gray-700 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                    Close
-                                </button>
-                            </div>
-                        </form> 
-                    </div>
-                </div>
-            )}
-
+          {userId && (
+                <AddStudentModal
+                    userId= {userId}
+                    isOpen={addModalOpen}                    
+                    onClose={() => setAddModalOpen(false)}
+                    onSave={handleSave}
+                />
+              )}
             {/* Toast notification */}
             {showToast && (
                 <CustomToast

@@ -99,7 +99,7 @@ namespace ThesisStudentPortfolio2024.Services
                 }
                 var fileName = Path.GetFileNameWithoutExtension(studentDetailDto.AttachedResumeFile.FileName);
                 var extension = Path.GetExtension(studentDetailDto.AttachedResumeFile.FileName);
-                var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                 var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                 var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                 using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -323,7 +323,7 @@ namespace ThesisStudentPortfolio2024.Services
             {
                 var fileName = Path.GetFileNameWithoutExtension(studentInfoDto.CoverPhotoOneFile.FileName);
                 var extension = Path.GetExtension(studentInfoDto.CoverPhotoOneFile.FileName);
-                var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                 var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                 var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                 using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -337,7 +337,7 @@ namespace ThesisStudentPortfolio2024.Services
             {
                 var fileName = Path.GetFileNameWithoutExtension(studentInfoDto.CoverPhotoTwoFile.FileName);
                 var extension = Path.GetExtension(studentInfoDto.CoverPhotoTwoFile.FileName);
-                var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                 var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                 var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                 using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -351,7 +351,7 @@ namespace ThesisStudentPortfolio2024.Services
             {
                 var fileName = Path.GetFileNameWithoutExtension(studentInfoDto.CoverPhotoThreeFile.FileName);
                 var extension = Path.GetExtension(studentInfoDto.CoverPhotoThreeFile.FileName);
-                var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                 var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                 var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                 using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -365,7 +365,7 @@ namespace ThesisStudentPortfolio2024.Services
             {
                 var fileName = Path.GetFileNameWithoutExtension(studentInfoDto.CoverPhotoFourFile.FileName);
                 var extension = Path.GetExtension(studentInfoDto.CoverPhotoFourFile.FileName);
-                var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                 var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                 var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                 using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -440,7 +440,7 @@ namespace ThesisStudentPortfolio2024.Services
                 {
                     var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
                     var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
-                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                     var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                     var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                     using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -489,7 +489,7 @@ namespace ThesisStudentPortfolio2024.Services
                 {
                     var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
                     var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
-                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                     var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                     var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                     using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -564,7 +564,7 @@ namespace ThesisStudentPortfolio2024.Services
                 {
                     var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
                     var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
-                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                     var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                     var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                     using (var stream = new FileStream(fullFileName, FileMode.Create))
@@ -614,7 +614,7 @@ namespace ThesisStudentPortfolio2024.Services
                 {
                     var fileName = Path.GetFileNameWithoutExtension(studentCertAndRecogDto.AttachmentFile.FileName);
                     var extension = Path.GetExtension(studentCertAndRecogDto.AttachmentFile.FileName);
-                    var newFileName = $"{fileName}_{Guid.NewGuid().ToString()}{extension}";
+                    var newFileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMdd-hhmmss")}{extension}";
                     var fullFileName = Path.Combine(uploadsDirectory, newFileName);
                     var attachedPath = Path.Combine(uploadsFolderName, newFileName);
                     using (var stream = new FileStream(fullFileName, FileMode.Create))

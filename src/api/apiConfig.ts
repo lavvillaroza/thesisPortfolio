@@ -1,7 +1,7 @@
 // const/apiConfig.ts
-export const BASE_URL = 'https://localhost:5050/';
-export const API_BASE_URL = 'https://localhost:5050/api';
-export const REACT_BASE_URL = 'http://localhost:3000/';
+export const BASE_URL = import.meta.env.VITE_API_URL;
+export const API_BASE_URL = import.meta.env.VITE_API_URL + `api`;
+export const REACT_BASE_URL = import.meta.env.BASE_API_URL;
 
 
 // Endpoint Announcement && Seminar
