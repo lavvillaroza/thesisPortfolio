@@ -7,6 +7,7 @@ import { ADD_ANNOUNCEMENT_URL, SEMINARS_URL, ANNOUNCEMENTS_URL,
         ADD_SEMINAR_ATTENDEE_URL,
         UPDATE_SEMINAR_ATTENDEE_URL} from './apiConfig';
 import { AnnouncementAttendeeModel } from '../models/AnnouncementAttendeeModel';
+import Cookies from 'js-cookie';
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -15,11 +16,16 @@ export async function fetchAnnouncementsWithDetails(
     currentDate?: string | null
 ): Promise<PagedResultModel<AnnouncementModel>> {
     try {
+        const token = Cookies.get('jwtToken');        
         const response = await apiClient.get<PagedResultModel<AnnouncementModel>>(`${ANNOUNCEMENTS_URL}`, {
             params: {
                 pageNumber: paginationParams.pageNumber,
                 pageSize: paginationParams.pageSize,
                 currentDate: currentDate
+            }, 
+            headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}` // Include your JWT if required
             }
         });
 
@@ -35,12 +41,17 @@ export async function fetchSearchSeminars(
     searchValue: string | null
 ): Promise<PagedResultModel<AnnouncementModel>> {
     try {
+        const token = Cookies.get('jwtToken');
         const response = await apiClient.get<PagedResultModel<AnnouncementModel>>(`${SEARCH_SEMINARS_URL}`, {
             params: {
                 pageNumber: paginationParams.pageNumber,
                 pageSize: paginationParams.pageSize,
                 searchValue: searchValue
-            }
+            }, 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
         });
         return response.data;
     } catch (error) {
@@ -54,13 +65,18 @@ export async function fetchSeminars(
     paginationParams: PaginationParamsModel,
     selectedYear?: number | null
 ): Promise<PagedResultModel<AnnouncementModel>> {
-    try {        
+    try {
+        const token = Cookies.get('jwtToken');
         const response = await apiClient.get<PagedResultModel<AnnouncementModel>>(`${SEMINARS_URL}`, {
             params: {
                 pageNumber: paginationParams.pageNumber,
                 pageSize: paginationParams.pageSize,
                 selectedYear: selectedYear
-            }
+            }, 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
         });
 
         return response.data;
@@ -75,13 +91,18 @@ export async function fetchSeminarAttendees(
     paginationParams: PaginationParamsModel,
     announcementId?: number | null
 ): Promise<PagedResultModel<AnnouncementAttendeeModel>> {
-    try {        
+    try {
+        const token = Cookies.get('jwtToken');        
         const response = await apiClient.get<PagedResultModel<AnnouncementAttendeeModel>>(`${SEMINAR_ATTENDEES_URL}`, {
             params: {
                 pageNumber: paginationParams.pageNumber,
                 pageSize: paginationParams.pageSize,
                 announcementId: announcementId
-            }
+            }, 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
         });
 
         return response.data;
@@ -94,7 +115,12 @@ export async function fetchSeminarAttendees(
 // Add New Announcement
 export const addAnnouncement = async (formData: FormData) => {
     try {
-        const response = await apiClient.post(`${ADD_ANNOUNCEMENT_URL}`, formData);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.post(`${ADD_ANNOUNCEMENT_URL}`, formData, {           
+            headers: {                
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data; // Return the response data if needed
     } catch (error) {
         throw new Error(`Error adding announcement: ${error}`);
@@ -105,14 +131,19 @@ export const addAnnouncement = async (formData: FormData) => {
 export const addSeminarAttendee = async (    
     announcementId: number | null, 
     userId: number | null,) => {
-    try {        
+    try {
+        const token = Cookies.get('jwtToken');        
         const response = await apiClient.post(`${ADD_SEMINAR_ATTENDEE_URL}`, 
             null, // No data in the body
             {
             params: {                
                 announcementId: announcementId, 
                 userId: userId
-            }});
+            }, 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }});
         // Check the response message and handle accordingly
         return response.data;        
     } catch (error) {
@@ -123,7 +154,13 @@ export const addSeminarAttendee = async (
 // Update Seminar Attendee
 export const updateSeminarAttendee = async (seminarId: number, updatedData: AnnouncementAttendeeModel) => {
     try {
-        const response = await apiClient.put(`${UPDATE_SEMINAR_ATTENDEE_URL}${seminarId}`, updatedData);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.put(`${UPDATE_SEMINAR_ATTENDEE_URL}${seminarId}`, updatedData, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data; // Return the response data if needed
     } catch (error) {
         throw new Error(`Error updating seminar attendance: ${error}`);

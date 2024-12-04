@@ -19,6 +19,19 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
         setCurrentIndex((prevIndex) => (prevIndex - 1 + announcement.announcementDetails.length) % announcement.announcementDetails.length);
     };    
     
+    const date = new Date(announcement.dateAnnounced);
+
+    const formattedDate = date.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long', // Full month name
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true, // 12-hour clock with AM/PM
+    });
+
+    console.log(announcement);
     return (
         <>
             <button onClick={openModal} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800">Read More...</button>
@@ -29,12 +42,11 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                         {/* Modal header */}
                         <div className="flex items-center justify-between p-4 border-b rounded-t ">
                             <RiMegaphoneFill className="w-6 h-6 text-yellow-300 "/>
-                            <h3 className="text-xl font-medium text-gray-900 ">ANNOUNCEMENT</h3>
+                            <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{announcement.title}</h2>                         
                             <button
                                 type="button"
                                 className="text-gray-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center "
-                                onClick={closeModal}
-                            >
+                                onClick={closeModal}>
                                 <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                 </svg>
@@ -45,7 +57,10 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                         <div className="flex flex-col p-4 space-x-4">
                             {/* Description Section */}
                             <div className="w-full px-4">
-                                <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">{announcement.title}</h2>
+                                <p className="justify-end text-right text-sm text-gray-600">
+                                    {formattedDate}
+                                </p>
+                                
                                 <div className="h-full my-4">
                                     <div className="text-base font-normal text-gray-700">
                                         <p className="mb-4 text-justify">
@@ -58,13 +73,15 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                             <div className="w-full h-full m-auto">
                                 {announcement.announcementDetails.length > 0 ? (
                                     <>
-                                        <div className="relative h-56 w-[95%] overflow-hidden rounded-lg md:h-96 flex justify-center items-center">
+                                        <div className="relative h-96 w-[95%] overflow-hidden rounded-lg flex justify-center items-center">
                                             {/* Display the current image */}
                                             {announcement.announcementDetails.map((detail, index) => (
                                                 <div
                                                     key={index}
-                                                    className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
-                                                    <img src={BASE_URL + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-cover" />
+                                                    className={`absolute top-0 left-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
+                                                    <img 
+                                                        src={BASE_URL + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} 
+                                                        className="w-full h-full object-fit" />
                                                 </div>
                                             ))}
                                         </div>
@@ -92,8 +109,8 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                                         </div>
                                     </>
                                 ) : (
-                                    <div className="flex items-center justify-center h-56 md:h-96">
-                                        <p className="text-gray-500">Not Available</p>
+                                    <div className="w-[95%] h-96 flex justify-center items-center pt-4">
+                                        <p className="text-gray-500">No Image Available</p>
                                     </div>
                                 )}
                             </div>
@@ -102,7 +119,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                         <div className="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b ">
                             <button 
                                 onClick={closeModal} 
-                                className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                className="text-white bg-gray-700 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                             >
                                 Close
                             </button>

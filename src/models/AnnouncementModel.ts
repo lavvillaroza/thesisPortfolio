@@ -4,8 +4,7 @@ export interface AnnouncementModel {
     id: number;
     title: string;
     description: string;
-    dateFrom: string;
-    dateTo: string;    
+    dateAnnounced: Date;    
     announcementType: number;
     images: File | null;        
     createdBy: string;

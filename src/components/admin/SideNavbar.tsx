@@ -12,20 +12,20 @@ const SideNavbar: React.FC = () => {
   return (
     <>
       {/* Desktop Sidebar (Visible on md and above) */}
-      <aside className="font-roboto h-[90%] hidden md:flex flex-col bg-gradient-to-b from-emerald-500 to-emerald-700 text-white w-80 p-4 mr-2 rounded transition-all duration-200">
-        {/* Admin Profile Section */}
-        <div className="flex flex-col items-center mb-6 hover:shadow-lg hover:bg-emerald-500 p-2 rounded transition-all duration-200">
+      <aside className="w-[20%] p-4 mr-2 rounded h-[90%] hidden md:flex flex-col bg-emerald-600 bg-gradient-to-br from-emerald-600 bg-opacity-50">
+            {/* Admin Profile Section */}
+            <div className="flex flex-col items-center mb-6 p-2 rounded transition-all duration-200 hover:scale-105">
                 <div className="w-36 h-36 bg-gray-300 rounded-full mb-2 overflow-hidden">
                     <img src={schoolLogo} alt="Admin" className="w-full h-full object-cover" />
                 </div>
                 <span className="text-lg font-semibold text-gray-50">HI ADMIN</span>
             </div>
-        {/* Divider */}
+            {/* Divider */}
             <div className="border-t border-gray-200 my-2" />
-        {/* Menu Items */}
-            <nav className="font-roboto flex flex-col space-y-4 w-full ">
+            {/* Menu Items */}
+            <nav className="flex flex-col space-y-4 w-full ">
                 <NavLink
-                    to="/admin"
+                    to="/admin/announcement"
                     className={({ isActive }) =>
                         `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-105 ${
                         isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"
@@ -89,7 +89,7 @@ const SideNavbar: React.FC = () => {
             {isOpen && (
             <div className="bg-gradient-to-b from-emerald-600 bg-emerald-700 text-white p-4">
                 <nav className="flex flex-col space-y-3">
-                    <NavLink  to="/admin" 
+                    <NavLink  to="/admin/announcement" 
                                 className={({ isActive }) =>
                                     `w-full py-2 flex items-center justify-center hover:shadow-lg bg-gray-50 font-semibold rounded transition-all duration-200 hover:scale-95 ${
                                     isActive ? "text-red-500 hover:text-emerald-500" : "text-black hover:text-emerald-500"

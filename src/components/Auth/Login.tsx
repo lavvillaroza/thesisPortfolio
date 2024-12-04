@@ -21,7 +21,6 @@ const Login: React.FC = () => {
       if (user) {
         // Retrieve the JWT token from cookies
         const token = Cookies.get('jwtToken');
-
         if (token) {
           try {
             // Decode the token
@@ -34,7 +33,7 @@ const Login: React.FC = () => {
               navigate('/');
             } else {
               // Token is valid, navigate based on user type
-              navigate(user.usertype === 1 ? '/admin' : '/student/portfolio');
+              navigate(user.usertype === 1 ? '/admin/announcement' : '/student/announcement');
             }
           } catch (error) {
             // If there is an error decoding the token, log out the user
@@ -57,14 +56,14 @@ const Login: React.FC = () => {
         const usertype = isAdmin ? 1 : 0; // Determine user type
         await login({ username, password, usertype });
         // Redirect based on user type after successful login
-        navigate(usertype === 1 ? '/admin' : '/student/portfolio');
+        navigate(usertype === 1 ? '/admin/announcement' : '/student/announcement');
       } catch (error) {
         setError("Invalid credentials or login failed");
       }
     };
 
   return (
-    <div className="font-roboto flex flex-col min-h-screen bg-gray-200">
+    <div className="font-roboto flex flex-col min-h-screen bg-gray-200 bg-custom-bg bg-cover bg-center">
       <div className="flex justify-start m-5">
         <div className="w-36 h-36 rounded-full overflow-hidden bg-gray-50">
           <img src={schoolLogo} alt="" className="w-full h-full object-scale-down" />

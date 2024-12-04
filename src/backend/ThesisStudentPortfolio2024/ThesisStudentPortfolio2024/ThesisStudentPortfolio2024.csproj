@@ -26,13 +26,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="logs\" />
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\Uploads\StudentsFiles\" />
+    <Folder Include="wwwroot\Uploads\AnnouncementsFiles\" />
+    <Folder Include="wwwroot\Uploads\CoursesFiles\" />
+    <Folder Include="wwwroot\Uploads\StudentCoverPhotos\" />
+    <Folder Include="wwwroot\Uploads\StudentFiles\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="appsettings.Production.json">
+    <Compile Update="Program.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

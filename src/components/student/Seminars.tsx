@@ -16,7 +16,6 @@ const initialStudentSeminar: StudentSeminarModel = {
     title: '',
     facilitator: '',
     dateAttended: new Date(),
-    reflection: '',
     seminarType: 0,
     seminarId: 0,
   };
@@ -26,8 +25,6 @@ const Seminars: React.FC = () => {
     const [studentSeminars, setStudentSeminars]  = useState<StudentSeminarModel[]>([]);
     const [isSeminarSchoolModalOpen, setIsSeminarSchoolModalOpen] = useState(false);
     const [isSeminarOthersModalOpen, setIsSeminarOthersModalOpen] = useState(false);    
-    const [isReflectionModalOpen, setIsReflectionModalOpen] = useState(false);
-    const [selectedReflection, setSelectedReflection] = useState<string | null>(null);
     const [userId, setUserId] = useState<number>(0);
     const [selectedSeminar, setSelectedSeminar] = useState<StudentSeminarModel>(initialStudentSeminar);    
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -36,32 +33,9 @@ const Seminars: React.FC = () => {
     const openModalForSchool = async () => setIsSeminarSchoolModalOpen(true);
     const openModalForOthers = async () => setIsSeminarOthersModalOpen(true);
     const closeModalForShool = async () => setIsSeminarSchoolModalOpen(false);
-    const closeModalForOthers = async () => setIsSeminarOthersModalOpen(false);    
-
-    const openReflectionModal = (reflection: string) => {
-        setSelectedReflection(reflection);
-        setIsReflectionModalOpen(true);
-    };
-    const closeReflectionModal = () => {
-        setSelectedReflection(null);
-        setIsReflectionModalOpen(false);
-    };
-
-    const truncateDescription = (description: string, maxLength: number) => {
-        return description.length > maxLength ? (
-            <span>                
-                <button
-                    onClick={() => openReflectionModal(description)}
-                    className="text-emerald-700 hover:text-emerald-800 underline"
-                >
-                    {description.substring(0, maxLength)}...
-                </button>
-            </span>
-        ) : (
-            description
-        );
-    };  
-    const confirmDeleteSkill = (seminar: StudentSeminarModel) => {
+    const closeModalForOthers = async () => setIsSeminarOthersModalOpen(false);           
+   
+    const confirmDeleteSeminar = (seminar: StudentSeminarModel) => {
         setSelectedSeminar(seminar);
         setIsConfirmModalOpen(true);
       };
@@ -111,11 +85,11 @@ const Seminars: React.FC = () => {
       };
 
     return (
-        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
+        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
             <div className="flex-1 m-auto">
                 <NavHeader />                
-                <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto">
-                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded">
+                <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px]">
+                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-600 bg-opacity-50 bg-gradient-to-br from-emerald-600 rounded">
                         <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[720px] px-6 pt-10">
                             <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto rounded">
                                 <div className="p-4">                                          
@@ -147,8 +121,7 @@ const Seminars: React.FC = () => {
                                                             <tr>                                                
                                                                 <th className="px-4 py-2">Title</th>
                                                                 <th className="px-4 py-2">Facilitator</th>
-                                                                <th className="px-4 py-2">Date Time</th>                                                      
-                                                                <th className="px-4 py-2">Reflection</th>                                                      
+                                                                <th className="px-4 py-2">Date Attneded</th>                                                                                                                                                                          
                                                                 <th className="px-4 py-2">Action</th>
                                                             </tr>
                                                         </thead>
@@ -158,11 +131,10 @@ const Seminars: React.FC = () => {
                                                                     <tr key={seminar.id} className="bg-white border-b hover:bg-gray-50">
                                                                         <td className="px-6 py-4">{seminar.title}</td>
                                                                         <td className="px-6 py-4">{seminar.facilitator}</td>
-                                                                        <td className="px-6 py-4">{formatDate(seminar.dateAttended)}</td>
-                                                                        <td className="px-6 py-4">{truncateDescription(seminar.reflection, 30)}</td>
+                                                                        <td className="px-6 py-4">{formatDate(seminar.dateAttended)}</td>                                                                        
                                                                         <td className="px-6 py-4">                                                                            
                                                                             <button className="text-red-700 hover:text-red-800"
-                                                                                  onClick={() => confirmDeleteSkill(seminar)}
+                                                                                  onClick={() => confirmDeleteSeminar(seminar)}
                                                                                 >
                                                                                 <FaTrashAlt />
                                                                             </button>
@@ -187,26 +159,10 @@ const Seminars: React.FC = () => {
                         </div>                       
                     </main>
                 </div>
+                <footer className="text-white text-center p-4">
+                    © 2024 Student Portfolio
+                </footer>
             </div>   
-
-            {/* Reflection Modal */}
-            {isReflectionModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white rounded-lg p-6 w-11/12 md:w-1/2">
-                        <h2 className="text-xl font-bold mb-4">Reflection</h2>
-                        <p className="text-gray-700 text-justify">{selectedReflection}</p>
-                        <div className="mt-4 flex justify-end">
-                            <button
-                                onClick={closeReflectionModal}
-                                className="bg-emerald-700 hover:bg-emerald-800 text-white font-normal px-4 py-2 rounded"
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-            
             {isSeminarSchoolModalOpen &&  (
                     <SeminarSchoolModal
                         userId={userId}

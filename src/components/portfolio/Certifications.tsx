@@ -37,13 +37,13 @@ const Certifications: React.FC = () => {
   };
 
   return (
-    <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
+    <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
     <div className="flex-1 m-auto">
         <NavHeader />                
-        <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">                     
-            <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">                        
+        <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px]">
+            <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-600 bg-opacity-50 bg-gradient-to-br from-emerald-600 rounded">
                 <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[700px] px-6 pt-10">
-                    <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded transition-all duration-200">
+                    <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded">
                       <div className="p-4">                                          
                           <div className="grid grid-cols-2 gap-4">
                             <div>
@@ -109,6 +109,9 @@ const Certifications: React.FC = () => {
                     />
                 )}
         </div>
+        <footer className="text-white text-center p-4">
+            © 2024 Student Portfolio
+        </footer>
     </div>
   </div> 
 

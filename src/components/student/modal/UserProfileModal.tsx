@@ -138,10 +138,10 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({ isOpen, onClose }) 
 
     return ReactDOM.createPortal(
         <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out">
                 <div className="relative bg-white p-8 rounded-lg shadow-lg w-[50%] md:w-[30%]">
                     <div className="flex items-center justify-between p-1 border-b rounded-t">
-                        <FaUserEdit className="w-6 h-6 text-gray-900" />
+                        <FaUserEdit className="w-6 h-6 text-yellow-300" />
                         <h3 className="text-xl font-medium text-gray-900">Update My Profile</h3>
                         <button
                             type="button"

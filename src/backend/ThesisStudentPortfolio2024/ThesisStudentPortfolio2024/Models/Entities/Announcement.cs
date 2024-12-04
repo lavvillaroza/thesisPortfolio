@@ -11,9 +11,7 @@ namespace ThesisStudentPortfolio2024.Models.Entities
         [Required]
         public string Description { get; set; } = string.Empty;
         [Required]
-        public DateTime DateTimeFrom { get; set; } = DateTime.Now;
-        [Required]
-        public DateTime DateTimeTo { get; set; } = DateTime.Now;
+        public DateTime DateAnnounced { get; set; }        
         [Required]
         public int AnnouncementType { get; set; } //0 = Announcement, 1 = Seminar
         [Required]

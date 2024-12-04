@@ -39,15 +39,15 @@ const SubjectsTaken: React.FC = () => {
     }, [pageNumber, pageSize]);
    
   return (
-      <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
+      <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
         <div className="flex-1 m-auto">
             <NavHeader />                
-            <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">                     
-                <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">                        
+            <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px]">
+                <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-600 bg-opacity-50 bg-gradient-to-br from-emerald-600 rounded">
                     <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[720px] px-6 pt-10">
-                        <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded transition-all duration-200">
+                        <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded">
                           <div className="p-4">                                          
-                            <div className="p-4 w-12/12 m-auto mx-2 my-2 h-[620px] bg-white drop-shadow-md rounded-lg overflow-auto">
+                            <div className="p-4 w-12/12 m-auto mx-2 my-2 h-[620px] bg-white drop-shadow-md rounded-lg">
                               <div className="pb-2 bg-white  h-[600px] md:h-full">     
                                     <div className="w-full relative flex justify-between items-center">                                  
                                         <div className="mb-4">
@@ -133,7 +133,10 @@ const SubjectsTaken: React.FC = () => {
                         onClose={() => setToast(null)}
                     />
                 )}             
-            </div>                                          
+            </div>  
+            <footer className="text-white text-center p-4">
+                © 2024 Student Portfolio
+            </footer>                                        
         </div>
     </div> 
     )

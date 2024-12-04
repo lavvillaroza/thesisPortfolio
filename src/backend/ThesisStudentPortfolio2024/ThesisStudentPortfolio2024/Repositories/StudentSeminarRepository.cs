@@ -44,8 +44,7 @@ namespace ThesisStudentPortfolio2024.Repositories
 
             // Update fields (you can add any other fields you want to update)            
             existingStudentSeminar.Title = studentSeminar.Title;            
-            existingStudentSeminar.DateAttended = studentSeminar.DateAttended;            
-            existingStudentSeminar.Reflection = studentSeminar.Reflection;
+            existingStudentSeminar.DateAttended = studentSeminar.DateAttended;                        
             existingStudentSeminar.LastModifiedDate = DateTime.Now;
 
             // Save changes to the database

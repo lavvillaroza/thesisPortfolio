@@ -100,21 +100,18 @@ const Subject: React.FC = () => {
     }, [searchValue, pageNumber, fetchSubjectsData]);
 
       return (
-        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">  
-            <div className="flex-1 m-auto">
+        <div className="flex flex-col md:flex-row min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">  
+            <div className="basis-3/4 mx-auto">
               <Header />  
-              <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-[750px]">
+              <div className="flex flex-col md:flex md:flex-row">
                 <SideNavbar/>
-                  <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
-                      <div className="h-[60px] p-4">
-                          <h5 className="mb-2 text-center text-2xl font-bold tracking-tight text-white">SUBJECTS</h5>                                        
-                      </div> 
-                      <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
-                          <div className="flex-auto w-full md:w-72 bg-gray-100 p-3">
-                              <div className="flex-1 mx-auto p-2 drop-shadow-lg ">                    
-                                  <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                    <div className="pb-2 bg-white h-[600px] md:h-full">
-                                        <div className="w-full relative flex justify-between items-center">
+                  <main className="basis-3/4 p-5 bg-emerald-600 bg-gradient-to-br from-emerald-600 bg-opacity-50 rounded">                      
+                      <h5 className="mb-2 text-center text-2xl font-bold text-white ">SUBJECTS</h5>  
+                      <div className="flex flex-col md:flex-row gap-4">
+                          <div className="flex-grow bg-gray-100 rounded p-5">
+                              <div className="relative shadow-md  ">                    
+                                    <div className="pb-5 bg-white h-[630px] rounded">
+                                        <div className="relative flex justify-between items-center">
                                             <label htmlFor="searchValue" className="sr-only">Search</label>
                                             <div className="relative py-3 pl-2">
                                                 <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-4 pointer-events-none">
@@ -140,9 +137,9 @@ const Subject: React.FC = () => {
                                                 </button>   
                                             </div>                                
                                         </div>                            
-                                        <div className="relative w-full max-w-full">
-                                            <div className="w-full h-[450px] px-2 md:h-full">
-                                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-200 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
+                                        <div className="relative flex flex-col h-[450px] p-5 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
+                                            <div className="overflow-x-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 max-w-full border border-gray-200">
+                                                <table className="table-fixed w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-200">
                                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                                         <tr>                                                
                                                             <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Subject Name</th>
@@ -205,7 +202,6 @@ const Subject: React.FC = () => {
                                             </div>
                                         </div>                             
                                     </div>  
-                                  </div>
                               </div>
                           </div>                                                        
                       </div>

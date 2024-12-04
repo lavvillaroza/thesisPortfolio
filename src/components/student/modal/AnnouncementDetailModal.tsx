@@ -86,7 +86,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                                 </div>
                             </div>                                                                
                         </div>
-                        {/* Carousel Section */}
+                        {/* Images Section */}
                         <div className="w-full h-full m-auto">
                             {announcement.announcementDetails.length > 0 ? (
                                 <>
@@ -95,7 +95,7 @@ const AnnouncementDetailModal: React.FC<{ announcement: AnnouncementModel }> = (
                                         {announcement.announcementDetails.map((detail, index) => (
                                             <div
                                                 key={index}
-                                                className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
+                                                className={`transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
                                                 <img src={BASE_URL + encodeURI(detail.attachedPath)} alt={`Announcement Image ${index + 1}`} className="w-full h-full object-cover" />
                                             </div>
                                         ))}

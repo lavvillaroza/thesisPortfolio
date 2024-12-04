@@ -12,9 +12,7 @@ namespace ThesisStudentPortfolio2024.Models.Dtos
         [Required]
         public string Description { get; set; } = string.Empty;
         [Required]
-        public DateTime DateTimeFrom { get; set; }
-        [Required]
-        public DateTime DateTimeTo { get; set; }
+        public DateTime DateAnnounced { get; set; }        
         [Required]
         public int AnnouncementType { get; set; }        
         [Required]

@@ -24,8 +24,7 @@ const initialStudentSeminar: StudentSeminarModel = {
   userId: 0,
   title: '',
   facilitator: '',
-  dateAttended: new Date(),
-  reflection: '',
+  dateAttended: new Date(),  
   seminarType: 0,
   seminarId: 0,
 };
@@ -97,8 +96,7 @@ const SeminarSchoolModal: React.FC<SeminarSchoolModalProps> = ({ userId, isOpen,
     formData.append('userId', userId.toString());
     formData.append('title', newStudentSeminarData.title);
     formData.append('facilitator', newStudentSeminarData.facilitator);
-    formData.append('dateAttended', dateAttended);
-    formData.append('reflection', newStudentSeminarData.reflection);
+    formData.append('dateAttended', dateAttended);    
     formData.append('seminarType', newStudentSeminarData.seminarType.toString());
     formData.append('seminarId', newStudentSeminarData.seminarId.toString());
 
@@ -205,28 +203,7 @@ const SeminarSchoolModal: React.FC<SeminarSchoolModalProps> = ({ userId, isOpen,
                       required
                     />
                   </div>
-                </div>
-                <div>
-                  <label htmlFor="reflection" className="block mb-2 text-sm font-medium text-gray-900">
-                    Reflection
-                  </label>
-                  <textarea
-                      id="reflection"
-                      name="reflection"
-                      rows={4}
-                      value={newStudentSeminarData.reflection || ''} // Default to empty string if undefined
-                      onChange={(e) =>
-                        setStudentSeminarData({
-                          ...newStudentSeminarData,
-                          reflection: e.target.value,
-                        })
-                      }
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="Write your reflection..."
-                      required>
-
-                  </textarea>
-                </div>
+                </div>                
               </div>
             </div>
             <div className="flex justify-end px-4 py-3 gap-2">

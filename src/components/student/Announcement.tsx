@@ -92,16 +92,16 @@ const Announcement: React.FC = () => {
     const handleNextPage = () => setPageNumber((prev) => Math.min(prev + 1, totalPages));
 
     return (
-        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
+        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
             <div className="flex-1 m-auto">
                 <NavHeader />                
-                <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100">                     
-                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
+                <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px]">                     
+                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded bg-opacity-50">
                         <div className="h-[60px] p-4">
                             <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">ANNOUNCEMENTS</h5>
                         </div>
                         <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
-                            <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded transition-all duration-200">
+                            <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 rounded">
                                 {/* <p className="text-black text-left my-2 hover:text-green-500 text-lg">ANNOUNCEMENTS:</p>  */}
                                 <div className="overflow-y-auto scrollbar scrollbar-thumb-green-700 scrollbar-track-gray-100 h-[550px]">
                                     {announcements.length === 0 ? (
@@ -166,6 +166,9 @@ const Announcement: React.FC = () => {
                         </div>
                     </main>
                 </div>
+                <footer className="text-white text-center p-4">
+                    © 2024 Student Portfolio
+                </footer>
             </div>            
         </div>        
     );

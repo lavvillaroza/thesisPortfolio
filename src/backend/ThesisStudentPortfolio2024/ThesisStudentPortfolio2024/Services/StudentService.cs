@@ -122,8 +122,7 @@ namespace ThesisStudentPortfolio2024.Services
                 UserId = studentSeminarDto.UserId,
                 Title = studentSeminarDto.Title,
                 DateAttended = studentSeminarDto.DateAttended,
-                Facilitator = studentSeminarDto.Facilitator,
-                Reflection = studentSeminarDto.Reflection,
+                Facilitator = studentSeminarDto.Facilitator,                
                 SeminarType = studentSeminarDto.SeminarType,
                 CreatedDate = DateTime.Now,
                 LastModifiedDate = DateTime.Now
@@ -138,8 +137,7 @@ namespace ThesisStudentPortfolio2024.Services
                 UserId = studentSeminarDto.UserId,
                 Title = studentSeminarDto.Title,
                 DateAttended = studentSeminarDto.DateAttended,
-                Facilitator = studentSeminarDto.Facilitator,
-                Reflection = studentSeminarDto.Reflection,
+                Facilitator = studentSeminarDto.Facilitator,                
                 SeminarType = studentSeminarDto.SeminarType,
                 LastModifiedDate = DateTime.Now
             };
@@ -162,8 +160,7 @@ namespace ThesisStudentPortfolio2024.Services
                     UserId = seminar.UserId,
                     Title = seminar.Title,
                     DateAttended = seminar.DateAttended,
-                    Facilitator = seminar.Facilitator,
-                    Reflection = seminar.Reflection,
+                    Facilitator = seminar.Facilitator,                    
                     SeminarType = seminar.SeminarType,
                     SeminarId = seminar.Id
                 };

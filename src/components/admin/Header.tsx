@@ -60,10 +60,8 @@ useEffect(() => {
   const closeChangePasswordModal = () => setIsChangePasswordModaOpen(false);
 
   return (
-    <header className="font-roboto">
-      <div className="container mx-auto w-full">
-        <div className="relative flex items-center justify-between h-28">
-          <div className="origin-top-right absolute right-0 h-30 w-30 z-50">
+    <header className="p-4 flex justify-end relative md:mr-12">
+        <div className="h-30 w-30 z-50">
             <div className="relative inline-block">
               <button
                 onClick={toggleDropdown}
@@ -71,21 +69,18 @@ useEffect(() => {
                 className="inline-flex justify-center focus:outline-none hover:scale-110"
                 id="menu-button"
                 aria-expanded={dropdownOpen}
-                aria-haspopup="true"
-              >
+                aria-haspopup="true">
                 <img
                   className="h-16 w-16 rounded-full border-2 border-gray-500"
                   src={profileSvg}
-                  alt="Profile"
-                />
+                  alt="Profile"/>
               </button>
               {dropdownOpen && (
                 <div
                   className="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-gray-50 ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
-                  aria-labelledby="menu-button"
-                >
+                  aria-labelledby="menu-button">
                   <div className="py-1" role="none">
                     <div className="py-3 px-4">
                       <span className="block text-sm font-semibold text-gray-900">
@@ -125,8 +120,6 @@ useEffect(() => {
               )}
             </div>
           </div>
-        </div>
-      </div>
 
       {/* Render the UserProfileModal */}
       {isModalOpen && (

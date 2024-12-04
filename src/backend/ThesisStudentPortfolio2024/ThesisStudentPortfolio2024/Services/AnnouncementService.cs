@@ -22,12 +22,15 @@ namespace ThesisStudentPortfolio2024.Services
         }  
 
         public async Task<bool> AddAnnouncementAsync(AnnouncementDto announcementDTO) {
+            DateTime getTime  = DateTime.Now;
+            DateTime getDA = announcementDTO.DateAnnounced;
+            announcementDTO.DateAnnounced = new DateTime(getDA.Year, getDA.Month, getDA.Day, getTime.Hour, getTime.Minute, getTime.Second);
+
             var announcement = new Announcement
             {
                 Title = announcementDTO.Title,
                 Description = announcementDTO.Description,
-                DateTimeFrom = announcementDTO.DateTimeFrom,
-                DateTimeTo = announcementDTO.DateTimeTo,
+                DateAnnounced = announcementDTO.DateAnnounced,                
                 AnnouncementType = (short)announcementDTO.AnnouncementType,
                 CreatedBy = announcementDTO.CreatedBy, // Username from form data
                 CreatedDate = DateTime.Now,
@@ -98,8 +101,7 @@ namespace ThesisStudentPortfolio2024.Services
                     Id = announcement.Id,
                     Title = announcement.Title,
                     Description = announcement.Description,
-                    DateTimeFrom = announcement.DateTimeFrom,
-                    DateTimeTo = announcement.DateTimeTo,
+                    DateAnnounced = announcement.DateAnnounced,
                     AnnouncementType = announcement.AnnouncementType,
                     CreatedBy = announcement.CreatedBy,
                     CreatedDate = announcement.CreatedDate,
@@ -146,8 +148,7 @@ namespace ThesisStudentPortfolio2024.Services
                     Id = announcement.Id,
                     Title = announcement.Title,
                     Description = announcement.Description,
-                    DateTimeFrom = announcement.DateTimeFrom,
-                    DateTimeTo = announcement.DateTimeTo,
+                    DateAnnounced = announcement.DateAnnounced,
                     AnnouncementType = announcement.AnnouncementType,
                     CreatedBy = announcement.CreatedBy,
                     CreatedDate = announcement.CreatedDate,
@@ -195,8 +196,7 @@ namespace ThesisStudentPortfolio2024.Services
                     Id = announcement.Id,
                     Title = announcement.Title,
                     Description = announcement.Description,
-                    DateTimeFrom = announcement.DateTimeFrom,
-                    DateTimeTo = announcement.DateTimeTo,
+                    DateAnnounced = announcement.DateAnnounced,                    
                     AnnouncementType = announcement.AnnouncementType,
                     CreatedBy = announcement.CreatedBy,
                     CreatedDate = announcement.CreatedDate,

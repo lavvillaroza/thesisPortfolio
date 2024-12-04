@@ -3,8 +3,7 @@ export interface StudentSeminarModel {
     userId: number;
     title: string;
     facilitator: string;
-    dateAttended: Date;        
-    reflection: string;
+    dateAttended: Date;            
     seminarType: number;    
     seminarId: number;    
   }

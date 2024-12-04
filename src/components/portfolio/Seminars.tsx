@@ -8,31 +8,11 @@ const Seminars: React.FC = () => {
     const { userId } = useParams<{ userId: string }>(); // Get `userId` from route parameters     
     const [studentSeminars, setStudentSeminars]  = useState<StudentSeminarModel[]>([]);        
     const [isReflectionModalOpen, setIsReflectionModalOpen] = useState(false);
-    const [selectedReflection, setSelectedReflection] = useState<string | null>(null);    
-        
-    const openReflectionModal = (reflection: string) => {
-        setSelectedReflection(reflection);
-        setIsReflectionModalOpen(true);
-    };
+    const [selectedReflection, setSelectedReflection] = useState<string | null>(null);              
     const closeReflectionModal = () => {
         setSelectedReflection(null);
         setIsReflectionModalOpen(false);
-    };
-
-    const truncateDescription = (description: string, maxLength: number) => {
-        return description.length > maxLength ? (
-            <span>                
-                <button
-                    onClick={() => openReflectionModal(description)}
-                    className="text-emerald-700 hover:text-emerald-800 underline"
-                >
-                    {description.substring(0, maxLength)}...
-                </button>
-            </span>
-        ) : (
-            description
-        );
-    };      
+    };   
     const fetchSeminars = async () => {
         try {
             if (!userId) return;              
@@ -53,13 +33,13 @@ const Seminars: React.FC = () => {
       };
 
     return (
-        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
+        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
             <div className="flex-1 m-auto">
                 <NavHeader />                
-                <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto">
-                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-green-700 bg-gradient-to-br from-emerald-600 rounded">
+                <div className="flex flex-col md:flex-col bg-background text-foreground mx-auto w-full h-full md:h-[750px]">
+                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-600 bg-opacity-50 bg-gradient-to-br from-emerald-600 rounded">
                         <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[720px] px-6 pt-10">
-                            <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 overflow-y-auto rounded">
+                            <div className="flex-auto w-full md:w-72 bg-gray-100 p-1 rounded">
                                 <div className="p-4">                                          
                                     <div className="p-4 w-12/12 m-auto mx-2 my-2 h-[620px] bg-white drop-shadow-md rounded-lg overflow-auto">
                                         <div className="pb-2 bg-white">
@@ -70,13 +50,12 @@ const Seminars: React.FC = () => {
                                             </div>
                                             <div className="relative w-full max-w-full">
                                                 <div className="w-full h-[450px] px-2">
-                                                    <table className="w-full text-sm text-left text-gray-500 border border-gray-200 overflow-y-auto rounded">
+                                                    <table className="w-full text-sm text-left text-gray-500 border border-gray-200 rounded">
                                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                                             <tr>                                                
                                                                 <th className="px-4 py-2">Title</th>
                                                                 <th className="px-4 py-2">Facilitator</th>
-                                                                <th className="px-4 py-2">Date Time</th>                                                      
-                                                                <th className="px-4 py-2">Reflection</th>                                                                                                                      
+                                                                <th className="px-4 py-2">Date Attended</th>                                                                                                                                                                                                            
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -85,8 +64,7 @@ const Seminars: React.FC = () => {
                                                                     <tr key={seminar.id} className="bg-white border-b hover:bg-gray-50">
                                                                         <td className="px-6 py-4">{seminar.title}</td>
                                                                         <td className="px-6 py-4">{seminar.facilitator}</td>
-                                                                        <td className="px-6 py-4">{formatDate(seminar.dateAttended)}</td>
-                                                                        <td className="px-6 py-4">{truncateDescription(seminar.reflection, 30)}</td>                                                                        
+                                                                        <td className="px-6 py-4">{formatDate(seminar.dateAttended)}</td>                                                                        
                                                                     </tr>
                                                                 ))
                                                             ) : (
@@ -107,6 +85,9 @@ const Seminars: React.FC = () => {
                         </div>                       
                     </main>
                 </div>
+                <footer className="text-white text-center p-4">
+                    © 2024 Student Portfolio
+                </footer>
             </div>   
 
             {/* Reflection Modal */}

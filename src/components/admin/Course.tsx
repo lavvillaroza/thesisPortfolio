@@ -9,7 +9,7 @@ import { checkTokenAndLogout } from '../../utils/jwtUtil';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../api/apiConfig';
 import CustomToast from '../common/CustomToast';
-
+import defaultImage from '../../assets/default-image.svg';
 const Course: React.FC = () => {
     const initialCourseState: CourseModel = {
         id: 0,
@@ -124,19 +124,17 @@ const Course: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
-            <div className="flex-1 m-auto">
+        <div className="flex flex-col md:flex-row min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
+            <div className="basis-3/4 mx-auto">
                 <Header />
-                <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
+                <div className="flex flex-col md:flex md:flex-row">
                     <SideNavbar />
-                    <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
-                        <div className="h-[60px] p-4">
-                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">COURSES</h5>
-                        </div>
-                        <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
-                            <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
+                    <main className="basis-3/4 p-5 bg-emerald-600 bg-gradient-to-br from-emerald-600 bg-opacity-50 rounded">
+                        <h5 className="mb-2 text-center text-2xl font-bold text-white ">COURSES</h5>                               
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <div className="flex-grow bg-gray-100 p-3 rounded">
                                 <div className="flex-1 mx-auto p-2 drop-shadow-lg "> 
-                                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
+                                    <div className="relative overflow-x-auto shadow-md overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
                                         <div className="pb-2 bg-white h-[630px] sm:h-[630px] md:h-[630px] ">
                                             <label htmlFor="table-search" className="sr-only">Search</label>                                    
                                             <div className="w-full relative p-4 mt-1 flex justify-between items-center">
@@ -164,11 +162,11 @@ const Course: React.FC = () => {
                                                     </button>
                                                 </div>                                        
                                             </div>
-                                            <div className="w-full relative max-w-full">
+                                            <div className="relative">
                                                 {courseList.length === 0 ? (
                                                     <p className="text-center justify-center italic m-auto">No available course found!</p>
                                                 ) : (
-                                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl">
                                                         {filteredCourses.map((course) => (
                                                             <div key={course.id} className="ml-4 w-full hover:scale-95">
                                                                 <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100">
@@ -177,6 +175,9 @@ const Course: React.FC = () => {
                                                                             className="object-fill w-32 h-32 rounded-t-lg md:h-32 md:w-32 md:rounded-none md:rounded-s-lg"
                                                                             src={BASE_URL + encodeURI(course.courseLogoUrl)}
                                                                             alt="Course logo"
+                                                                            onError={(e) => {
+                                                                                (e.target as HTMLImageElement).src = defaultImage; // Replace with your default image path
+                                                                            }}
                                                                         />
                                                                     </div>
                                                                     <div className="flex flex-col justify-between p-4 leading-normal w-full">
@@ -194,12 +195,13 @@ const Course: React.FC = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>                        
                         </div>
                     </main>
                 </div>
-
+                <footer className="text-white text-center p-4">
+                    © 2024 Student Portfolio
+                </footer>
                 {/* Add Course Modal */}
                 {isModalOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full bg-gray-800 bg-opacity-50">

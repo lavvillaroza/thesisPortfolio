@@ -113,130 +113,136 @@ const Student: React.FC = () => {
             return `${year}th Year`;
         }
       };
-    const handleOpenPortfolioUrl = (student: StudentDetailModel) => {        
+    const handleOpenPortfolioUrl = (student: StudentDetailModel) => {   
+        console.log('Environment Variables:', import.meta.env);
+        console.log(REACT_BASE_URL);
+
         window.open(REACT_BASE_URL + 'portfolio/' + student.userId.toString() + '/information', '_blank'); // Opens in a new tab
     };
   return (
-    <div className="flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
-          <div className="flex-1 m-auto">
+    <div className="flex flex-col md:flex-row min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
+          <div className="basis-3/4 mx-auto">
             <Header />
-          <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
+          <div className="flex flex-col md:flex md:flex-row">
             <SideNavbar />
-            <main className="font-roboto flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
-              <div className="h-[60px] p-4">
-                <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">STUDENTS</h5>                                        
-              </div> 
-              <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
-                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto  rounded transition-all duration-200">
-                  <div className="flex-1 mx-auto p-4 drop-shadow-lg ">                    
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
-                        <div className="pb-4 bg-whiteh-[600px]">
-                            <div className="w-full relative flex justify-between items-center">
-                                <label htmlFor="searchValue" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-                                <div className="relative ml-2 my-2 w-[400px]">
-                                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="search" 
-                                        id="searchValue"
-                                        name="searchValue"
-                                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500  " 
-                                        placeholder="Search for student name"
-                                        value={searchValue}
-                                        onChange={handleSearchInputChange}
-                                        required />
-                                    <button 
-                                        onClick={handleSearchButtonClick} 
-                                        className="text-white absolute end-2.5 bottom-2.5 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 ">
-                                            Search
-                                    </button>
-                                </div>                                
-                                <div className="relative py-3 pr-2">
-                                    <button
-                                        onClick={openModal}
-                                        className={`bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out transform flex items-center justify-center
-                                            ${isClicked ? 'rotate-45' : ''}
-                                            hover:scale-110`}
-                                    >
-                                        <FaPlus className="w-3 h-3" />
-                                    </button>   
-                                </div>                                
-                            </div>                            
-                            <div className="relative w-full max-w-full overflow-x-auto">
-                                <div className="w-full h-[430px] px-2">
-                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-200">
-                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                                            <tr>                                                
-                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student Name</th>
-                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student ID</th>
-                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Course</th>
-                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Year Start</th>
-                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Year Level</th>
-                                                <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {studentList.length > 0 ? (
-                                                    studentList.map(student => (
-                                                        <tr key={student.id} className="bg-white border-b">
-                                                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                                                                <img className="w-10 h-10 rounded-full border border-gray-500" src={studentIcon} alt="Jese image"/>
-                                                                <div className="ps-3">
-                                                                    <div className="text-base font-semibold">{student.studentName}</div>
-                                                                    <div className="font-normal text-gray-500">{student.schoolEmail}</div>
-                                                                </div>  
-                                                            </th>                                                                                                                
-                                                            <td className="px-6 py-4">{student.studentId}</td>
-                                                            <td className="px-6 py-4">{student.courseName}</td>
-                                                            <td className="px-6 py-4">{student.yearStart}</td>
-                                                            <td className="px-6 py-4">{getYearString(student.yearLevel)}</td>
-                                                            <td className="px-6 py-4">
-                                                                <button 
-                                                                    onClick={() => handleOpenPortfolioUrl(student) } 
-                                                                    className="text-blue-600  hover:underline">
-                                                                    View Portfolio
-                                                                </button>
-                                                            </td>                                                    
+            <main className="basis-3/4 p-5 bg-emerald-600 bg-gradient-to-br from-emerald-600 bg-opacity-50 rounded">
+                <h5 className="mb-2 text-center text-2xl font-bold text-white ">STUDENTS</h5>                
+                <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex-grow bg-gray-100 rounded p-5">
+                        <div className="relative shadow-md ">
+                            <div className="pb-5 bg-white h-[630px] rounded">
+                                <div className="relative flex justify-between items-center">
+                                    <label htmlFor="searchValue" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                                    <div className="relative ml-2 my-2 w-[400px]">
+                                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path 
+                                                    stroke="currentColor" 
+                                                    strokeLinecap="round" 
+                                                    strokeLinejoin="round" 
+                                                    strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                            </svg>
+                                        </div>
+                                        <input type="search" 
+                                            id="searchValue"
+                                            name="searchValue"
+                                            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-emerald-500 focus:border-emerald-500  " 
+                                            placeholder="Search for student name"
+                                            value={searchValue}
+                                            onChange={handleSearchInputChange}
+                                            required />
+                                        <button 
+                                            onClick={handleSearchButtonClick} 
+                                            className="text-white absolute end-2.5 bottom-2.5 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 ">
+                                                Search
+                                        </button>
+                                    </div>                                
+                                    <div className="relative py-3 pr-2">
+                                        <button
+                                            onClick={openModal}
+                                            className={`bg-emerald-700 hover:bg-emerald-800 text-white font-normal p-3 rounded-full transition duration-150 ease-in-out transform flex items-center justify-center
+                                                ${isClicked ? 'rotate-45' : ''}
+                                                hover:scale-110`}>
+                                            <FaPlus className="w-3 h-3" />
+                                        </button>   
+                                    </div>                                
+                                </div>                            
+                                <div className="relative flex flex-col h-[450px] p-5 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
+                                    <div className="overflow-x-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 max-w-full border border-gray-200">
+                                        <table className="table-fixed w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-200">
+                                            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                                                <tr>                                                
+                                                    <th scope="col" className="sticky left-0 px-6 py-3 border-b border-gray-200 bg-gray-100 z-10 w-64">Student Name</th>
+                                                    <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Student ID</th>
+                                                    <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Course</th>
+                                                    <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Year Start</th>
+                                                    <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Year Level</th>
+                                                    <th scope="col" className="px-6 py-3 border-b border-gray-200 bg-gray-100">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {studentList.length > 0 ? (
+                                                        studentList.map(student => (
+                                                            <tr key={student.id} className="bg-white border-b">
+                                                                <td scope="row" className="sticky left-0 flex items-center px-6 py-4 text-gray-900 text-sm sm:text-base md:text-sm lg:text-md">
+                                                                    <img className="w-10 h-10 rounded-full border border-gray-500" src={studentIcon} alt="Jese image"/>
+                                                                    <div className="ps-3">
+                                                                        <div className="text-base font-semibold">{student.studentName}</div>
+                                                                        <div className="font-normal text-gray-500">{student.schoolEmail}</div>
+                                                                    </div>  
+                                                                </td>                                                                                                                
+                                                                <td className="px-6 py-4">{student.studentId}</td>
+                                                                <td className="px-6 py-4">{student.courseName}</td>
+                                                                <td className="px-6 py-4">{student.yearStart}</td>
+                                                                <td className="px-6 py-4">{getYearString(student.yearLevel)}</td>
+                                                                <td className="px-6 py-4">
+                                                                    <button 
+                                                                        onClick={() => handleOpenPortfolioUrl(student) } 
+                                                                        className="text-blue-600  hover:underline">
+                                                                        View Portfolio
+                                                                    </button>
+                                                                </td>                                                    
+                                                            </tr>
+                                                        ))
+                                                    ) : (
+                                                        <tr className="bg-white border-b hover:bg-gray-50 ">
+                                                            <td colSpan={7} className="text-center px-6 py-4">No data available.</td>
                                                         </tr>
-                                                    ))
-                                                ) : (
-                                                    <tr className="bg-white border-b hover:bg-gray-50 ">
-                                                        <td colSpan={7} className="text-center px-6 py-4">No data available.</td>
-                                                    </tr>
-                                                )}
-                                        </tbody>
-                                    </table>  
-                                </div>                               
-                            </div>      
-                             {/* Pagination controls */}
-                             <div className="relative flex flex-col items-end mt-5 mr-5">
-                                <span className="text-sm text-gray-700">
-                                    Page {pageNumber} of {totalPages}
-                                </span>
-                                <div className="inline-flex mt-2 xs:mt-0">
-                                    <button
-                                        className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
-                                        onClick={handlePrevPage}
-                                        disabled={pageNumber === 1}>
-                                        Prev
-                                    </button>
-                                    <button
-                                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
-                                        onClick={handleNextPage}
-                                        disabled={pageNumber === totalPages}>
-                                        Next
-                                    </button>
-                                </div>
-                            </div>                             
-                        </div>                        
+                                                    )}
+                                            </tbody>
+                                        </table>  
+                                    </div>                                                                                                                                               
+                                </div>      
+                                {/* Pagination controls */}
+                                <div className="relative flex flex-col items-end mt-5 mr-5">
+                                    <span className="text-sm text-gray-700">
+                                        Page {pageNumber} of {totalPages}
+                                    </span>
+                                    <div className="inline-flex mt-2 xs:mt-0">
+                                        <button
+                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
+                                            onClick={handlePrevPage}
+                                            disabled={pageNumber === 1}>
+                                            Prev
+                                        </button>
+                                        <button
+                                            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
+                                            onClick={handleNextPage}
+                                            disabled={pageNumber === totalPages}>
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>    
+
+                            </div>                                                     
+                        </div>                                  
                     </div>
-                  </div>
                 </div>
-              </div>
             </main>
           </div>
+          <footer className="text-white text-center p-4">
+            © 2024 Student Portfolio
+        </footer>
           {userId && (
                 <AddStudentModal
                     userId= {userId}

@@ -43,7 +43,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     }, []);
     const login = async (loginData: UserDetails) => {
-        const response = await axios.post(`${API_BASE_URL}/Auth/login`, loginData);
+        console.log(API_BASE_URL);
+        const response = await axios.post(`${API_BASE_URL}/Auth/login`, loginData, {
+            headers: {
+              'Content-Type': 'application/json'
+            }});
+        
         const { token, userDetails } = response.data;
 
         if (!token || !userDetails) {

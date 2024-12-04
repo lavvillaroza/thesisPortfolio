@@ -19,7 +19,7 @@ namespace ThesisStudentPortfolio2024.Repositories
         async Task<IEnumerable<Announcement>> IAnnouncementRepository.GetAnnouncementsByDateAsync(DateTime dateTime)
         {                        
             var announcements = await _context.Announcements
-                                    .Where(a => a.DateTimeFrom >= dateTime && a.DateTimeTo <= dateTime.AddDays(1) && a.Delete == 0)
+                                    .Where(a => a.DateAnnounced.Date == dateTime.Date && a.Delete == 0)
                                     .ToListAsync();
             return announcements;
 
@@ -28,7 +28,7 @@ namespace ThesisStudentPortfolio2024.Repositories
         async Task<IEnumerable<Announcement>> IAnnouncementRepository.GetSeminarsByYearAsync(int year)
         {
             var announcements = await _context.Announcements
-                                    .Where(a => a.DateTimeFrom.Year == year && a.AnnouncementType == 1  && a.Delete == 0)
+                                    .Where(a => a.DateAnnounced.Year == year && a.AnnouncementType == 1  && a.Delete == 0)
                                     .ToListAsync();
             return announcements;
 
@@ -99,8 +99,7 @@ namespace ThesisStudentPortfolio2024.Repositories
             // Update fields (you can add any other fields you want to update)
             existingAnnouncement.Title = announcement.Title;
             existingAnnouncement.Description = announcement.Description;
-            existingAnnouncement.DateTimeFrom = announcement.DateTimeFrom;
-            existingAnnouncement.DateTimeTo = announcement.DateTimeTo;
+            existingAnnouncement.DateAnnounced = announcement.DateAnnounced;
             existingAnnouncement.AnnouncementType = announcement.AnnouncementType;
             existingAnnouncement.LastModifiedBy = announcement.LastModifiedBy;
             existingAnnouncement.LastModifiedDate = announcement.LastModifiedDate;

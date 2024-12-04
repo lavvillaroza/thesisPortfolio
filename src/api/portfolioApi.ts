@@ -12,14 +12,20 @@ import apiClient from "./apiClient";
 import { P_GET_STUDENT_CERTIFICATES_URL, P_GET_STUDENT_COURSE_PROGRESS_URL, P_GET_STUDENT_DETAIL_URL, P_GET_STUDENT_FUTURE_CAREER_URL, 
     P_GET_STUDENT_INFO_URL, P_GET_STUDENT_RECOGNITIONS_URL, P_GET_STUDENT_SEMINARS_URL, 
     P_GET_STUDENT_SKILLS_URL, P_GET_STUDENT_SUBJECTS_TAKEN_URL} from "./apiConfig";
-
+    import Cookies from 'js-cookie';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function fetchStudentDetail(
     userId: number | null
 ): Promise<StudentDetailModel> {
     try {
-        const response = await apiClient.get<StudentDetailModel>(`${P_GET_STUDENT_DETAIL_URL}/${userId}`);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.get<StudentDetailModel>(`${P_GET_STUDENT_DETAIL_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching detail:", error);
@@ -32,7 +38,13 @@ export async function fetchStudentInformation(
     userId: number | null
 ): Promise<StudentInformationModel> {
     try {
-        const response = await apiClient.get<StudentInformationModel>(`${P_GET_STUDENT_INFO_URL}/${userId}`);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.get<StudentInformationModel>(`${P_GET_STUDENT_INFO_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching detail:", error);
@@ -46,11 +58,16 @@ export async function fetchStudentSubjectsTaken(
     userId: number | null
 ): Promise<PagedResultModel<StudentSubjectTakenModel>> {
     try {
+        const token = Cookies.get('jwtToken');
         const response = await apiClient.get<PagedResultModel<StudentSubjectTakenModel>>(`${P_GET_STUDENT_SUBJECTS_TAKEN_URL}/${userId}`, {
             params: {
                 pageNumber: paginationParams.pageNumber,
                 pageSize: paginationParams.pageSize,                
-            }
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
         });
 
         return response.data;
@@ -65,7 +82,13 @@ export async function fetchStudentSkills(
     userId: number | null
 ): Promise<StudentSkillModel[]> {
     try {
-        const response = await apiClient.get<StudentSkillModel[]>(`${P_GET_STUDENT_SKILLS_URL}/${userId}`);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.get<StudentSkillModel[]>(`${P_GET_STUDENT_SKILLS_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching skills:", error);
@@ -78,7 +101,13 @@ export async function fetchStudentFutureCareers(
     userId: number | null
 ): Promise<PredictedCareerModel[]> {
     try {
-        const response = await apiClient.get<PredictedCareerModel[]>(`${P_GET_STUDENT_FUTURE_CAREER_URL}/${userId}`);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.get<PredictedCareerModel[]>(`${P_GET_STUDENT_FUTURE_CAREER_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error careers prediction", error);
@@ -91,7 +120,13 @@ export async function fetchStudentCertificates(
     userId: number | null
 ): Promise<StudentCertAndRecogModel[]> {
     try {
-        const response = await apiClient.get<StudentCertAndRecogModel[]>(`${P_GET_STUDENT_CERTIFICATES_URL}/${userId}`);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.get<StudentCertAndRecogModel[]>(`${P_GET_STUDENT_CERTIFICATES_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching Student Certificates", error);
@@ -104,7 +139,13 @@ export async function fetchStudentRecognitions(
     userId: number | null
 ): Promise<StudentCertAndRecogModel[]> {
     try {
-        const response = await apiClient.get<StudentCertAndRecogModel[]>(`${P_GET_STUDENT_RECOGNITIONS_URL}/${userId}`);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.get<StudentCertAndRecogModel[]>(`${P_GET_STUDENT_RECOGNITIONS_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching Student Recognitions", error);
@@ -117,7 +158,13 @@ export async function fetchStudentSeminars(
     userId: number | null
 ): Promise<StudentSeminarModel[]> {
     try {
-        const response = await apiClient.get<StudentSeminarModel[]>(`${P_GET_STUDENT_SEMINARS_URL}/${userId}`);
+        const token = Cookies.get('jwtToken');
+        const response = await apiClient.get<StudentSeminarModel[]>(`${P_GET_STUDENT_SEMINARS_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching Student Seminars", error);
@@ -128,8 +175,14 @@ export async function fetchStudentSeminars(
 export async function fetchCourseProgressByStudentUserId(    
     userId: number
 ): Promise<StudentCourseWithSubjectsModel> {
-    try {        
-        const response = await apiClient.get<StudentCourseWithSubjectsModel>(`${P_GET_STUDENT_COURSE_PROGRESS_URL}/${userId}`);
+    try {    
+        const token = Cookies.get('jwtToken');    
+        const response = await apiClient.get<StudentCourseWithSubjectsModel>(`${P_GET_STUDENT_COURSE_PROGRESS_URL}/${userId}`, {           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include your JWT if required
+          }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching course progress using student user id:", error);

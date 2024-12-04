@@ -3,7 +3,7 @@ import 'react-calendar/dist/Calendar.css';
 import 'flowbite/dist/flowbite.css';
 import 'flowbite/dist/flowbite.js';
 import SideNavbar from './SideNavbar';
-import HeaderNew from './Header';
+import Header from './Header';
 import { addAnnouncement } from '../../api/announcementApi';
 import CustomToast from '../common/CustomToast';
 
@@ -14,9 +14,7 @@ const CreateAnouncement: React.FC = () => {
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');    
     const [images, setImages] = useState<File[]>([]); // Array to handle multiple images
-    const [imagePreviews, setImagePreviews] = useState<string[]>([]); // For image previews
-    const [startTime, setStartTime] = useState<string>('06:00'); // Default value
-    const [endTime, setEndTime] = useState<string>('22:00'); // Default value
+    const [imagePreviews, setImagePreviews] = useState<string[]>([]); // For image previews    
     const [announcementType, setAnnouncementType] = useState<number>(0); // Added state for radio buttons
 
     const [showToast, setShowToast] = useState<boolean>(false); // For toast visibility
@@ -54,21 +52,14 @@ const CreateAnouncement: React.FC = () => {
             formattedDate?.getMonth() ?? 0,      // Default month (January) if undefined
             formattedDate?.getDate() ?? 1,       // Default day if undefined
         ];
-        
-
-        const [fromHours, fromMinutes] = startTime.split(':').map(Number);
-        const [toHours, toMinutes] = endTime.split(':').map(Number);
-
         // Combine date with start and end times        
-        const dateTimeFrom = new Date(year, month, day, fromHours ?? 0, fromMinutes ?? 0);
-        const dateTimeTo = new Date(year, month, day, toHours ?? 0, toMinutes ?? 0);
+        const dateSelected = new Date(year, month, day);        
     
         const formData = new FormData();
         formData.append('id', '0');
         formData.append('title', title);
         formData.append('description', description);
-        formData.append('dateTimeFrom', dateTimeFrom.toLocaleString());
-        formData.append('dateTimeTo', dateTimeTo.toLocaleString());
+        formData.append('dateAnnounced', dateSelected.toLocaleString());        
         formData.append('announcementType', announcementType.toString());
         
         if (user) {
@@ -94,9 +85,7 @@ const CreateAnouncement: React.FC = () => {
             setDescription('');
             setImages([]);
             setSelectedDate(null);
-            setImagePreviews([]);
-            setStartTime('09:00');
-            setEndTime('18:00');
+            setImagePreviews([]);            
         } catch (error) {
             setToastMessage('Error adding announcement.');
             setToastType('error');
@@ -112,7 +101,6 @@ const CreateAnouncement: React.FC = () => {
 
     useEffect(() => {
         const getCurrentDate = () => new Date();
-
         const datepickerElement = document.getElementById('inline-calendar');
         if (datepickerElement) {
             const currentDate = getCurrentDate();
@@ -142,39 +130,34 @@ const CreateAnouncement: React.FC = () => {
         if (hiddenInput && selectedDate) {
             //const formattedDate = formatDateToMMDDYYYY(new Date(selectedDate));
             setFormattedDate(selectedDate);
-            hiddenInput.value = selectedDate.toISOString().slice(0, 10);
+            hiddenInput.value = selectedDate.toLocaleString();
         }
     }, [selectedDate]);
 
     return (
-        <div className="font-roboto flex p-4 md:flex md:flex-col bg-gray-100 py-2 min-h-screen min-w-screen w-full">
-            <div className="flex-1 m-auto">
-                <HeaderNew/>
-                <div className="flex flex-col md:flex-row bg-background text-foreground mx-auto w-full h-full md:h-[750px] overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
+        <div className="flex flex-col md:flex-row min-h-screen min-w-screen w-full bg-custom-bg bg-cover bg-center">
+            <div className="basis-3/4 mx-auto">
+                <Header/>
+                <div className="flex flex-col md:flex md:flex-row">
                     <SideNavbar/>
-                    <main className="flex-1 w-full md:w-[1100px] md:h-full mx-auto h-full bg-emerald-700 bg-gradient-to-br from-emerald-600 rounded transition-all duration-200">
-                        <div className="h-[60px] p-4">
-                            <h5 className="mb-2 text-center text-3xl font-bold tracking-tight text-white ">NEW ANNOUNCEMENT</h5>                        
-                        </div>                         
+                    <main className="basis-3/4 p-5 bg-emerald-600 bg-gradient-to-br from-emerald-600 bg-opacity-50 rounded">
+                        <h5 className="mb-2 text-center text-2xl font-bold text-white ">NEW ANNOUNCEMENT</h5>                           
                         <form onSubmit={handleSubmit}>
-                            <div className="flex flex-col-reverse md:flex-row gap-4 min-h-[660px] px-6">
-                                <div className="flex-auto w-full md:w-72 bg-gray-100 p-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100 rounded transition-all duration-200">
-                                    <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-1 overflow-y-auto scrollbar scrollbar-thumb-emerald-700 scrollbar-track-gray-100">
-                                        <div className="flex justify-between">
-                                            <label htmlFor="title" className="block mb-2 text-lg font-bold text-gray-900">Subject/Title</label>                                                                                        
-                                        </div>
-                                        <div>
+                            <div className="flex flex-col md:flex-row gap-4">
+                                <div className="basis-4/5 bg-gray-100 p-3 rounded">
+                                    <div className="h-[650px]">                                        
+                                        <div className="mb-2">
                                             <input 
                                                 type="text" 
                                                 id="title" 
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" 
-                                                placeholder="Subject/Title" 
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" 
+                                                placeholder="Title" 
                                                 required />
                                         </div>
                                         {/* Radio Buttons */}
-                                        <div className="flex space-x-4">                                                
+                                        <div className="space-x-4 mb-2">
                                             <label className="inline-flex items-center">
                                                 <input
                                                     type="radio"
@@ -198,15 +181,15 @@ const CreateAnouncement: React.FC = () => {
                                                 <span className="ml-2">Seminar</span>
                                             </label>
                                         </div>
-                                        <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50">
+                                        <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 ">
                                             <div className="px-4 py-2 bg-white rounded-t-lg  mb-5">
                                                 <label htmlFor="message" className="block mb-2 text-md font-bold text-gray-900">Description</label>
                                                 <textarea 
                                                     id="comment" 
-                                                    rows={14} 
+                                                    rows={16} 
                                                     value={description}
                                                     onChange={(e) => setDescription(e.target.value)}
-                                                    className="w-full max-h-52 text-sm text-gray-900 bg-white border-0  focus:ring-0" 
+                                                    className="w-full max-h-96 text-sm text-gray-900 bg-white border-0  focus:ring-0" 
                                                     placeholder="Write a description..." 
                                                     required>
                                                 </textarea>
@@ -216,8 +199,7 @@ const CreateAnouncement: React.FC = () => {
                                                     {/* Left aligned Save and Clear buttons */}
                                                     <button
                                                         type="submit"
-                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:ring-blue-200 "
-                                                    >
+                                                        className="py-2.5 px-4 text-xs font-medium text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:ring-blue-200 ">
                                                         Send
                                                     </button>
                                                     {/* Clear Button */}
@@ -228,9 +210,7 @@ const CreateAnouncement: React.FC = () => {
                                                             setDescription('');    // Clear the description
                                                             setImages([]);        // Clear the image
                                                             setSelectedDate(null); // Clear the selected date
-                                                            setImagePreviews([]);  // Clear image previews
-                                                            setStartTime('09:00'); // Reset start time
-                                                            setEndTime('18:00');   // Reset end time
+                                                            setImagePreviews([]);  // Clear image previews                                                            
                                                         }}
                                                         className="py-2.5 px-4 text-xs font-medium text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-4 focus:ring-gray-200 ">
                                                         Clear
@@ -272,55 +252,24 @@ const CreateAnouncement: React.FC = () => {
                                         
                                     </div>
                                 </div>
-                                <div className="flex-1 w-full md:w-8 md:flex-1 bg-gray-100 p-1 flex justify-center items-start rounded transition-all duration-200">
-                                    <div className="relative w-full max-w-xs h-auto overflow-hidden rounded-md my-5">                                    
-                                        <div className = "flex justify-center" id="inline-calendar"></div> {/* The calendar will be rendered here */}
-                                            {/* Display the selected date */}
-                                            {/* Hidden input field to hold the selected date */}
-                                            <input 
+                                <div className="basis-1/5 bg-gray-100 px-5 justify-center items-start rounded">
+                                    <div className="p-5 flex items-center justify-center">                                    
+                                        <div className = "flex justify-center" id="inline-calendar"></div> {/* The calendar will be rendered here */}                                                                                        
+                                        <input 
                                             type="hidden" 
                                             id="hidden-date-input" 
                                             value={formattedDate ? formattedDate.toISOString().slice(0, 10) : ''}
-                                            name="date"/>                                        
-                                        <div className="p-5 w-full max-w-xs h-full m-auto">                                        
-                                            <div className="mb-5">
-                                                <label htmlFor="start-time" className="block mb-2 text-sm font-medium text-gray-900">Select start-time:</label>
-                                                <div className="flex">
-                                                    <input type="time" 
-                                                        id="start-time"  
-                                                        value={startTime}
-                                                        onChange={(e) => setStartTime(e.target.value)}
-                                                        className="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-sm border-gray-300 p-2.5 " 
-                                                        required/>
-                                                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md ">
-                                                        <svg className="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                                            <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clipRule="evenodd"/>
-                                                        </svg>
-                                                    </span>
-                                                </div>                                               
-                                            </div>
-                                            <div className="mb-5">
-                                                <label htmlFor="end-time" className="block mb-2 text-sm font-medium text-gray-900">Select end-time:</label>
-                                                <div className="flex">
-                                                    <input type="time" id="end-time" className="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-sm border-gray-300 p-2.5"                                                         
-                                                        value={endTime}
-                                                        onChange={(e) => setEndTime(e.target.value)} 
-                                                        required/>
-                                                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md ">
-                                                        <svg className="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                                            <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clipRule="evenodd"/>
-                                                        </svg>
-                                                    </span>
-                                                </div>                                               
-                                            </div>
-                                        </div>
+                                            name="date"/>                                                                                
                                     </div>                                    
                                 </div>
                             </div>
                                                     
                         </form>
                     </main>
-                </div>               
+                </div>
+                <footer className="text-white text-center p-4">
+                    © 2024 Student Portfolio
+                </footer>               
             </div>
             {showToast && (
             <CustomToast
